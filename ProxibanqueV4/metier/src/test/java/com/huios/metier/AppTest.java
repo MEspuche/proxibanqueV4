@@ -4,6 +4,11 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+
+//Ceci est un test !!!
+
+
+
 /**
  * Unit test for simple App.
  */
