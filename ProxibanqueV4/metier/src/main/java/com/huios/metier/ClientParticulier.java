@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-@DiscriminatorValue(value="Client")
+@DiscriminatorValue(value="ClientParticulier")
 public class ClientParticulier extends Client {
 
 	public ClientParticulier() {
