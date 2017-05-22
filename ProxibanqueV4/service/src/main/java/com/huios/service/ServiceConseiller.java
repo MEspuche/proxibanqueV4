@@ -3,14 +3,31 @@ package com.huios.service;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.huios.dao.ClientRepository;
+import com.huios.dao.CompteRepository;
+import com.huios.dao.ConseillerRepository;
 import com.huios.metier.Client;
 import com.huios.metier.Compte;
 import com.huios.metier.CompteCourant;
 import com.huios.metier.CompteEpargne;
 import com.huios.metier.Conseiller;
-
+@Transactional
+@Service
 public class ServiceConseiller implements IServiceConseiller {
 
+	@Autowired
+	private ClientRepository clientRepository;
+	
+	@Autowired
+	private CompteRepository compteRepository;
+	
+	@Autowired
+	private ConseillerRepository conseillerRepository;
+	
 	@Override
 	public Conseiller authentification(String email, String pwd) {
 		// TODO Auto-generated method stub
@@ -25,7 +42,9 @@ public class ServiceConseiller implements IServiceConseiller {
 
 	@Override
 	public void ajouterClient(int idConseiller, Client client) {
-		// TODO Auto-generated method stub
+		Conseiller c1 = conseillerRepository.findOne(idConseiller);
+		client.setMonConseiller(c1);
+		clientRepository.save(client);
 
 	}
 

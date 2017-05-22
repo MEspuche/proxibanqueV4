@@ -3,9 +3,14 @@ package com.huios.service;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.huios.metier.Conseiller;
 import com.huios.metier.DirecteurAgence;
 
+@Transactional
+@Service
 public class ServiceDirecteur implements IServiceDirecteur {
 
 	@Override
