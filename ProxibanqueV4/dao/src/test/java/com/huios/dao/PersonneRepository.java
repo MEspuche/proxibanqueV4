@@ -6,4 +6,6 @@ import com.huios.metier.Personne;
 
 public interface PersonneRepository extends JpaRepository<Personne, Integer> {
 
+	
+	
 }
