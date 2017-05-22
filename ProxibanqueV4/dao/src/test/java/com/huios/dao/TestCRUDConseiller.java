@@ -4,17 +4,19 @@ import org.junit.Test;
 
 import com.huios.metier.Conseiller;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 public class TestCRUDConseiller extends TestCase {
+	
+	PersonneRepository personneRepository;
 	
 	@Test
 	public void testCreerConseiller() {
 		Conseiller c = new Conseiller();
 		c.setNom("NOEL");
 		c.setPrenom("Christian");
-		IConseiller I = new IConseillerImpl();
-		assertEquals(true, I.creerClient (c, "client1", "pierre", "Mlle", "MR2345", false, ""));
+		Assert.assertEquals(c, personneRepository.save(c) );
 		
 	}
 
