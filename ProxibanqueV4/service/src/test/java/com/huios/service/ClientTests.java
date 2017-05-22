@@ -11,7 +11,7 @@ import com.huios.metier.Client;
 import com.huios.metier.ClientParticulier;
 import com.huios.metier.Conseiller;
 
-public class ConseillerTests {
+public class ClientTests {
 	
 	@Autowired
 	IServiceConseiller service;
@@ -49,5 +49,5 @@ public class ConseillerTests {
 		// ajouter un client qui a deja un conseiller leve l'exception
 		service.ajouterClient(cs2.getId(), cl1);
 	}
-
+	
 }
