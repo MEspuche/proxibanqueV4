@@ -1,9 +1,14 @@
 package com.huios.dao;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.junit.Test;
 
 import com.huios.metier.Client;
 import com.huios.metier.ClientParticulier;
+import com.huios.metier.Conseiller;
 
 import junit.framework.Assert;
 
@@ -11,6 +16,7 @@ import junit.framework.Assert;
 public class TestCRUDClient {
 
 	ClientParticulierRepository clientParticulierRepository;
+	PersonneRepository personneRepository;
 
 	@Test
 	public void testCreerClient() {
@@ -35,4 +41,5 @@ public class TestCRUDClient {
 		Assert.assertEquals(cl, null);
 	}
 
+	
 }
