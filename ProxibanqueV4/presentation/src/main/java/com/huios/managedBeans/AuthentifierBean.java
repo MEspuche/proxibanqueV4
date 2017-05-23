@@ -1,4 +1,4 @@
-package com.huios.presentation;
+package com.huios.managedBeans;
 
 import java.io.IOException;
 

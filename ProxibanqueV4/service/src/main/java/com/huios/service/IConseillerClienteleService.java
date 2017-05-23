@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.huios.exceptions.MontantNegatifException;
+import com.huios.exceptions.NombreClientsMaxAtteintException;
 import com.huios.exceptions.SoldeInsuffisantException;
 import com.huios.exceptions.SommeSoldesInsuffisanteException;
 import com.huios.metier.Client;
@@ -20,7 +21,7 @@ public interface IConseillerClienteleService {
 	public ConseillerClientele deconnexion();
 
 	/** CREATE */
-	public void ajouterClient(int idConseiller,Client client);
+	public void ajouterClient(int idConseiller,Client client) throws NombreClientsMaxAtteintException;
 	public void ajouterCompteEpargne(int idClient,CompteEpargne compteEpargne);
 	public void ajouterCompteCourant(int idClient,CompteCourant compteCourant);
 

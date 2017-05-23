@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.huios.dao.CompteRepository;
 import com.huios.dao.PersonneRepository;
 import com.huios.exceptions.MontantNegatifException;
+import com.huios.exceptions.NombreClientsMaxAtteintException;
 import com.huios.exceptions.SoldeInsuffisantException;
 import com.huios.exceptions.SommeSoldesInsuffisanteException;
 import com.huios.metier.Client;
@@ -49,7 +50,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	}
 
 	@Override
-	public void ajouterClient(int idConseiller, Client client) {
+	public void ajouterClient(int idConseiller, Client client) throws NombreClientsMaxAtteintException {
 		ConseillerClientele c1 = (ConseillerClientele) personneRepository.findOne(idConseiller);
 		List<Client> clientList = personneRepository.listerClients(idConseiller);
 		if (clientList.size() < 10) {

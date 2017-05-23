@@ -1,0 +1,95 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">PROXIBANQUE</ui:define>
+
+	<ui:define name="content">
+		<div class="block">
+			<p:panel class="panel">
+				<h:form>
+					<table class="table">
+
+						<h3>Ajout d'un nouveau client Particulier</h3>
+
+						<tr>
+							<td>CIVILITE</td>
+							<td><h:selectOneMenu value="#{ajouterClientParticulierBean.civilite}"
+									required="true" id="civilite">
+									<f:selectItem itemLabel="Monsieur" itemValue="Monsieur" />
+									<f:selectItem itemLabel="Madame" itemValue="Madame" />
+									<f:selectItem itemLabel="Mademoiselle" itemValue="Mademoiselle" />
+								</h:selectOneMenu></td>
+							<td><h:message for="civilite" /></td>
+						</tr>
+						<tr>
+							<td>PRENOM</td>
+							<td><h:inputText value="#{ajouterClientParticulierBean.prenom}"
+									required="true" requiredMessage="Saisissez le prénom"
+									id="prenom" /></td>
+							<td><h:message for="prenom" /></td>
+						</tr>
+						<tr>
+							<td>NOM</td>
+							<td><h:inputText value="#{ajouterClientParticulierBean.nom}"
+									required="true" requiredMessage="Saisissez le nom" id="nom" /></td>
+							<td><h:message for="nom" /></td>
+						</tr>
+						<tr>
+							<td>N° et RUE</td>
+							<td><h:inputText value="#{ajouterClientParticulierBean.adresse}"
+									required="true" requiredMessage="Saisissez l'adresse" id="rue" /></td>
+							<td><h:message for="rue" /></td>
+						</tr>
+						<tr>
+							<td>CODE POSTAL</td>
+							<td><h:inputText value="#{ajouterClientParticulierBean.codePostal}"
+									required="true" requiredMessage="Saisissez le code postal"
+									id="codePostal" /></td>
+							<td><h:message for="codePostal" /></td>
+						</tr>
+						<tr>
+							<td>VILLE</td>
+							<td><h:inputText value="#{ajouterClientParticulierBean.ville}"
+									required="true" requiredMessage="Saisissez la ville" id="ville" /></td>
+							<td><h:message for="ville" /></td>
+						</tr>
+						<tr>
+							<td>N° de TELEPHONE</td>
+							<td><h:inputText value="#{ajouterClientParticulierBean.telephone}"
+									required="true"
+									requiredMessage="Saisissez le numéro de téléphone"
+									id="telephone" /></td>
+							<td><h:message for="telephone" /></td>
+						</tr>
+						<tr>
+							<td>ADRESSE EMAIL</td>
+							<td><h:inputText value="#{ajouterClientParticulierBean.email}"
+									required="true" requiredMessage="Saisissez l'adresse email"
+									id="email" /></td>
+							<td><h:message for="email" /></td>
+						</tr>
+
+<!-- 						<tr> -->
+<!-- 							<td>ENTREPRISE</td> -->
+<!-- 							<td><h:inputText value="#{ajouterClientParticulierBean.nomEntreprise}" -->
+<!-- 									id="nomEntreprise" /></td> -->
+<!-- 							<td><h:message for="nomEntreprise" /></td> -->
+<!-- 						</tr> -->
+					</table>
+					<h:messages globalOnly="true" errorClass="erreur" />
+					<p>
+						<h:commandButton value="Ajouter ce client"
+							action="#{ajouterClientParticulierBean.ajouter}" />
+					</p>
+				</h:form>
+			</p:panel>
+		</div>
+
+	</ui:define>
+
+</ui:composition>
