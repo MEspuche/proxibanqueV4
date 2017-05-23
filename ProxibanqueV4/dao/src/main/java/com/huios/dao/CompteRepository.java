@@ -33,5 +33,8 @@ public interface CompteRepository extends JpaRepository<Compte, Integer> {
 
 	@Query("FROM Compte c")
 	public Collection<Compte> recupererTousLesComptes();
+	
+	@Query("FROM Compte c where c.decouvert=?1")
+	public Compte recupererCompte(double decouvert);
 
 }
