@@ -1,7 +1,5 @@
 package com.huios.dao;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,5 +15,5 @@ public interface ClientParticulierRepository extends JpaRepository<ClientParticu
 	public void modifierClient(String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, String password, int idClient);
 
 	@Query("FROM Client c WHERE c.nom = ?1")
-	public List<Client> findByNom(String nom);
+	public Client findByNom(String nom);
 }
