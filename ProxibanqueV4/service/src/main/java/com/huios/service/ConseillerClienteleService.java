@@ -252,10 +252,11 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		{
 			throw new MontantNegatifException("montant inférieur à zéro");
 		} else {
+			Compte c = compteRepository.findOne(idCompteACrediter);
 			CompteCourant cc = null;
 			cc = compteRepository.trouverCompteCourant(idCompteADebiter, 1000);
 			CompteEpargne ce = null;
-			ce = compteRepository.trouverCompteEpargne(idCompteACrediter, 0.03);
+			ce = compteRepository.trouverCompteEpargne(idCompteADebiter, 0.03);
 			Compte compteACrediter = compteRepository.findOne(idCompteACrediter);
 			if (ce != null) // Test si le compte est un compte Epargne
 			{
@@ -263,7 +264,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 												// au solde du compte
 				{
 					ce.setSolde(ce.getSolde() - montant);
-					compteACrediter.setSolde(compteACrediter.getSolde() + montant);
+					c.setSolde(c.getSolde() + montant);
 				} else {
 					throw new SoldeInsuffisantException("montant supérieur au solde");
 				}
@@ -277,7 +278,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 															// autorisé
 					{
 						cc.setSolde(cc.getSolde() - montant);
-						compteACrediter.setSolde(compteACrediter.getSolde() + montant);
+						c.setSolde(c.getSolde() + montant);
 					} else {
 						throw new SoldeInsuffisantException("le decouvert n'autorise pas ce virement");
 					}
