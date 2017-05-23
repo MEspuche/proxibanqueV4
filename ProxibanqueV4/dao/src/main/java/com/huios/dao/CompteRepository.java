@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.huios.metier.Client;
 import com.huios.metier.Compte;
 import com.huios.metier.CompteCourant;
 import com.huios.metier.CompteEpargne;
@@ -21,9 +22,15 @@ public interface CompteRepository extends JpaRepository<Compte, Integer> {
 
 	@Query("FROM CompteCourant a WHERE a.id = ?1 ")
 	public CompteCourant trouverCompteCourant(int idCompte);
+	
+	@Query("FROM CompteCourant a WHERE a.clientProprietaire = ?1 ")
+	public CompteCourant trouverCompteCourantByClient(Client client);
 
 	@Query("FROM CompteEpargne a WHERE a.id = ?1 ")
 	public CompteEpargne trouverCompteEpargne(int idCompte);
+	
+	@Query("FROM CompteEpargne a WHERE a.clientProprietaire = ?1 ")
+	public CompteEpargne trouverCompteEpargneByClient(Client client);
 	
 	@Query("FROM Compte c WHERE c.decouvert = ?1")
 	public Collection<CompteCourant> listerTousLesComptesCourant(double decouvert);

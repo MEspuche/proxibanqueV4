@@ -10,15 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.dao.ClientEntrepriseRepository;
 import com.huios.dao.ClientParticulierRepository;
-import com.huios.dao.CompteCourantRepository;
-import com.huios.dao.CompteEpargneRepository;
 import com.huios.dao.CompteRepository;
 import com.huios.dao.PersonneRepository;
-import com.huios.dao.RolesRepository;
 import com.huios.exceptions.CompteCourantDejaExistantException;
 import com.huios.exceptions.CompteEpargneDejaExistantException;
 import com.huios.exceptions.CompteInexistantException;
-import com.huios.exceptions.CompteNonSupprimeException;
 import com.huios.exceptions.MontantNegatifException;
 import com.huios.exceptions.NombreClientsMaxAtteintException;
 import com.huios.exceptions.SoldeInsuffisantException;
@@ -39,12 +35,12 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 	@Autowired
 	private CompteRepository compteRepository;
-	
-	@Autowired
-	private CompteCourantRepository compteCourantRepository;
-	
-	@Autowired
-	private CompteEpargneRepository compteEpargneRepository;
+
+	// @Autowired
+	// private CompteCourantRepository compteCourantRepository;
+	//
+	// @Autowired
+	// private CompteEpargneRepository compteEpargneRepository;
 
 	@Autowired
 	private PersonneRepository personneRepository;
@@ -61,11 +57,11 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	 * @throws UserInvalidException
 	 */
 	@Override
-	public Personne authentification(String email, String pwd) throws UserInvalidException {
-		if (personneRepository.authentification(email, pwd) == null) {
+	public Personne authentification(String email) throws UserInvalidException {
+		if (personneRepository.authentification(email) == null) {
 			throw new UserInvalidException("User invalid");
 		} else {
-			return personneRepository.authentification(email, pwd);
+			return personneRepository.authentification(email);
 		}
 	}
 
@@ -99,10 +95,10 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		} else {
 			CompteCourant cc = null;
 			CompteEpargne ce = null;
-			//double x = 1000;
-			cc = compteCourantRepository.trouverCompteCourant(idClient);
-			//double y = 0.03;
-			ce = compteEpargneRepository.trouverCompteEpargne(idClient);
+			// double x = 1000;
+			cc = compteRepository.trouverCompteCourant(idClient);
+			// double y = 0.03;
+			ce = compteRepository.trouverCompteEpargne(idClient);
 			Collection<Compte> col = new ArrayList<Compte>();
 			if (cc != null) {
 				col.add(cc);
@@ -123,26 +119,28 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	}
 
 	@Override
-	public void supprimerClient(int idClient) throws UserInexistantException, CompteNonSupprimeException {
-		if (personneRepository.findOne(idClient) == null) {
-			throw new UserInexistantException("Client inexistant");
-		} else {
-			supprimerComptesClient(idClient);
-			if (compteCourantRepository.trouverCompteCourant(idClient) != null) {
-				throw new CompteNonSupprimeException("les comptes n'ont pas été correctement supprimé");
+	public void supprimerClient(int idClient) throws UserInexistantException {
+		if (personneRepository.findOne(idClient) != null) {
+			System.out.println(personneRepository.findOne(idClient));
+			if (compteRepository.trouverCompteCourant(idClient) != null
+					|| compteRepository.trouverCompteEpargne(idClient) != null) {
+				supprimerComptesClient(idClient);
+				personneRepository.delete(idClient);
+
 			} else {
 				personneRepository.delete(idClient);
 			}
 		}
+		throw new UserInexistantException("Client inexistant");
 	}
 
 	public void supprimerComptesClient(int idClient) {
 		CompteCourant cc = null;
 		CompteEpargne ce = null;
-		//double x = 1000;
-		cc = compteCourantRepository.trouverCompteCourant(idClient);
-		//double y = 0.03;
-		ce = compteEpargneRepository.trouverCompteEpargne(idClient);
+		// double x = 1000;
+		cc = compteRepository.trouverCompteCourant(idClient);
+		// double y = 0.03;
+		ce = compteRepository.trouverCompteEpargne(idClient);
 		if (cc != null) {
 			compteRepository.delete(cc);
 			if (ce != null) {
@@ -159,13 +157,15 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	public void ajouterCompteEpargne(int idClient, CompteEpargne compteEpargne)
 			throws CompteEpargneDejaExistantException {
 		CompteEpargne ce = null;
-		//double y = 0.03;
-		ce = compteEpargneRepository.trouverCompteEpargne(idClient);
+		Client client = (Client) personneRepository.findOne(idClient);
+		System.out.println(client);
+		// double y = 0.03;
+		ce = compteRepository.trouverCompteEpargneByClient(client);
+		System.out.println(ce);
 		if (ce != null) {
 			throw new CompteEpargneDejaExistantException("Le client a déjà un compte épargne");
 		} else {
-			Client c = (Client) personneRepository.findOne(idClient);
-			compteEpargne.setClientProprietaire(c);
+			compteEpargne.setClientProprietaire(client);
 			compteRepository.save(compteEpargne);
 		}
 
@@ -175,12 +175,13 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	public void ajouterCompteCourant(int idClient, CompteCourant compteCourant)
 			throws CompteCourantDejaExistantException {
 		CompteCourant cc = null;
-		//double x = 1000;
-		cc = compteCourantRepository.trouverCompteCourant(idClient);
+		Client c = (Client) personneRepository.findOne(idClient);
+		// double x = 1000;
+		cc = compteRepository.trouverCompteCourantByClient(c);
 		if (cc != null) {
 			throw new CompteCourantDejaExistantException("Le client a déjà un compte courant");
 		} else {
-			Client c = (Client) personneRepository.findOne(idClient);
+			
 			compteCourant.setClientProprietaire(c);
 			compteRepository.save(compteCourant);
 		}
@@ -209,8 +210,11 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	public Collection<Compte> afficherComptes(int idClient) throws CompteInexistantException {
 		CompteCourant cc = null;
 		CompteEpargne ce = null;
-		cc = compteCourantRepository.trouverCompteCourant(idClient);
-		ce = compteEpargneRepository.trouverCompteEpargne(idClient);
+		Client client = (Client) personneRepository.findOne(idClient);
+		cc = compteRepository.trouverCompteCourantByClient(client);
+		ce = compteRepository.trouverCompteEpargneByClient(client);
+		System.out.println(cc);
+		System.out.println(ce);
 		Collection<Compte> col = new ArrayList<Compte>();
 		if (cc != null) {
 			col.add(cc);
@@ -261,8 +265,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			Compte c = compteRepository.findOne(idCompteACrediter);
 			CompteCourant cc = compteRepository.trouverCompteCourant(idCompteADebiter);
 			CompteEpargne ce = compteRepository.trouverCompteEpargne(idCompteADebiter);
-			
-		
+
 			if (ce != null) // Test si le compte est un compte Epargne
 			{
 				if (montant < ce.getSolde()) // Test si le montant est inferieur
@@ -270,9 +273,11 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 				{
 					ce.setSolde(ce.getSolde() - montant);
 					c.setSolde(c.getSolde() + montant);
-//					compteRepository.modifierSoldeCompte(ce.getSolde(), ce.getId());
-//					compteRepository.modifierSoldeCompte(c.getSolde(), c.getId());
-					
+					// compteRepository.modifierSoldeCompte(ce.getSolde(),
+					// ce.getId());
+					// compteRepository.modifierSoldeCompte(c.getSolde(),
+					// c.getId());
+
 				} else {
 					throw new SoldeInsuffisantException("Montant supérieur au solde");
 				}
@@ -287,10 +292,12 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 					{
 						cc.setSolde(cc.getSolde() - montant);
 						c.setSolde(c.getSolde() + montant);
-						
-//						compteRepository.modifierSoldeCompte(cc.getSolde(), cc.getId());
-//						compteRepository.modifierSoldeCompte(c.getSolde(), c.getId());
-						
+
+						// compteRepository.modifierSoldeCompte(cc.getSolde(),
+						// cc.getId());
+						// compteRepository.modifierSoldeCompte(c.getSolde(),
+						// c.getId());
+
 					} else {
 						throw new SoldeInsuffisantException("Le découvert n'autorise pas ce virement");
 					}

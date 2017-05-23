@@ -16,8 +16,8 @@ import com.huios.metier.Personne;
 @Repository
 public interface PersonneRepository extends JpaRepository<Personne, Integer> {
 
-	@Query("FROM Personne p WHERE p.email = ?1 AND p.password = ?2")
-	public Personne authentification(String email, String password);
+	@Query("FROM Personne p WHERE p.email = ?1")
+	public Personne authentification(String email);
 	
 	@Modifying
 	@Query("UPDATE Personne p SET p.nom = ?1, p.prenom= ?2, p.adresse = ?3, p.codePostal = ?4, p.ville = ?5, p.telephone = ?6, p.email = ?7, p.password = ?8 WHERE p.id = ?9")

@@ -22,7 +22,7 @@ public class TestCRUDConseiller extends TestCase {
 	// 2- Récupération d'un bean
 	ConseillerRepository conseillerRepository = (ConseillerRepository) appContext.getBean("conseillerRepository");
 	
-	@Ignore
+	
 	@Test
 	public void testCreerConseiller() {
 		ConseillerClientele c = new ConseillerClientele();
@@ -33,7 +33,7 @@ public class TestCRUDConseiller extends TestCase {
 		assertEquals(c.getNom(), c1.getNom() );	
 		assertEquals(c.getPrenom(), c1.getPrenom() );	
 	}
-
+@Ignore
 	@Test
 	public void testmodifierConseillerExistant() {
 		ConseillerClientele cl= (ConseillerClientele) conseillerRepository.findOne(19);

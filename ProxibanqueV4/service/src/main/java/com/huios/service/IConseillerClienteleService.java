@@ -6,7 +6,6 @@ import java.util.List;
 import com.huios.exceptions.CompteCourantDejaExistantException;
 import com.huios.exceptions.CompteEpargneDejaExistantException;
 import com.huios.exceptions.CompteInexistantException;
-import com.huios.exceptions.CompteNonSupprimeException;
 import com.huios.exceptions.MontantNegatifException;
 import com.huios.exceptions.NombreClientsMaxAtteintException;
 import com.huios.exceptions.SoldeInsuffisantException;
@@ -23,7 +22,7 @@ import com.huios.metier.Personne;
 public interface IConseillerClienteleService {
 
 	/** AUTHENTIFICATION */
-	public Personne authentification(String email, String pwd) throws UserInvalidException;
+	public Personne authentification(String email) throws UserInvalidException;
 
 
 	/** CREATE */
@@ -44,7 +43,7 @@ public interface IConseillerClienteleService {
 	public void modifierCompte(Compte compte);
 
 	/** DELETE */
-	public void supprimerClient (int idClient)throws UserInexistantException, CompteNonSupprimeException;
+	public void supprimerClient (int idClient)throws UserInexistantException;
 	public void supprimerCompte (int idCompte)throws CompteInexistantException;
 
 	/** AUTRES METHODES (fonctionnalités à forte valeur ajoutée) */

@@ -14,7 +14,7 @@ public interface IDirecteurAgenceService {
 	/** AUTHENTIFICATION */
 	//public DirecteurAgence authentification(String email, String pwd);
 	//public DirecteurAgence deconnexion();
-	public Personne authentification(String email, String pwd) throws UserInvalidException;
+	public Personne authentification(String email) throws UserInvalidException;
 
 	
 	/** CREATE */

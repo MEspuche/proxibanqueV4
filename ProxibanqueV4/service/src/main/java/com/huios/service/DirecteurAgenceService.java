@@ -27,13 +27,13 @@ public class DirecteurAgenceService implements IDirecteurAgenceService {
 	private RolesRepository rolesRepository;
 
 	@Override
-	public Personne authentification(String email, String pwd) throws UserInvalidException {
-		if (personneRepository.authentification(email, pwd) == null) {
+	public Personne authentification(String email) throws UserInvalidException {
+		if (personneRepository.authentification(email) == null) {
 			throw new UserInvalidException("User invalid");
 		}
 		else
 		{
-		return personneRepository.authentification(email, pwd);
+		return personneRepository.authentification(email);
 		}
 
 	}
