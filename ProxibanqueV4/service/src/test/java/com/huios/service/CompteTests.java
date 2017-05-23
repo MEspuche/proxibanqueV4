@@ -42,7 +42,7 @@ public class CompteTests {
 //		consClienteleService.ajouterCompteCourant(31, c2);
 //		consClienteleService.ajouterCompteEpargne(32, c1);
 		consClienteleService.effectuerVirement(34, 33, 500);
-		Collection<Compte> comptes = consClienteleService.afficherComptes(32);
+		Collection<Compte> comptes = consClienteleService.afficherComptes(34);
 		for(Compte c : comptes){
 			c1 = (CompteEpargne) c;
 		}

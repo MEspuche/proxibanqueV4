@@ -19,11 +19,11 @@ public interface CompteRepository extends JpaRepository<Compte, Integer> {
 	@Query("UPDATE Compte c SET c.numCompte = ?1, c.solde= ?2, c.dateOuverture = ?3 WHERE c.id= ?4")
 	public void modifierCompte(long numCompte, double solde, String dateOuverture, int idCompte);
 
-	@Query("FROM Compte a WHERE a.clientProprietaire.id = ?1 AND a.decouvert = ?2")
-	public CompteCourant trouverCompteCourant(int idclient, double decouvert);
+	@Query("FROM CompteCourant a WHERE a.id = ?1 ")
+	public CompteCourant trouverCompteCourant(int idCompte);
 
-	@Query("FROM Compte a WHERE a.clientProprietaire.id = ?1 AND a.tauxRemuneration = ?2")
-	public CompteEpargne trouverCompteEpargne(int idclient, double remuneration);
+	@Query("FROM CompteEpargne a WHERE a.id = ?1 ")
+	public CompteEpargne trouverCompteEpargne(int idCompte);
 	
 	@Query("FROM Compte c WHERE c.decouvert = ?1")
 	public Collection<CompteCourant> listerTousLesComptesCourant(double decouvert);
@@ -36,5 +36,12 @@ public interface CompteRepository extends JpaRepository<Compte, Integer> {
 	
 	@Query("FROM Compte c where c.decouvert=?1")
 	public Compte recupererCompte(double decouvert);
+	
+	@Modifying
+	@Query("UPDATE Compte c SET c.solde= ?1 WHERE c.id= ?2")
+	public void modifierSoldeCompte(double solde, int idCompte);
+	
 
+	
+	
 }
