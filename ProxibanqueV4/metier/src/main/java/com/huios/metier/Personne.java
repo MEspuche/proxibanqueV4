@@ -28,6 +28,7 @@ public abstract class Personne implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	private String civilite;
 	private String nom; 
 	private String prenom;
 	private String adresse; 
@@ -36,6 +37,15 @@ public abstract class Personne implements Serializable{
 	private String telephone;
 	private String email;
 	private String password;
+	
+	
+	
+	public String getCivilite() {
+		return civilite;
+	}
+	public void setCivilite(String civilite) {
+		this.civilite = civilite;
+	}
 	public int getId() {
 		return id;
 	}

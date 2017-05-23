@@ -87,6 +87,8 @@ public class DirecteurAgenceService implements IDirecteurAgenceService {
 		{
 			throw new UserInexistantException("Conseiller inexistant");
 		}
+		Roles role = rolesRepository.getIdRole(personneRepository.findOne(idConseiller).getEmail(), "Conseiller");
+		rolesRepository.delete(role);
 		personneRepository.delete(idConseiller);
 
 	}

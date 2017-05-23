@@ -12,6 +12,7 @@ import com.huios.dao.ClientEntrepriseRepository;
 import com.huios.dao.ClientParticulierRepository;
 import com.huios.dao.CompteRepository;
 import com.huios.dao.PersonneRepository;
+import com.huios.dao.RolesRepository;
 import com.huios.exceptions.CompteCourantDejaExistantException;
 import com.huios.exceptions.CompteEpargneDejaExistantException;
 import com.huios.exceptions.CompteInexistantException;
@@ -45,6 +46,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	
 	@Autowired
 	private ClientEntrepriseRepository clientEntrepriseRepository; 
+	
 
 	/**
 	 * Méthode permettant à un conseiller clientèle de s'authentifier
