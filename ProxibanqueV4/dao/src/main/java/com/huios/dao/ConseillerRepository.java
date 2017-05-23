@@ -23,6 +23,6 @@ public interface ConseillerRepository extends JpaRepository<ConseillerClientele,
 	//@Query("FROM Personne p WHERE p.email = ?1 AND p.password = ?2")
 	public ConseillerClientele authentification(String email, String password);
 	
-	@Query("FROM CConseillerClientele c WHERE c.nom = ?1")
+	@Query("FROM ConseillerClientele c WHERE c.nom = ?1")
 	public List<ConseillerClientele> findByNom(String nom);
 }
