@@ -19,12 +19,19 @@ public interface PersonneRepository extends JpaRepository<Personne, Integer> {
 	
 	@Modifying
 	@Query("UPDATE Personne p SET p.nom = ?1, p.prenom= ?2, p.adresse = ?3, p.codePostal = ?4, p.ville = ?5, p.telephone = ?6, p.email = ?7, p.password = ?8 WHERE p.id = ?9")
-	public void modifierPersonne(String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, String password, int idConseiller);
+	public void modifierConseiller(String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, String password, int idConseiller);
+	
+	@Modifying
+	@Query("UPDATE Personne p SET p.nom = ?1, p.prenom= ?2, p.adresse = ?3, p.codePostal = ?4, p.ville = ?5, p.telephone = ?6, p.email = ?7 WHERE p.id = ?8")
+	public void modifierClient(String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, int idConseiller);
 	
 	@Query("FROM Personne p WHERE p.monConseiller.id = ?1")
 	public List<Client> listerClients(int id);
 	
 	@Query("FROM Personne p WHERE p.monDirecteurAgence.id = ?1")
 	public List<ConseillerClientele> listerConseillers(int id);
+	
+	@Query("FROM Client c WHERE c.nom = ?1")
+	public Client findByNom(String nom);
 	
 }

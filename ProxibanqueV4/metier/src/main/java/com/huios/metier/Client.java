@@ -59,7 +59,7 @@ public abstract class Client extends Personne implements Serializable {
 				+ ", getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getAdresse()=" + getAdresse()
 				+ ", getCodePostal()=" + getCodePostal() + ", getVille()=" + getVille() + ", getTelephone()="
 				+ getTelephone() + ", getEmail()=" + getEmail() + ", getPassword()=" + getPassword() + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+				+ super.toString() + "]";
 	}
 
 

@@ -90,12 +90,12 @@ public abstract class Personne implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@Override
-	public String toString() {
-		return "Personne [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", codePostal="
-				+ codePostal + ", ville=" + ville + ", telephone=" + telephone + ", email=" + email + ", password="
-				+ password + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Personne [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", codePostal="
+//				+ codePostal + ", ville=" + ville + ", telephone=" + telephone + ", email=" + email + ", password="
+//				+ password + "]";
+//	}
 	public Personne(int id, String nom, String prenom, String adresse, String codePostal, String ville,
 			String telephone, String email, String password) {
 		super();
