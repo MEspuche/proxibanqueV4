@@ -1,42 +1,73 @@
 package com.huios.dao;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import com.huios.metier.Client;
+import java.util.Collection;
+
+import org.junit.Ignore;
+import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.huios.metier.ClientParticulier;
 
 import junit.framework.Assert;
 
+
 @SuppressWarnings("deprecation")
 public class TestCRUDClient {
 
-	ClientParticulierRepository clientParticulierRepository;
-	PersonneRepository personneRepository;
+	// 1- Chargement du conteneur et création des beans
+	ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 
+	// 2- Récupération d'un bean
+	ClientParticulierRepository clientParticulierRepository = (ClientParticulierRepository) appContext
+			.getBean("clientParticulierRepository");
+	PersonneRepository personneRepository = (PersonneRepository) appContext.getBean("personneRepository");
+
+	// @Autowired
+	// ClientParticulierRepository clientParticulierRepository;
+	// @Autowired
+	// PersonneRepository personneRepository;
+
+	@Ignore
 	@Test
 	public void testCreerClient() {
 		ClientParticulier c = new ClientParticulier();
-		c.setNom("NOEL");
+		c.setNom("CIEL");
 		c.setPrenom("Christian");
-		clientParticulierRepository.save(c);
-		ClientParticulier c1= (ClientParticulier) clientParticulierRepository.findByNom("NOEL");
-		Assert.assertEquals(c, c1);
+		// ConseillerClientele cons = new ConseillerClientele();
+		// cons.setId(51);
+		// c.setMonConseiller(cons);
+		personneRepository.save(c);
+		ClientParticulier c1 = (ClientParticulier) personneRepository.findByNom("CIEL");
+		Assert.assertEquals(c.getNom(), c1.getNom());
+		Assert.assertEquals(c.getPrenom(), c1.getPrenom());
 	}
 
+	@Ignore
 	@Test
 	public void testmodifierClientExistant() {
-		ClientParticulier cl = clientParticulierRepository.findOne(2);
-		clientParticulierRepository.modifierClient(cl.getNom(), cl.getPrenom(), "24 rue de la bienveillance",
-				cl.getCodePostal(), cl.getVille(), cl.getTelephone(), cl.getEmail(), cl.getPassword(), 2);
-		Assert.assertSame(clientParticulierRepository.findOne(2).getAdresse(), "24 rue de la bienveillance");
+		ClientParticulier cl = (ClientParticulier) clientParticulierRepository.findOne(3);
+		personneRepository.modifierClient(cl.getNom(), cl.getPrenom(), "24 rue de la bienveillance", cl.getCodePostal(),
+				cl.getVille(), cl.getTelephone(), cl.getEmail(), 3);
+
+		assertEquals(personneRepository.findOne(3).getAdresse(), "24 rue de la bienveillance");
 	}
 
+	@Ignore
 	@Test
 	public void testsupprimerClientExistant() {
-		clientParticulierRepository.delete(2);
-		Client cl = clientParticulierRepository.findOne(2);
+		personneRepository.delete(14);
+		ClientParticulier cl = (ClientParticulier) personneRepository.findOne(14);
 		Assert.assertEquals(cl, null);
 	}
 
-	
+	@Test
+	public void testAfficherClients() {
+		Collection<ClientParticulier> clients =clientParticulierRepository.findAll();
+		assertNotNull(clients);
+
+	}
+
 }
