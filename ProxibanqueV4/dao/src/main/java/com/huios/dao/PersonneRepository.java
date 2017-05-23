@@ -6,11 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.metier.Client;
 import com.huios.metier.ConseillerClientele;
 import com.huios.metier.Personne;
 
+@Transactional
 @Repository
 public interface PersonneRepository extends JpaRepository<Personne, Integer> {
 
@@ -33,5 +35,6 @@ public interface PersonneRepository extends JpaRepository<Personne, Integer> {
 	
 	@Query("FROM Client c WHERE c.nom = ?1")
 	public Client findByNom(String nom);
+	
 	
 }

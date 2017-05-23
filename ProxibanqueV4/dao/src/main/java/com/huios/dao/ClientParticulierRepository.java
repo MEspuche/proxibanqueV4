@@ -1,12 +1,17 @@
 package com.huios.dao;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.metier.Client;
 import com.huios.metier.ClientParticulier;
+
+@Transactional
 @Repository
 public interface ClientParticulierRepository extends JpaRepository<ClientParticulier, Integer> {
 
@@ -16,4 +21,8 @@ public interface ClientParticulierRepository extends JpaRepository<ClientParticu
 
 	@Query("FROM Client c WHERE c.nom = ?1")
 	public Client findByNom(String nom);
+	
+	@Query("FROM ClientParticulier c WHERE c.monConseiller.id = ?1")
+	public Collection<ClientParticulier> listerClientsParticuliers(int idConseiller);
+	
 }

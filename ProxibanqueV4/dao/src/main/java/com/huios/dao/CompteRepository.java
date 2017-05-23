@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.metier.Compte;
 import com.huios.metier.CompteCourant;
 import com.huios.metier.CompteEpargne;
+@Transactional
 @Repository
 public interface CompteRepository extends JpaRepository<Compte, Integer> {
 	

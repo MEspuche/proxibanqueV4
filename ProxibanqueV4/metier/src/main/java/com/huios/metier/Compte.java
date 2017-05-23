@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="TypePersonne")
+@DiscriminatorColumn(name="TypeCompte")
 public abstract class Compte implements Serializable{
 	
 	/**
