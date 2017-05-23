@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.dao.PersonneRepository;
+import com.huios.dao.RolesRepository;
 import com.huios.exceptions.UserInexistantException;
 import com.huios.exceptions.UserInvalidException;
 import com.huios.metier.ConseillerClientele;
 import com.huios.metier.DirecteurAgence;
 import com.huios.metier.Personne;
+import com.huios.metier.Roles;
 
 @Transactional
 @Service
@@ -20,6 +22,9 @@ public class DirecteurAgenceService implements IDirecteurAgenceService {
 
 	@Autowired
 	private PersonneRepository personneRepository;
+	
+	@Autowired
+	private RolesRepository rolesRepository;
 	
 	@Override
 	public Personne authentification(String email, String pwd) throws UserInvalidException {
@@ -38,6 +43,11 @@ public class DirecteurAgenceService implements IDirecteurAgenceService {
 		DirecteurAgence d = (DirecteurAgence) personneRepository.findOne(idDirecteurAgence);
 		conseiller.setMonDirecteurAgence(d);
 		personneRepository.save(conseiller);
+		Roles role = new Roles();
+		role.setEmail(conseiller.getEmail());
+		role.setRole("Conseiller");
+		rolesRepository.save(role);
+		
 
 	}
 

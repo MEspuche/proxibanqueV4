@@ -72,13 +72,13 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	}
 
 	@Override
-	public void modifierClient(Client c, int id) throws UserInexistantException {
-		if(personneRepository.findOne(id)==null)
+	public void modifierClient(Client c) throws UserInexistantException {
+		if(personneRepository.findOne(c.getId())==null)
 		{
 			throw new UserInexistantException("Client inexistant");
 		}
 		
-		personneRepository.modifierClient(c.getNom(), c.getPrenom(), c.getAdresse(), c.getCodePostal(), c.getVille(), c.getTelephone(), c.getEmail(), id);
+		personneRepository.modifierClient(c.getNom(), c.getPrenom(), c.getAdresse(), c.getCodePostal(), c.getVille(), c.getTelephone(), c.getEmail(), c.getId());
 	}
 
 	@Override
@@ -180,8 +180,10 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	}
 
 	@Override
-	public void modifierCompte(int idCompte) {
-		// TODO Auto-generated method stub
+	public void modifierCompte(Compte compte) {
+		
+		compteRepository.modifierCompte(compte.getNumCompte(), compte.getSolde(), compte.getDateOuverture(), compte.getId());
+		
 
 	}
 

@@ -40,8 +40,8 @@ public interface IConseillerClienteleService {
 	public Collection<Compte> recuperationAutresComptes(Compte compte)throws CompteInexistantException;
 	
 	/** UPDATE */
-	public void modifierClient(Client c, int idClient) throws UserInexistantException;
-	public void modifierCompte(int idCompte);
+	public void modifierClient(Client c) throws UserInexistantException;
+	public void modifierCompte(Compte compte);
 
 	/** DELETE */
 	public void supprimerClient (int idClient)throws UserInexistantException, CompteNonSupprimeException;
