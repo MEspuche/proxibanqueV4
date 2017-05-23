@@ -1,5 +1,6 @@
 package com.huios.metier;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -9,13 +10,20 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-public abstract class Client extends Personne {
+@Scope("prototype")
+public abstract class Client extends Personne implements Serializable {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@OneToMany(fetch = FetchType.EAGER , mappedBy="clientProprietaire" , cascade=CascadeType.ALL)
 	protected Collection<Compte> mesComptes = new ArrayList<Compte>();
 	

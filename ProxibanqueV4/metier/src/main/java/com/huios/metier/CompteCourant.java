@@ -1,15 +1,23 @@
 package com.huios.metier;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Component
+@Scope("prototype")
 @DiscriminatorValue(value="CompteCourant")
-public class CompteCourant extends Compte {
+public class CompteCourant extends Compte implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double decouvert=1000;
 
 	public double getDecouvert() {

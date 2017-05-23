@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.huios.exceptions.ClientGererParAutreConseillerException;
 import com.huios.exceptions.MontantNegatifException;
 import com.huios.exceptions.SoldeInsuffisantException;
+import com.huios.exceptions.SommeSoldesInsuffisanteException;
 import com.huios.metier.CompteCourant;
 import com.huios.metier.CompteEpargne;
 
@@ -16,7 +17,7 @@ public class CompteTests {
 	IServiceConseiller service;
 
 	@Test
-	public void testEffectuerVirementSoldeEmetteurEstDebite() throws SoldeInsuffisantException, MontantNegatifException, ClientGererParAutreConseillerException {
+	public void testEffectuerVirementSoldeEmetteurEstDebite() throws SoldeInsuffisantException, MontantNegatifException, ClientGererParAutreConseillerException, SommeSoldesInsuffisanteException {
 		CompteEpargne c1 = new CompteEpargne();
 		c1.setId(50);
 		CompteCourant c2 = new CompteCourant();
@@ -30,7 +31,7 @@ public class CompteTests {
 	}
 
 	@Test
-	public void testEffectuerVirementSoldeRecepteurEstCredite() throws SoldeInsuffisantException, MontantNegatifException, ClientGererParAutreConseillerException {
+	public void testEffectuerVirementSoldeRecepteurEstCredite() throws SoldeInsuffisantException, MontantNegatifException, ClientGererParAutreConseillerException, SommeSoldesInsuffisanteException {
 		CompteEpargne c1 = new CompteEpargne();
 		c1.setId(50);
 		CompteCourant c2 = new CompteCourant();
@@ -44,7 +45,7 @@ public class CompteTests {
 	}
 
 	@Test(expected = MontantNegatifException.class)
-	public void testEffectuerVirementMontantNegatif() throws SoldeInsuffisantException, MontantNegatifException, ClientGererParAutreConseillerException {
+	public void testEffectuerVirementMontantNegatif() throws SoldeInsuffisantException, MontantNegatifException, ClientGererParAutreConseillerException, SommeSoldesInsuffisanteException {
 		CompteEpargne c1 = new CompteEpargne();
 		c1.setId(70);
 		CompteCourant c2 = new CompteCourant();
@@ -54,7 +55,7 @@ public class CompteTests {
 	}
 
 	@Test(expected = SoldeInsuffisantException.class)
-	public void testEffectuerVirementCompteCourantSoldeInsuffisant() throws SoldeInsuffisantException, MontantNegatifException, ClientGererParAutreConseillerException {
+	public void testEffectuerVirementCompteCourantSoldeInsuffisant() throws SoldeInsuffisantException, MontantNegatifException, ClientGererParAutreConseillerException, SommeSoldesInsuffisanteException {
 		CompteCourant cc = new CompteCourant();
 		cc.setSolde(1000);
 		cc.setId(60);
@@ -65,7 +66,7 @@ public class CompteTests {
 	}
 
 	@Test(expected = SoldeInsuffisantException.class)
-	public void testEffectuerVirementCompteEpargneSoldeInsuffisant() throws SoldeInsuffisantException, MontantNegatifException, ClientGererParAutreConseillerException {
+	public void testEffectuerVirementCompteEpargneSoldeInsuffisant() throws SoldeInsuffisantException, MontantNegatifException, ClientGererParAutreConseillerException, SommeSoldesInsuffisanteException {
 		CompteCourant cc = new CompteCourant();
 		cc.setSolde(1000);
 		cc.setId(60);

@@ -1,15 +1,23 @@
 package com.huios.metier;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Component
+@Scope("prototype")
 @DiscriminatorValue(value="CompteEpargne")
-public class CompteEpargne extends Compte {
+public class CompteEpargne extends Compte implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double tauxRemuneration = 0.03;
 
 	public double getTauxRemuneration() {
