@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.dao.PersonneRepository;
+import com.huios.exceptions.UserInexistantException;
+import com.huios.exceptions.UserInvalidException;
 import com.huios.metier.ConseillerClientele;
 import com.huios.metier.DirecteurAgence;
 import com.huios.metier.Personne;
@@ -20,15 +22,16 @@ public class DirecteurAgenceService implements IDirecteurAgenceService {
 	private PersonneRepository personneRepository;
 	
 	@Override
-	public Personne authentification(String email, String pwd) {
+	public Personne authentification(String email, String pwd) throws UserInvalidException {
+		if(personneRepository.authentification(email, pwd)==null)
+		{
+			throw new UserInvalidException("User invalid");
+		}
 		return personneRepository.authentification(email, pwd);
+		
 	}
 
-	@Override
-	public DirecteurAgence deconnexion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public void ajouterConseiller(int idDirecteurAgence, ConseillerClientele conseiller) {
@@ -39,23 +42,41 @@ public class DirecteurAgenceService implements IDirecteurAgenceService {
 	}
 
 	@Override
-	public void modifierConseiller(String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, String password, int idConseiller) {
-		personneRepository.modifierPersonne(nom, prenom, adresse, codepostal, ville, telephone, email, password, idConseiller);
+	public void modifierConseiller(ConseillerClientele c, int idConseiller) throws UserInexistantException {
+		if(personneRepository.findOne(idConseiller)==null)
+		{
+			throw new UserInexistantException("Conseiller inexistant");
+		}
+		else
+		personneRepository.modifierConseiller(c.getNom(), c.getPrenom(), c.getAdresse(), c.getCodePostal(), c.getVille(), c.getTelephone(), c.getEmail(), c.getPassword(), idConseiller);
 
 	}
 
 	@Override
-	public ConseillerClientele afficherConseiller(int idConseiller) {
+	public ConseillerClientele afficherConseiller(int idConseiller) throws UserInexistantException {
+		if(personneRepository.findOne(idConseiller)==null)
+		{
+			throw new UserInexistantException("Conseiller inexistant");
+		}
 		return (ConseillerClientele) personneRepository.findOne(idConseiller);
 	}
 
 	@Override
-	public List<ConseillerClientele> listerConseillers(int idDirecteur) {
+	public List<ConseillerClientele> listerConseillers(int idDirecteur) throws UserInexistantException {
+		
+		if(personneRepository.listerConseillers(idDirecteur)==null)
+		{
+			throw new UserInexistantException("Vous n'avez pas de conseillers");
+		}
 		return personneRepository.listerConseillers(idDirecteur);
 	}
 
 	@Override
-	public void supprimerConseiller(int idConseiller) {
+	public void supprimerConseiller(int idConseiller) throws UserInexistantException {
+		if(personneRepository.findOne(idConseiller)==null)
+		{
+			throw new UserInexistantException("Conseiller inexistant");
+		}
 		personneRepository.delete(idConseiller);
 
 	}

@@ -4,18 +4,26 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.hibernate.annotations.common.reflection.java.generics.CompoundTypeEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.huios.dao.ClientEntrepriseRepository;
+import com.huios.dao.ClientParticulierRepository;
 import com.huios.dao.CompteRepository;
 import com.huios.dao.PersonneRepository;
+import com.huios.exceptions.CompteCourantDejaExistantException;
+import com.huios.exceptions.CompteEpargneDejaExistantException;
+import com.huios.exceptions.CompteInexistantException;
+import com.huios.exceptions.CompteNonSupprimeException;
 import com.huios.exceptions.MontantNegatifException;
 import com.huios.exceptions.NombreClientsMaxAtteintException;
 import com.huios.exceptions.SoldeInsuffisantException;
-import com.huios.exceptions.SommeSoldesInsuffisanteException;
+import com.huios.exceptions.UserInexistantException;
+import com.huios.exceptions.UserInvalidException;
 import com.huios.metier.Client;
+import com.huios.metier.ClientEntreprise;
+import com.huios.metier.ClientParticulier;
 import com.huios.metier.Compte;
 import com.huios.metier.CompteCourant;
 import com.huios.metier.CompteEpargne;
@@ -31,23 +39,27 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 	@Autowired
 	private PersonneRepository personneRepository;
+	
+	@Autowired
+	private ClientParticulierRepository clientParticulierRepository;
+	
+	@Autowired
+	private ClientEntrepriseRepository clientEntrepriseRepository; 
 
 	/**
 	 * Méthode permettant à un conseiller clientèle de s'authentifier
+	 * @throws UserInvalidException 
 	 */
 	@Override
-	public Personne authentification(String email, String pwd) {
+	public Personne authentification(String email, String pwd) throws UserInvalidException {
+		if(personneRepository.authentification(email, pwd)==null)
+		{
+			throw new UserInvalidException("User invalid");
+		}
 		return personneRepository.authentification(email, pwd);
 	}
 
-	/**
-	 * Méthode permettant à un conseiller clientèle de se déconnecter
-	 */
-	@Override
-	public ConseillerClientele deconnexion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public void ajouterClient(int idConseiller, Client client) throws NombreClientsMaxAtteintException {
@@ -56,18 +68,26 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		if (clientList.size() < 10) {
 			client.setMonConseiller(c1);
 			personneRepository.save(client);
+		}throw new NombreClientsMaxAtteintException("Vous avez déjà 10 Clients");
+	}
+
+	@Override
+	public void modifierClient(Client c, int id) throws UserInexistantException {
+		if(personneRepository.findOne(id)==null)
+		{
+			throw new UserInexistantException("Client inexistant");
 		}
+		
+		personneRepository.modifierClient(c.getNom(), c.getPrenom(), c.getAdresse(), c.getCodePostal(), c.getVille(), c.getTelephone(), c.getEmail(), id);
 	}
 
 	@Override
-	public void modifierClient(String nom, String prenom, String adresse, String codepostal, String ville,
-			String telephone, String email, String password, int id) {
-		personneRepository.modifierPersonne(nom, prenom, adresse, codepostal, ville, telephone, email, password, id);
-	}
-
-	@Override
-	public Client afficherClient(int idClient) {
+	public Client afficherClient(int idClient) throws UserInexistantException {
 		Client c = (Client) personneRepository.findOne(idClient);
+		if(personneRepository.findOne(idClient)==null)
+		{
+			throw new UserInexistantException("Client inexistant");
+		}
 		CompteCourant cc = null;
 		CompteEpargne ce = null;
 		double x = 1000;
@@ -94,18 +114,49 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 
 	@Override
-	public void supprimerClient(int idClient) {
+	public void supprimerClient(int idClient) throws UserInexistantException, CompteNonSupprimeException {
+		if(personneRepository.findOne(idClient)==null)
+		{
+			throw new UserInexistantException("Client inexistant");
+		}
+		supprimerComptesClient(idClient);
+		if(compteRepository.trouverCompteCourant(idClient, 1000)!=null )
+		{
+			throw new CompteNonSupprimeException("les comptes n'ont pas été correctement supprimé");
+		}
 		personneRepository.delete(idClient);
 
 	}
+	
+	public void supprimerComptesClient (int idClient){
+		CompteCourant cc = null;
+		CompteEpargne ce = null;
+		double x = 1000;
+		cc = compteRepository.trouverCompteCourant(idClient, x);
+		double y = 0.03;
+		ce = compteRepository.trouverCompteEpargne(idClient, y);
+		if (cc != null) {
+		compteRepository.delete(cc);
+			if (ce != null) {
+				compteRepository.delete(ce);
+			}
+		} else {
+			if ((ce != null)) {
+				compteRepository.delete(ce);
+			}
+		}
+	}
 
 	@Override
-	public void ajouterCompteEpargne(int idClient, CompteEpargne compteEpargne) {
+	public void ajouterCompteEpargne(int idClient, CompteEpargne compteEpargne) throws CompteEpargneDejaExistantException {
 		CompteEpargne ce = null;
 		double y = 0.03;
 		ce = compteRepository.trouverCompteEpargne(idClient, y);
-		if (ce == null) {
-		} else {
+		if (ce != null) 
+		{
+			throw new CompteEpargneDejaExistantException("Le client a déjà un compte épargne");
+		}
+		else {
 			Client c = (Client) personneRepository.findOne(idClient);
 			compteEpargne.setClientProprietaire(c);
 			compteRepository.save(compteEpargne);
@@ -114,11 +165,13 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	}
 
 	@Override
-	public void ajouterCompteCourant(int idClient, CompteCourant compteCourant) {
+	public void ajouterCompteCourant(int idClient, CompteCourant compteCourant) throws CompteCourantDejaExistantException {
 		CompteCourant cc = null;
 		double x = 1000;
 		cc = compteRepository.trouverCompteCourant(idClient, x);
-		if (cc == null) {
+		if (cc != null) 
+		{
+			throw new CompteCourantDejaExistantException("Le client a déjà un compte courant");
 		} else {
 			Client c = (Client) personneRepository.findOne(idClient);
 			compteCourant.setClientProprietaire(c);
@@ -133,14 +186,19 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	}
 
 	@Override
-	public void supprimerCompte(int idCompte) {
-		Compte c = compteRepository.findOne(idCompte);
+	public void supprimerCompte(int idCompte) throws CompteInexistantException {
+		Compte c = null;
+		c= compteRepository.findOne(idCompte);
+		if(c==null)
+		{
+			throw new CompteInexistantException("Le compte à supprimer n'existe pas");
+		}
 		compteRepository.delete(c);
-
+		
 	}
 
 	@Override
-	public Collection<Compte> afficherComptes(int idClient) {
+	public Collection<Compte> afficherComptes(int idClient) throws CompteInexistantException {
 		CompteCourant cc = null;
 		CompteEpargne ce = null;
 		double x = 1000;
@@ -160,11 +218,11 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 				return col;
 			}
 		}
-		return col;
+		throw new CompteInexistantException("Le client n'a aucun compte");
 	}
 
 	@Override
-	public Collection<Compte> listerComptes() {
+	public Collection<Compte> listerComptes() throws CompteInexistantException {
 		Collection<Compte> comptes = new ArrayList<Compte>();
 		Collection<CompteCourant> cc = new ArrayList<CompteCourant>();
 		Collection<CompteEpargne> ce = new ArrayList<CompteEpargne>();
@@ -179,15 +237,18 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		for (CompteEpargne compte2 : ce) {
 			comptes.add(compte2);
 		}
+		if(comptes!=null)
+		{
 		return comptes;
+		}throw new CompteInexistantException("Aucun Compte n'existe dans la banque");
 	}
 
 	@Override
 	public void effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant)
-			throws SoldeInsuffisantException, MontantNegatifException, SommeSoldesInsuffisanteException {
+			throws SoldeInsuffisantException, MontantNegatifException {
 		if (montant < 0) // Test si le montant entré est inférieur à 0
 		{
-			throw new MontantNegatifException("montant inférieur à zero");
+			throw new MontantNegatifException("montant inférieur à zéro");
 		} else {
 			CompteCourant cc = null;
 			cc = compteRepository.trouverCompteCourant(idCompteADebiter, 1000);
@@ -202,7 +263,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 					ce.setSolde(ce.getSolde() - montant);
 					compteACrediter.setSolde(compteACrediter.getSolde() + montant);
 				} else {
-					throw new SoldeInsuffisantException("montant supperieur au solde");
+					throw new SoldeInsuffisantException("montant supérieur au solde");
 				}
 			} else {
 				if (cc != null) // Test si le compte est un compte Courant
@@ -216,7 +277,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 						cc.setSolde(cc.getSolde() - montant);
 						compteACrediter.setSolde(compteACrediter.getSolde() + montant);
 					} else {
-						throw new SommeSoldesInsuffisanteException("le decouvert n'autorise pas ce virement");
+						throw new SoldeInsuffisantException("le decouvert n'autorise pas ce virement");
 					}
 				}
 
@@ -226,26 +287,28 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	}
 
 	@Override
-	public Collection<Compte> recuperationAutresComptes(Compte compte) {
+	public Collection<Compte> recuperationAutresComptes(Compte compte) throws CompteInexistantException {
 		Collection<Compte> col = compteRepository.recupererTousLesComptes();
+		if (col!=null)
+		{
 		for (Compte c : col) {
 			if (c.getId() == compte.getId()) {
 				col.remove(c);
 			}
 		}
 		return col;
+		}
+		throw new CompteInexistantException("Aucun autre compte n'existe dans la banque");
 	}
 
 	@Override
-	public List<Client> listerClientsParticulier(int idConseiller) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ClientParticulier> listerClientsParticulier(int idConseiller) {
+		return clientParticulierRepository.listerClientsParticuliers(idConseiller);
 	}
 
 	@Override
-	public List<Client> listerClientsEntretien(int idConseiller) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ClientEntreprise> listerClientsEntreprise(int idConseiller) {
+		return clientEntrepriseRepository.listerClientsEntreprises(idConseiller);
 	}
 
 }
