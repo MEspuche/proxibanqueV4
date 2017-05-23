@@ -15,20 +15,22 @@ public class TestCRUDCompte {
 	public void testCreerCompte() {
 		CompteCourant c = new CompteCourant();
 		c.setDecouvert(2000);
-		Assert.assertEquals(c, compteRepository.save(c));
+		compteRepository.save(c);
+		CompteCourant c1= (CompteCourant) compteRepository.listerTousLesComptesCourant(2000);
+		Assert.assertEquals(c, c1 );
 	}
 
 	@Test
 	public void testmodifierCompteExistant() {
 		CompteCourant c = (CompteCourant) compteRepository.findOne(2);
 		compteRepository.modifierCompte(c.getNumCompte(), 50000, c.getDateOuverture(), 2);
-		Assert.assertSame(c.getSolde(), 50000);
+		Assert.assertSame(compteRepository.findOne(2), 50000);
 	}
 
 	@Test
 	public void testsupprimerCompteExistant() {
-		CompteCourant c = (CompteCourant) compteRepository.findOne(2);
 		compteRepository.delete(2);
+		CompteCourant c = (CompteCourant) compteRepository.findOne(2);
 		Assert.assertEquals(c, null);
 }
 }
