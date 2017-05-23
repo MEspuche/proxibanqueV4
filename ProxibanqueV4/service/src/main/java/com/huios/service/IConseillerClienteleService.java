@@ -27,7 +27,7 @@ public interface IConseillerClienteleService {
 
 	/** READ */
 	public Client afficherClient(int idClient);
-	public List<Client> listerClients (int idConseiller);
+	
 	public Collection<Compte> afficherComptes (int idClient);
 	public Collection<Compte> listerComptes();
 	//public Collection<Compte> listerComptes (int idConseiller);
@@ -43,5 +43,8 @@ public interface IConseillerClienteleService {
 
 	/** AUTRES METHODES (fonctionnalités à forte valeur ajoutée) */
 	public void effectuerVirement (int idCompteADebiter, int idCompteACrediter, double montant)throws SoldeInsuffisantException, MontantNegatifException, SommeSoldesInsuffisanteException;
+	
+	public List<Client> listerClientsParticulier(int idConseiller);
+	public List<Client> listerClientsEntretien (int idConseiller);
 	
 }

@@ -92,10 +92,6 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		return c;
 	}
 
-	@Override
-	public List<Client> listerClients(int idConseiller) {
-		return personneRepository.listerClients(idConseiller);
-	}
 
 	@Override
 	public void supprimerClient(int idClient) {
@@ -238,6 +234,18 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			}
 		}
 		return col;
+	}
+
+	@Override
+	public List<Client> listerClientsParticulier(int idConseiller) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Client> listerClientsEntretien(int idConseiller) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

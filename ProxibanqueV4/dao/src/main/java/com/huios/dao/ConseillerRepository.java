@@ -1,10 +1,13 @@
 package com.huios.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.huios.metier.Client;
 import com.huios.metier.ConseillerClientele;
 
 //@Transactional
@@ -20,4 +23,6 @@ public interface ConseillerRepository extends JpaRepository<ConseillerClientele,
 	//@Query("FROM Personne p WHERE p.email = ?1 AND p.password = ?2")
 	public ConseillerClientele authentification(String email, String password);
 	
+	@Query("FROM CConseillerClientele c WHERE c.nom = ?1")
+	public List<ConseillerClientele> findByNom(String nom);
 }
