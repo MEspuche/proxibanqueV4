@@ -13,7 +13,7 @@ import com.huios.metier.CompteEpargne;
 public interface CompteRepository extends JpaRepository<Compte, Integer> {
 	
 	@Modifying
-	@Query("update Compte c set c.numCompte = ?1, c.solde= ?2, c.dateOuverture = ?3 where c.id= ?4")
+	@Query("UPDATE Compte c SET c.numCompte = ?1, c.solde= ?2, c.dateOuverture = ?3 WHERE c.id= ?4")
 	public void modifierCompte(long numCompte, int solde, String dateOuverture, int idCompte);
 
 	@Query("FROM Compte a WHERE a.clientProprietaire.id = ?1 AND a.decouvert = ?2")
@@ -28,7 +28,7 @@ public interface CompteRepository extends JpaRepository<Compte, Integer> {
 	@Query("FROM Compte c WHERE c.tauxRemuneration = ?1")
 	public Collection<CompteEpargne> listerTousLesComptesEpargne(double remuneration);
 
-	@Query("From Compte c")
+	@Query("FROM Compte c")
 	public Collection<Compte> recupererTousLesComptes();
 
 }

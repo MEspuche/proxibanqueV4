@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 @Entity
 @Component
 @Scope("prototype")
-@DiscriminatorValue(value="Conseiller")
-public class Conseiller extends Personne implements Serializable{
+@DiscriminatorValue(value="ConseillerClientele")
+public class ConseillerClientele extends Personne implements Serializable{
 
 
 	/**
@@ -55,7 +55,7 @@ public class Conseiller extends Personne implements Serializable{
 				+ mesClients + "]";
 	}
 
-	public Conseiller() {
+	public ConseillerClientele() {
 		super();
 	}
 	

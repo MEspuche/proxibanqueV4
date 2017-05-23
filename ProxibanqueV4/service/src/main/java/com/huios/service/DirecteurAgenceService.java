@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.dao.PersonneRepository;
-import com.huios.metier.Conseiller;
+import com.huios.metier.ConseillerClientele;
 import com.huios.metier.DirecteurAgence;
 import com.huios.metier.Personne;
 
 @Transactional
 @Service
-public class ServiceDirecteur implements IServiceDirecteur {
+public class DirecteurAgenceService implements IDirecteurAgenceService {
 
 	@Autowired
 	private PersonneRepository personneRepository;
@@ -31,7 +31,7 @@ public class ServiceDirecteur implements IServiceDirecteur {
 	}
 
 	@Override
-	public void ajouterConseiller(int idDirecteurAgence, Conseiller conseiller) {
+	public void ajouterConseiller(int idDirecteurAgence, ConseillerClientele conseiller) {
 		DirecteurAgence d = (DirecteurAgence) personneRepository.findOne(idDirecteurAgence);
 		conseiller.setMonDirecteurAgence(d);
 		personneRepository.save(conseiller);
@@ -45,13 +45,13 @@ public class ServiceDirecteur implements IServiceDirecteur {
 	}
 
 	@Override
-	public Conseiller afficherConseiller(int idConseiller) {
-		return (Conseiller) personneRepository.findOne(idConseiller);
+	public ConseillerClientele afficherConseiller(int idConseiller) {
+		return (ConseillerClientele) personneRepository.findOne(idConseiller);
 	}
 
 	@Override
-	public List<Conseiller> listerConseillers(int idDirecteur) {
-		return personneRepository.listerConceillers(idDirecteur);
+	public List<ConseillerClientele> listerConseillers(int idDirecteur) {
+		return personneRepository.listerConseillers(idDirecteur);
 	}
 
 	@Override

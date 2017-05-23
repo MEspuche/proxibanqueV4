@@ -10,27 +10,37 @@ import com.huios.metier.Client;
 import com.huios.metier.Compte;
 import com.huios.metier.CompteCourant;
 import com.huios.metier.CompteEpargne;
-import com.huios.metier.Conseiller;
+import com.huios.metier.ConseillerClientele;
 import com.huios.metier.Personne;
 
-public interface IServiceConseiller {
+public interface IConseillerClienteleService {
 
-	
+	/** AUTHENTIFICATION */
 	public Personne authentification(String email, String pwd);
-	public Conseiller deconnexion();
+	public ConseillerClientele deconnexion();
+
+	/** CREATE */
 	public void ajouterClient(int idConseiller,Client client);
-	public void modifierClient(String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, String password, int idClient);
-	public Client afficherClient(int idClient);
-	public List<Client> listerClients (int idConseiller);
-	public void supprimerClient (int idClient);
 	public void ajouterCompteEpargne(int idClient,CompteEpargne compteEpargne);
 	public void ajouterCompteCourant(int idClient,CompteCourant compteCourant);
-	public void modifierCompte(int idCompte);
-	public void supprimerCompte (int idCompte);
+
+	/** READ */
+	public Client afficherClient(int idClient);
+	public List<Client> listerClients (int idConseiller);
 	public Collection<Compte> afficherComptes (int idClient);
-	public Collection<Compte> listerComptes ();
-	public void effectuerVirement (int idCompteADebiter, int idCompteACrediter, double montant)throws SoldeInsuffisantException, MontantNegatifException, SommeSoldesInsuffisanteException;
+	public Collection<Compte> listerComptes();
+	//public Collection<Compte> listerComptes (int idConseiller);
+	public Collection<Compte> recuperationAutresComptes(Compte compte);
 	
-	public Collection<Compte> recupreationAutresComptes(Compte compte);
+	/** UPDATE */
+	public void modifierClient(String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, String password, int idClient);
+	public void modifierCompte(int idCompte);
+
+	/** DELETE */
+	public void supprimerClient (int idClient);
+	public void supprimerCompte (int idCompte);
+
+	/** AUTRES METHODES (fonctionnalités à forte valeur ajoutée) */
+	public void effectuerVirement (int idCompteADebiter, int idCompteACrediter, double montant)throws SoldeInsuffisantException, MontantNegatifException, SommeSoldesInsuffisanteException;
 	
 }

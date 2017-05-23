@@ -28,7 +28,7 @@ public abstract class Client extends Personne implements Serializable {
 	protected Collection<Compte> mesComptes = new ArrayList<Compte>();
 	
 	@ManyToOne
-	protected Conseiller monConseiller;
+	protected ConseillerClientele monConseiller;
 
 
 
@@ -43,12 +43,12 @@ public abstract class Client extends Personne implements Serializable {
 	}
 
 
-	public Conseiller getMonConseiller() {
+	public ConseillerClientele getMonConseiller() {
 		return monConseiller;
 	}
 
 
-	public void setMonConseiller(Conseiller monConseiller) {
+	public void setMonConseiller(ConseillerClientele monConseiller) {
 		this.monConseiller = monConseiller;
 	}
 

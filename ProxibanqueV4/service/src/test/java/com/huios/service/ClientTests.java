@@ -9,16 +9,16 @@ import com.huios.exceptions.ClientPossedeDejaConseillerException;
 import com.huios.exceptions.NombreClientsMaxAtteintException;
 import com.huios.metier.Client;
 import com.huios.metier.ClientParticulier;
-import com.huios.metier.Conseiller;
+import com.huios.metier.ConseillerClientele;
 
 public class ClientTests {
 	
 	@Autowired
-	IServiceConseiller service;
+	IConseillerClienteleService service;
 
 	@Test(expected = NombreClientsMaxAtteintException.class)
 	public void testAjouterClientConseillerPlein() throws ClientPossedeDejaConseillerException, NombreClientsMaxAtteintException {
-		Conseiller cons = new Conseiller();
+		ConseillerClientele cons = new ConseillerClientele();
 		cons.setId(100);
 		Collection<Client> clients = cons.getMesClients();
 		// ajoute 10 clients au conseiller
@@ -38,12 +38,12 @@ public class ClientTests {
 	public void testAjouterClientDejaConseiller() throws ClientPossedeDejaConseillerException, NombreClientsMaxAtteintException {
 		
 		Client cl1 = new ClientParticulier();
-		Conseiller cs1 = new Conseiller();
+		ConseillerClientele cs1 = new ConseillerClientele();
 		cs1.setId(100);
 		cl1.setMonConseiller(cs1);
 		service.ajouterClient(cs1.getId(), cl1);
 
-		Conseiller cs2 = new Conseiller();
+		ConseillerClientele cs2 = new ConseillerClientele();
 		cs2.setId(101);
 
 		// ajouter un client qui a deja un conseiller leve l'exception

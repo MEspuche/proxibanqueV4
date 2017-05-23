@@ -14,7 +14,7 @@ import com.huios.metier.CompteEpargne;
 public class CompteTests {
 	
 	@Autowired
-	IServiceConseiller service;
+	IConseillerClienteleService service;
 
 	@Test
 	public void testEffectuerVirementSoldeEmetteurEstDebite() throws SoldeInsuffisantException, MontantNegatifException, ClientGererParAutreConseillerException, SommeSoldesInsuffisanteException {

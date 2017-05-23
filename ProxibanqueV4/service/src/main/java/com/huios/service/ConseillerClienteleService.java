@@ -18,43 +18,49 @@ import com.huios.metier.Client;
 import com.huios.metier.Compte;
 import com.huios.metier.CompteCourant;
 import com.huios.metier.CompteEpargne;
-import com.huios.metier.Conseiller;
+import com.huios.metier.ConseillerClientele;
 import com.huios.metier.Personne;
+
 @Transactional
 @Service
-public class ServiceConseiller implements IServiceConseiller {
+public class ConseillerClienteleService implements IConseillerClienteleService {
 
 	@Autowired
 	private CompteRepository compteRepository;
-	
+
 	@Autowired
 	private PersonneRepository personneRepository;
-	
-	
+
+	/**
+	 * Méthode permettant à un conseiller clientèle de s'authentifier
+	 */
 	@Override
 	public Personne authentification(String email, String pwd) {
 		return personneRepository.authentification(email, pwd);
 	}
 
+	/**
+	 * Méthode permettant à un conseiller clientèle de se déconnecter
+	 */
 	@Override
-	public Conseiller deconnexion() {
+	public ConseillerClientele deconnexion() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void ajouterClient(int idConseiller, Client client) {
-		Conseiller c1 = (Conseiller) personneRepository.findOne(idConseiller);
+		ConseillerClientele c1 = (ConseillerClientele) personneRepository.findOne(idConseiller);
 		List<Client> clientList = personneRepository.listerClients(idConseiller);
-		if(clientList.size()<10)
-		{
-		client.setMonConseiller(c1);
-		personneRepository.save(client);
+		if (clientList.size() < 10) {
+			client.setMonConseiller(c1);
+			personneRepository.save(client);
 		}
 	}
 
 	@Override
-	public void modifierClient(String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, String password, int id) {
+	public void modifierClient(String nom, String prenom, String adresse, String codepostal, String ville,
+			String telephone, String email, String password, int id) {
 		personneRepository.modifierPersonne(nom, prenom, adresse, codepostal, ville, telephone, email, password, id);
 	}
 
@@ -64,27 +70,22 @@ public class ServiceConseiller implements IServiceConseiller {
 		CompteCourant cc = null;
 		CompteEpargne ce = null;
 		double x = 1000;
-		cc=compteRepository.trouverCompteCourant(idClient, x);
-		double y=0.03;
-		ce=compteRepository.trouverCompteEpargne(idClient, y);
+		cc = compteRepository.trouverCompteCourant(idClient, x);
+		double y = 0.03;
+		ce = compteRepository.trouverCompteEpargne(idClient, y);
 		Collection<Compte> col = new ArrayList<Compte>();
-		if(cc!=null)
-		{
+		if (cc != null) {
 			col.add(cc);
-			if(ce!=null)
-			{
+			if (ce != null) {
 				col.add(ce);
 			}
 			c.setMesComptes(col);
 			return c;
-		}
-		else
-		{
-			if((ce!=null))
-			{
-			col.add(ce);
-			c.setMesComptes(col);
-			return c;
+		} else {
+			if ((ce != null)) {
+				col.add(ce);
+				c.setMesComptes(col);
+				return c;
 			}
 		}
 		return c;
@@ -104,16 +105,13 @@ public class ServiceConseiller implements IServiceConseiller {
 	@Override
 	public void ajouterCompteEpargne(int idClient, CompteEpargne compteEpargne) {
 		CompteEpargne ce = null;
-		double y=0.03;
-		ce=compteRepository.trouverCompteEpargne(idClient, y);
-		if(ce==null)
-		{
-		}
-		else
-		{
-		Client c = (Client) personneRepository.findOne(idClient);
-		compteEpargne.setClientProprietaire(c);
-		compteRepository.save(compteEpargne);
+		double y = 0.03;
+		ce = compteRepository.trouverCompteEpargne(idClient, y);
+		if (ce == null) {
+		} else {
+			Client c = (Client) personneRepository.findOne(idClient);
+			compteEpargne.setClientProprietaire(c);
+			compteRepository.save(compteEpargne);
 		}
 
 	}
@@ -121,16 +119,13 @@ public class ServiceConseiller implements IServiceConseiller {
 	@Override
 	public void ajouterCompteCourant(int idClient, CompteCourant compteCourant) {
 		CompteCourant cc = null;
-		double x=1000;
-		cc=compteRepository.trouverCompteCourant(idClient, x);
-		if(cc==null)
-		{
-		}
-		else
-		{
-		Client c = (Client) personneRepository.findOne(idClient);
-		compteCourant.setClientProprietaire(c);
-		compteRepository.save(compteCourant);
+		double x = 1000;
+		cc = compteRepository.trouverCompteCourant(idClient, x);
+		if (cc == null) {
+		} else {
+			Client c = (Client) personneRepository.findOne(idClient);
+			compteCourant.setClientProprietaire(c);
+			compteRepository.save(compteCourant);
 		}
 	}
 
@@ -152,25 +147,20 @@ public class ServiceConseiller implements IServiceConseiller {
 		CompteCourant cc = null;
 		CompteEpargne ce = null;
 		double x = 1000;
-		cc=compteRepository.trouverCompteCourant(idClient, x);
-		double y=0.03;
-		ce=compteRepository.trouverCompteEpargne(idClient, y);
+		cc = compteRepository.trouverCompteCourant(idClient, x);
+		double y = 0.03;
+		ce = compteRepository.trouverCompteEpargne(idClient, y);
 		Collection<Compte> col = new ArrayList<Compte>();
-		if(cc!=null)
-		{
+		if (cc != null) {
 			col.add(cc);
-			if(ce!=null)
-			{
+			if (ce != null) {
 				col.add(ce);
 			}
 			return col;
-		}
-		else
-		{
-			if((ce!=null))
-			{
-			col.add(ce);
-			return col;
+		} else {
+			if ((ce != null)) {
+				col.add(ce);
+				return col;
 			}
 		}
 		return col;
@@ -184,71 +174,65 @@ public class ServiceConseiller implements IServiceConseiller {
 		double x = 1000;
 		double y = 0.03;
 
-		cc=compteRepository.listerTousLesComptesCourant(x);
-		for(CompteCourant compte: cc)
-		{
+		cc = compteRepository.listerTousLesComptesCourant(x);
+		for (CompteCourant compte : cc) {
 			comptes.add(compte);
 		}
-		ce=compteRepository.listerTousLesComptesEpargne(y);
-		for(CompteEpargne compte2: ce)
-		{
+		ce = compteRepository.listerTousLesComptesEpargne(y);
+		for (CompteEpargne compte2 : ce) {
 			comptes.add(compte2);
 		}
 		return comptes;
 	}
 
 	@Override
-	public void effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant) throws SoldeInsuffisantException, MontantNegatifException, SommeSoldesInsuffisanteException {
-		if (montant<0) //Test si le montant entré est inférieur à 0
-		{                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-			throw new MontantNegatifException("montant inférieur à zero");
-		}
-		else 
+	public void effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant)
+			throws SoldeInsuffisantException, MontantNegatifException, SommeSoldesInsuffisanteException {
+		if (montant < 0) // Test si le montant entré est inférieur à 0
 		{
-			CompteCourant cc= null;
+			throw new MontantNegatifException("montant inférieur à zero");
+		} else {
+			CompteCourant cc = null;
 			cc = compteRepository.trouverCompteCourant(idCompteADebiter, 1000);
-			CompteEpargne ce=null;
-			ce= compteRepository.trouverCompteEpargne(idCompteACrediter, 0.03);
+			CompteEpargne ce = null;
+			ce = compteRepository.trouverCompteEpargne(idCompteACrediter, 0.03);
 			Compte compteACrediter = compteRepository.findOne(idCompteACrediter);
-			if(ce!=null) //Test si le compte est un compte Epargne
+			if (ce != null) // Test si le compte est un compte Epargne
 			{
-				if(montant<ce.getSolde()) // Test si le montant est inferieur au solde du compte
+				if (montant < ce.getSolde()) // Test si le montant est inferieur
+												// au solde du compte
 				{
-					ce.setSolde(ce.getSolde()-montant);
-					compteACrediter.setSolde(compteACrediter.getSolde()+montant);
-				}
-				else
-				{
+					ce.setSolde(ce.getSolde() - montant);
+					compteACrediter.setSolde(compteACrediter.getSolde() + montant);
+				} else {
 					throw new SoldeInsuffisantException("montant supperieur au solde");
 				}
-			}
-			else
-			{
-				if(cc!=null) //Test si le compte est un compte Courant
+			} else {
+				if (cc != null) // Test si le compte est un compte Courant
 				{
-					if((cc.getSolde()-montant)>-1000) //Test si le solde du compte viré est au dessus du découvert autorisé
+					if ((cc.getSolde() - montant) > -1000) // Test si le solde
+															// du compte viré
+															// est au dessus du
+															// découvert
+															// autorisé
 					{
-						cc.setSolde(cc.getSolde()-montant);
-						compteACrediter.setSolde(compteACrediter.getSolde()+montant);
-					}
-					else
-					{
+						cc.setSolde(cc.getSolde() - montant);
+						compteACrediter.setSolde(compteACrediter.getSolde() + montant);
+					} else {
 						throw new SommeSoldesInsuffisanteException("le decouvert n'autorise pas ce virement");
 					}
 				}
-			
+
 			}
 		}
 
 	}
 
 	@Override
-	public Collection<Compte> recupreationAutresComptes(Compte compte) {
-		Collection<Compte> col = compteRepository.recupererTousLesComptes(); 
-		for(Compte c: col)
-		{
-			if(c.getId()==compte.getId())
-			{
+	public Collection<Compte> recuperationAutresComptes(Compte compte) {
+		Collection<Compte> col = compteRepository.recupererTousLesComptes();
+		for (Compte c : col) {
+			if (c.getId() == compte.getId()) {
 				col.remove(c);
 			}
 		}

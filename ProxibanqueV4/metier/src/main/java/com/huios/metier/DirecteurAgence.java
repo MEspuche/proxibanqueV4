@@ -22,17 +22,17 @@ public class DirecteurAgence extends Personne implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@OneToMany(fetch = FetchType.EAGER , mappedBy="monDirecteurAgence")
-	private Collection<Conseiller> mesConseillers;
+	private Collection<ConseillerClientele> mesConseillers;
 	
 	
 
-	public Collection<Conseiller> getMesConseillers() {
+	public Collection<ConseillerClientele> getMesConseillers() {
 		return mesConseillers;
 	}
 
 
 
-	public void setMesConseillers(Collection<Conseiller> mesConseillers) {
+	public void setMesConseillers(Collection<ConseillerClientele> mesConseillers) {
 		this.mesConseillers = mesConseillers;
 	}
 

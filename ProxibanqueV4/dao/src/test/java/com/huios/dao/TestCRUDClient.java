@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.huios.metier.Client;
 import com.huios.metier.ClientParticulier;
-import com.huios.metier.Conseiller;
+import com.huios.metier.ConseillerClientele;
 
 import junit.framework.Assert;
 
