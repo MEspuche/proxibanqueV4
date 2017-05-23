@@ -1,12 +1,12 @@
 package com.huios.managedBeans;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.huios.exceptions.NombreClientsMaxAtteintException;
 import com.huios.metier.Client;
@@ -20,8 +20,10 @@ import com.huios.service.IConseillerClienteleService;
  *
  */
 //@Named	// pour dire que c'est un Bean dans le conteneur de CDI. @Named inclut @ManagedBean de JSF
-@ManagedBean(name = "ajouterClientParticulierBean")
-@RequestScoped
+//@ManagedBean(name = "ajouterClientParticulierBean")
+//@RequestScope
+@Scope("request")
+@Controller(value = "ajouterClientParticulierBean")
 public class AjouterClientParticulierBean {
 
 	/* ----------------- Attributs ----------------- */

@@ -3,10 +3,12 @@ package com.huios.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.huios.metier.ConseillerClientele;
 
 //@Transactional
+@Repository
 public interface ConseillerRepository extends JpaRepository<ConseillerClientele, Integer> {
 	
 	@Modifying

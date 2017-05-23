@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.huios.metier.Client;
 import com.huios.metier.ConseillerClientele;
 import com.huios.metier.Personne;
 
+@Repository
 public interface PersonneRepository extends JpaRepository<Personne, Integer> {
 
 	@Query("FROM Personne p WHERE p.email = ?1 AND p.password = ?2")

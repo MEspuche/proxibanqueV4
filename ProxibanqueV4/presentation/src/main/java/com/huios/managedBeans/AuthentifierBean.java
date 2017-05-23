@@ -3,34 +3,35 @@ package com.huios.managedBeans;
 import java.io.IOException;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 //import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.huios.metier.ConseillerClientele;
-import com.huios.service.ConseillerClienteleService;
 import com.huios.service.IConseillerClienteleService;
 
 
 /**
  * Bean servant à gérer la session
  */
-@ManagedBean(name = "authentifierBean")
-@SessionScoped
+//@ManagedBean(name = "authentifierBean")
+//@SessionScoped
+@Scope("session")
+@Controller(value = "authentifierBean")
 public class AuthentifierBean {
 
 	/* ----------------- Attributs ----------------- */
 
 	// appel de la couche service
 	// @Inject
-	private IConseillerClienteleService service = new ConseillerClienteleService();
+	//private IConseillerClienteleService service = new ConseillerClienteleService();
 
-	//@Autowired
-	//private IConseillerClienteleService service;
+	@Autowired
+	private IConseillerClienteleService service;
 	
 	// objet ConseillerClientele permettant de récupérer les paramètres saisis dans le formulaire
 	private ConseillerClientele conseillerClientele = new ConseillerClientele();

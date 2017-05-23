@@ -14,11 +14,11 @@
 				<h:form>
 					<table class="table">
 
-						<h3>Ajout d'un nouveau client Entreprise</h3>
+						<h3>Modification d'un client Entreprise</h3>
 
 						<tr>
-							<td>Statut</td>
-							<td><h:selectOneMenu value="#{ajouterClientEntrepriseBean.civilite}"
+							<td>CIVILITE</td>
+							<td><h:selectOneMenu value="#{modifierClientEntrepriseBean.client.civilite}"
 									required="true" id="civilite">
 									<f:selectItem itemLabel="EURL" itemValue="EURL" />
 									<f:selectItem itemLabel="SARL" itemValue="SARL" />
@@ -31,65 +31,71 @@
 								</h:selectOneMenu></td>
 							<td><h:message for="civilite" /></td>
 						</tr>
+
 <!-- 						<tr> -->
 <!-- 							<td>PRENOM</td> -->
-<!-- 							<td><h:inputText value="#{ajouterClientEntrepriseBean.prenom}" -->
+<!-- 							<td><h:inputText value="#{modifierClientEntrepriseBean.client.prenom}" -->
 <!-- 									required="true" requiredMessage="Saisissez le prénom" -->
 <!-- 									id="prenom" /></td> -->
 <!-- 							<td><h:message for="prenom" /></td> -->
 <!-- 						</tr> -->
 						<tr>
 							<td>NOM</td>
-							<td><h:inputText value="#{ajouterClientEntrepriseBean.nom}"
+							<td><h:inputText value="#{modifierClientEntrepriseBean.client.nom}"
 									required="true" requiredMessage="Saisissez le nom" id="nom" /></td>
 							<td><h:message for="nom" /></td>
 						</tr>
 						<tr>
 							<td>N° et RUE</td>
-							<td><h:inputText value="#{ajouterClientEntrepriseBean.adresse}"
+							<td><h:inputText
+									value="#{modifierClientEntrepriseBean.client.adresse.adresse}"
 									required="true" requiredMessage="Saisissez l'adresse" id="rue" /></td>
 							<td><h:message for="rue" /></td>
 						</tr>
 						<tr>
 							<td>CODE POSTAL</td>
-							<td><h:inputText value="#{ajouterClientEntrepriseBean.codePostal}"
+							<td><h:inputText
+									value="#{modifierClientEntrepriseBean.client.adresse.codePostal}"
 									required="true" requiredMessage="Saisissez le code postal"
 									id="codePostal" /></td>
 							<td><h:message for="codePostal" /></td>
 						</tr>
 						<tr>
 							<td>VILLE</td>
-							<td><h:inputText value="#{ajouterClientEntrepriseBean.ville}"
+							<td><h:inputText
+									value="#{modifierClientEntrepriseBean.client.adresse.ville}"
 									required="true" requiredMessage="Saisissez la ville" id="ville" /></td>
 							<td><h:message for="ville" /></td>
 						</tr>
 						<tr>
 							<td>N° de TELEPHONE</td>
-							<td><h:inputText value="#{ajouterClientEntrepriseBean.telephone}"
-									required="true"
-									requiredMessage="Saisissez le numéro de téléphone"
-									id="telephone" /></td>
+							<td><h:inputText
+									value="#{modifierClientEntrepriseBean.client.telephone}" required="true"
+									requiredMessage="Saisissez le telephone" id="telephone" /></td>
 							<td><h:message for="telephone" /></td>
 						</tr>
 						<tr>
 							<td>ADRESSE EMAIL</td>
-							<td><h:inputText value="#{ajouterClientEntrepriseBean.email}"
+							<td><h:inputText value="#{modifierClientEntrepriseBean.client.email}"
 									required="true" requiredMessage="Saisissez l'adresse email"
 									id="email" /></td>
 							<td><h:message for="email" /></td>
 						</tr>
 
-<!-- 						<tr> -->
-<!-- 							<td>ENTREPRISE</td> -->
-<!-- 							<td><h:inputText value="#{ajouterClientEntrepriseBean.nomEntreprise}" -->
-<!-- 									id="nomEntreprise" /></td> -->
-<!-- 							<td><h:message for="nomEntreprise" /></td> -->
-<!-- 						</tr> -->
+<!-- 						<c:if test="${modifierClientEntrepriseBean.client.nomEntreprise!=null}"> -->
+<!-- 							<tr> -->
+<!-- 								<td>ENTREPRISE</td> -->
+<!-- 								<td><h:inputText -->
+<!-- 										value="#{modifierClientEntrepriseBean.client.nomEntreprise}" -->
+<!-- 										id="nomEntreprise" /></td> -->
+<!-- 								<td><h:message for="nomEntreprise" /></td> -->
+<!-- 							</tr> -->
+<!-- 						</c:if> -->
 					</table>
 					<h:messages globalOnly="true" errorClass="erreur" />
 					<p>
-						<h:commandButton value="Ajouter ce client"
-							action="#{ajouterClientEntrepriseBean.ajouter}" />
+						<h:commandButton value="Modifier ce client"
+							action="#{modifierClientEntrepriseBean.modifier}" />
 					</p>
 				</h:form>
 			</p:panel>

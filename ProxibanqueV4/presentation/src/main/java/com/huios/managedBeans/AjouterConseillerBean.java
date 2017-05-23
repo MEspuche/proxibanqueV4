@@ -1,11 +1,11 @@
 package com.huios.managedBeans;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.huios.metier.ConseillerClientele;
 import com.huios.metier.DirecteurAgence;
@@ -18,8 +18,10 @@ import com.huios.service.IDirecteurAgenceService;
  *
  */
 //@Named	// pour dire que c'est un Bean dans le conteneur de CDI. @Named inclut @ManagedBean de JSF
-@ManagedBean(name = "ajouterConseillerBean")
-@RequestScoped
+//@ManagedBean(name = "ajouterConseillerBean")
+//@RequestScoped
+@Scope("request")
+@Controller(value = "ajouterConseillerBean")
 public class AjouterConseillerBean {
 
 	/* ----------------- Attributs ----------------- */

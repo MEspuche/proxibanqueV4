@@ -16,13 +16,13 @@
 					value="#{'Bienvenue '.concat(authentifierBean.conseillerConnecte.nom).concat(' !')}" />
 <!-- 						value="#{'Bienvenue '.concat(authentifierBean.conseillerConnecte.civilite).concat(' ').concat(authentifierBean.conseillerConnecte.nom).concat(' !')}" /> -->
 							
-					<h3>Vos clients</h3>
+					<h3>Vos clients particulier</h3>
 
 					<h:dataTable styleClass="table table-hover"
-						value="#{listerClientsBean.lister()}" var="c">
+						value="#{listerClientsBean.listerClientsParticulier()}" var="c">
 
 						<h:column>
-							<f:facet name="header">CIVILITE/STATUT</f:facet>
+							<f:facet name="header">CIVILITE</f:facet>
 							<h:outputText value="#{c.civilite}" />
 						</h:column>
 
@@ -59,10 +59,75 @@
 
 						<h:column>
 							<f:facet name="header">MODIFIER</f:facet>
-							<h:commandButton action="modifierClient"
+							<h:commandButton action="modifierClientParticulier"
 								value="Modifier">
 								<f:setPropertyActionListener
-									target="#{modifierClientBean.client}" value="#{c}" />
+									target="#{modifierClientParticulierBean.client}" value="#{c}" />
+							</h:commandButton>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">SUPPRIMER</f:facet>
+							<h:commandButton action="#{listerClientsBean.supprimer}"
+								value="Supprimer">
+								<f:setPropertyActionListener
+									target="#{listerClientsBean.client}" value="#{c}" />
+							</h:commandButton>
+						</h:column>
+
+					</h:dataTable>
+					<h:messages errorClass="error" />
+				</h:form>
+			</p:panel>
+			<p:panel class="panel">
+				<h:form>
+					<h3>Vos clients Entreprise</h3>
+
+					<h:dataTable styleClass="table table-hover"
+						value="#{listerClientsBean.listerClientsEntreprise()}" var="c">
+
+						<h:column>
+							<f:facet name="header">Statut</f:facet>
+							<h:outputText value="#{c.civilite}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">NOM</f:facet>
+							<h:outputText value="#{c.nom}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">PRENOM</f:facet>
+							<h:outputText value="#{c.prenom}" />
+						</h:column>
+
+<!-- 						<h:column> -->
+<!-- 							<f:facet name="header">ENTREPRISE</f:facet> -->
+
+<!-- 													<c:choose> -->
+<!-- 														<c:when test="${c.nomEntreprise != null}"> -->
+<!-- 							<h:outputText value="#{c.nomEntreprise}" /> -->
+<!-- 														</c:when> -->
+<!-- 														<c:otherwise> -->
+<!-- 															<h:outputText value="-" /> -->
+<!-- 														</c:otherwise> -->
+<!-- 													</c:choose> -->
+<!-- 						</h:column> -->
+
+						<h:column>
+							<f:facet name="header">DETAILS</f:facet>
+							<h:commandButton action="ficheClient" value="Détails">
+								<f:setPropertyActionListener
+									target="#{listerClientsBean.client}" value="#{c}" />
+							</h:commandButton>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">MODIFIER</f:facet>
+							<h:commandButton action="modifierClientEntreprise"
+								value="Modifier">
+								<f:setPropertyActionListener
+									target="#{modifierClientEntrepriseBean.client}" value="#{c}" />
 							</h:commandButton>
 						</h:column>
 
