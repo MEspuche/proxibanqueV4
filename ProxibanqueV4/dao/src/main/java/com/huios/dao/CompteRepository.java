@@ -49,6 +49,7 @@ public interface CompteRepository extends JpaRepository<Compte, Integer> {
 	public void modifierSoldeCompte(double solde, int idCompte);
 	
 
+
 	
 	
 }

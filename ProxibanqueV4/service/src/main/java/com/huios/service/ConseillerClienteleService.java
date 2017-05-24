@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.huios.dao.ClientEntrepriseRepository;
-import com.huios.dao.ClientParticulierRepository;
+import com.huios.dao.ClientRepository;
 import com.huios.dao.CompteRepository;
 import com.huios.dao.PersonneRepository;
 import com.huios.exceptions.CompteCourantDejaExistantException;
@@ -42,10 +41,8 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	private PersonneRepository personneRepository;
 
 	@Autowired
-	private ClientParticulierRepository clientParticulierRepository;
+	private ClientRepository clientRepository;
 
-	@Autowired
-	private ClientEntrepriseRepository clientEntrepriseRepository;
 
 	/**
 	 * Méthode permettant à un conseiller clientèle de s'authentifier
@@ -386,12 +383,12 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 	@Override
 	public List<ClientParticulier> listerClientsParticulier(int idConseiller) {
-		return clientParticulierRepository.listerClientsParticuliers(idConseiller);
+		return clientRepository.listerClientsParticuliers(idConseiller);
 	}
 
 	@Override
 	public List<ClientEntreprise> listerClientsEntreprise(int idConseiller) {
-		return clientEntrepriseRepository.listerClientsEntreprises(idConseiller);
+		return clientRepository.listerClientsEntreprises(idConseiller);
 	}
 
 }
