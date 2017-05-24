@@ -298,7 +298,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	}
 
 	@Override
-	public void effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant)
+	public double effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant)
 			throws SoldeInsuffisantException, MontantNegatifException {
 		if (montant < 0) // Test si le montant entré est inférieur à 0
 		{
@@ -313,7 +313,8 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 				if (montant < ce.getSolde()) // Test si le montant est inferieur
 												// au solde du compte
 				{
-					ce.setSolde(ce.getSolde() - montant);
+					double soldeDebiteur = ce.getSolde() - montant;
+					ce.setSolde(soldeDebiteur);
 					c.setSolde(c.getSolde() + montant);
 					Transaction tr3 = new Transaction();
 					tr3.setTypeTransaction("Virement");
@@ -321,7 +322,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 					tr3.setSoldeEntrant(montant);
 					tr3.setDateTransaction(new Date());
 					transactionRepository.save(tr3);
-
+					return soldeDebiteur;
 				} else {
 					throw new SoldeInsuffisantException("Montant supérieur au solde");
 				}
@@ -334,6 +335,8 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 															// découvert
 															// autorisé
 					{
+						double soldeDebiteur = cc.getSolde() - montant;
+						cc.setSolde(soldeDebiteur);
 						cc.setSolde(cc.getSolde() - montant);
 						c.setSolde(c.getSolde() + montant);
 						Transaction tr = new Transaction();
@@ -342,6 +345,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 						tr.setSoldeEntrant(montant);
 						tr.setDateTransaction(new Date());
 						transactionRepository.save(tr);
+						return soldeDebiteur;
 
 					} else {
 						throw new SoldeInsuffisantException("Le découvert n'autorise pas ce virement");
@@ -350,7 +354,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 			}
 		}
-
+		return 0;
 	}
 
 	@Override

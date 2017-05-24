@@ -47,7 +47,7 @@ public interface IConseillerClienteleService {
 	public void supprimerCompte (int idCompte)throws CompteInexistantException;
 
 	/** AUTRES METHODES (fonctionnalités à forte valeur ajoutée) */
-	public void effectuerVirement (int idCompteADebiter, int idCompteACrediter, double montant)throws SoldeInsuffisantException, MontantNegatifException;
+	public double effectuerVirement (int idCompteADebiter, int idCompteACrediter, double montant)throws SoldeInsuffisantException, MontantNegatifException;
 	
 	public List<ClientParticulier> listerClientsParticulier(int idConseiller);
 	
