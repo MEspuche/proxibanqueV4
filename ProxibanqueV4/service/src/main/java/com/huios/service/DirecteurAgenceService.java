@@ -1,6 +1,8 @@
 package com.huios.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -8,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.huios.dao.AlerteRepository;
 import com.huios.dao.PersonneRepository;
 import com.huios.dao.RolesRepository;
 import com.huios.dao.TransactionRepository;
 import com.huios.exceptions.UserInexistantException;
 import com.huios.exceptions.UserInvalidException;
+import com.huios.metier.Alertes;
 import com.huios.metier.ConseillerClientele;
 import com.huios.metier.DirecteurAgence;
 import com.huios.metier.Personne;
@@ -35,6 +39,9 @@ public class DirecteurAgenceService implements IDirecteurAgenceService {
 	
 	@Autowired
 	private TransactionRepository transactionRepository;
+	
+	@Autowired
+	private AlerteRepository alerteRepository;
 
 	/**
 	 *  Methode qui permet à un Directeur d'Agence de s'authentifier
@@ -140,6 +147,17 @@ public class DirecteurAgenceService implements IDirecteurAgenceService {
 		date.setMinutes(date.getMinutes()-10080);
 		System.out.println(date);
 		return transactionRepository.findByDateTransactionAfter(date);
+	}
+
+	@Override
+	public List<Alertes> listerAlertesDirecteur(int idDirecteur) {
+		DirecteurAgence dir =  (DirecteurAgence) personneRepository.findOne(idDirecteur);
+		Collection<ConseillerClientele> conseillers = dir.getMesConseillers();
+		Collection<Alertes> alertes = new ArrayList<Alertes>();
+		for(ConseillerClientele cons : conseillers){
+			alertes.addAll(alerteRepository.listerAlertesConseiller(cons));
+		}
+		return (List<Alertes>) alertes;
 	}
 
 }

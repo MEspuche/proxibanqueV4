@@ -36,7 +36,9 @@ public class ConseillerClientele extends Personne implements Serializable{
 	@OneToMany(fetch = FetchType.EAGER , mappedBy="monConseiller")
 	private Collection<Client> mesClients = new ArrayList<Client>();
 
-
+	@OneToMany(mappedBy="conseiller")
+	private Collection<Alertes> alertes;
+	
 
 	public DirecteurAgence getMonDirecteurAgence() {
 		return monDirecteurAgence;
@@ -52,6 +54,22 @@ public class ConseillerClientele extends Personne implements Serializable{
 
 	public void setMesClients(Collection<Client> mesClients) {
 		this.mesClients = mesClients;
+	}
+	
+	
+
+	/**
+	 * @return the alertes
+	 */
+	public Collection<Alertes> getAlertes() {
+		return alertes;
+	}
+
+	/**
+	 * @param alertes the alertes to set
+	 */
+	public void setAlertes(Collection<Alertes> alertes) {
+		this.alertes = alertes;
 	}
 
 	@Override

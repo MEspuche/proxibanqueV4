@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.huios.dao.AlerteRepository;
 import com.huios.dao.ClientRepository;
 import com.huios.dao.CompteRepository;
 import com.huios.dao.PersonneRepository;
@@ -21,6 +22,7 @@ import com.huios.exceptions.NombreClientsMaxAtteintException;
 import com.huios.exceptions.SoldeInsuffisantException;
 import com.huios.exceptions.UserInexistantException;
 import com.huios.exceptions.UserInvalidException;
+import com.huios.metier.Alertes;
 import com.huios.metier.Client;
 import com.huios.metier.ClientEntreprise;
 import com.huios.metier.ClientParticulier;
@@ -51,6 +53,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	
 	@Autowired
 	private TransactionRepository transactionRepository;
+	
+	@Autowired
+	private AlerteRepository alerteRepository;
 
 	/**
 	 * Méthode permettant à un conseiller clientèle de s'authentifier
@@ -431,6 +436,13 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	@Override
 	public List<ClientEntreprise> listerClientsEntreprise(int idConseiller) {
 		return clientRepository.listerClientsEntreprises(idConseiller);
+	}
+
+	@Override
+	public List<Alertes> listerAlertesComptes(int idConseiller) {
+		ConseillerClientele cons = (ConseillerClientele) personneRepository.findOne(idConseiller);
+		return alerteRepository.listerAlertesConseiller(cons);
+	
 	}
 
 }

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -40,6 +41,9 @@ public abstract class Compte implements Serializable{
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	private Client clientProprietaire;
 	
+	@OneToOne
+	private Alertes alerte;
+	
 	public int getId() {
 		return id;
 	}
@@ -63,6 +67,21 @@ public abstract class Compte implements Serializable{
 	}
 	public void setDateOuverture(String dateOuverture) {
 		this.dateOuverture = dateOuverture;
+		
+		
+		
+	}
+	/**
+	 * @return the alerte
+	 */
+	public Alertes getAlerte() {
+		return alerte;
+	}
+	/**
+	 * @param alerte the alerte to set
+	 */
+	public void setAlerte(Alertes alerte) {
+		this.alerte = alerte;
 	}
 	@Override
 	public String toString() {
