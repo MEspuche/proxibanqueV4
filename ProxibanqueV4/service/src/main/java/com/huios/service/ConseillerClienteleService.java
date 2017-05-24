@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.huios.dao.ClientRepository;
 import com.huios.dao.CompteRepository;
 import com.huios.dao.PersonneRepository;
+import com.huios.dao.TransactionRepository;
 import com.huios.exceptions.CompteCourantDejaExistantException;
 import com.huios.exceptions.CompteEpargneDejaExistantException;
 import com.huios.exceptions.CompteInexistantException;
@@ -42,6 +43,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 	@Autowired
 	private ClientRepository clientRepository;
+	
+	@Autowired
+	private TransactionRepository transactionRepository;
 
 	/**
 	 * Méthode permettant à un conseiller clientèle de s'authentifier
@@ -130,12 +134,14 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			tr1.setTypeTransaction("SuppressionCompteCourant");
 			tr1.setSoldeSortant(cc.getSolde());
 			tr1.setDateTransaction(new Date());
+			transactionRepository.save(tr1);
 			compteRepository.delete(cc);
 			if (ce != null) {
 				Transaction tr2 = new Transaction();
 				tr2.setTypeTransaction("SuppressionCompteEpargne");
 				tr2.setSoldeSortant(ce.getSolde());
 				tr2.setDateTransaction(new Date());
+				transactionRepository.save(tr2);
 				compteRepository.delete(ce);
 			}
 		} else {
@@ -144,6 +150,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 				tr3.setTypeTransaction("SuppressionCompteEpargne");
 				tr3.setSoldeSortant(ce.getSolde());
 				tr3.setDateTransaction(new Date());
+				transactionRepository.save(tr3);
 				compteRepository.delete(ce);
 				compteRepository.delete(ce);
 			}
@@ -163,6 +170,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			tr.setDateTransaction(new Date());
 			tr.setSoldeEntrant(compteEpargne.getSolde());
 			tr.setTypeTransaction("CreationCompteEpargne");
+			transactionRepository.save(tr);
 			compteEpargne.setClientProprietaire(client);
 			compteRepository.save(compteEpargne);
 		}
@@ -182,6 +190,8 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			tr.setDateTransaction(new Date());
 			tr.setSoldeEntrant(compteCourant.getSolde());
 			tr.setTypeTransaction("CreationCompteCourant");
+			transactionRepository.save(tr);
+			System.out.println(tr);
 			compteCourant.setClientProprietaire(c);
 			compteRepository.save(compteCourant);
 		}
@@ -199,12 +209,14 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			tr.setDateTransaction(new Date());
 			tr.setSoldeEntrant(solde);
 			tr.setTypeTransaction("DepotArgent");
+			transactionRepository.save(tr);
 		}
 		if (solde < 0) {
 			Transaction tr = new Transaction();
 			tr.setDateTransaction(new Date());
 			tr.setSoldeSortant(solde);
 			tr.setTypeTransaction("RetraitArgent");
+			transactionRepository.save(tr);
 		}
 
 	}
@@ -224,12 +236,14 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 				tr1.setTypeTransaction("SuppressionCompteCourant");
 				tr1.setSoldeSortant(cc.getSolde());
 				tr1.setDateTransaction(new Date());
+				transactionRepository.save(tr1);
 				compteRepository.delete(cc);
 			} else {
 				Transaction tr3 = new Transaction();
 				tr3.setTypeTransaction("SuppressionCompteEpargne");
 				tr3.setSoldeSortant(ce.getSolde());
 				tr3.setDateTransaction(new Date());
+				transactionRepository.save(tr3);
 				compteRepository.delete(ce);
 			}
 		}
@@ -307,6 +321,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 					tr3.setSoldeSortant(montant);
 					tr3.setSoldeEntrant(montant);
 					tr3.setDateTransaction(new Date());
+					transactionRepository.save(tr3);
 
 				} else {
 					throw new SoldeInsuffisantException("Montant supérieur au solde");
@@ -327,6 +342,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 						tr.setSoldeSortant(montant);
 						tr.setSoldeEntrant(montant);
 						tr.setDateTransaction(new Date());
+						transactionRepository.save(tr);
 
 					} else {
 						throw new SoldeInsuffisantException("Le découvert n'autorise pas ce virement");
