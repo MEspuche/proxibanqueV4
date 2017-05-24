@@ -1,6 +1,5 @@
 package com.huios.service;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
@@ -9,7 +8,6 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.huios.exceptions.CompteCourantDejaExistantException;
-import com.huios.metier.CompteCourant;
 import com.huios.metier.Transaction;
 
 public class TestTransactions {
