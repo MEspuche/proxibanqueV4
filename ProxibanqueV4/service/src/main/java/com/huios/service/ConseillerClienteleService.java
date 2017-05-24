@@ -2,6 +2,7 @@ package com.huios.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import com.huios.metier.CompteCourant;
 import com.huios.metier.CompteEpargne;
 import com.huios.metier.ConseillerClientele;
 import com.huios.metier.Personne;
+import com.huios.metier.Transaction;
 
 @Transactional
 @Service
@@ -57,11 +59,11 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	 * @throws UserInvalidException
 	 */
 	@Override
-	public Personne authentification(String email) throws UserInvalidException {
-		if (personneRepository.authentification(email) == null) {
+	public Personne authentification(String email, String pwd) throws UserInvalidException {
+		if (personneRepository.authentification(email, pwd) == null) {
 			throw new UserInvalidException("User invalid");
 		} else {
-			return personneRepository.authentification(email);
+			return personneRepository.authentification(email, pwd);
 		}
 	}
 
@@ -142,12 +144,25 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		// double y = 0.03;
 		ce = compteRepository.trouverCompteEpargne(idClient);
 		if (cc != null) {
+			Transaction tr1 = new Transaction();
+			tr1.setTypeTransaction("SuppressionCompteCourant");
+			tr1.setSoleSortant(cc.getSolde());
+			tr1.setDateTransaction(new Date());
 			compteRepository.delete(cc);
 			if (ce != null) {
+				Transaction tr2 = new Transaction();
+				tr2.setTypeTransaction("SuppressionCompteEpargne");
+				tr2.setSoleSortant(ce.getSolde());
+				tr2.setDateTransaction(new Date());
 				compteRepository.delete(ce);
 			}
 		} else {
 			if ((ce != null)) {
+				Transaction tr3 = new Transaction();
+				tr3.setTypeTransaction("SuppressionCompteEpargne");
+				tr3.setSoleSortant(ce.getSolde());
+				tr3.setDateTransaction(new Date());
+				compteRepository.delete(ce);
 				compteRepository.delete(ce);
 			}
 		}
@@ -165,6 +180,10 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		if (ce != null) {
 			throw new CompteEpargneDejaExistantException("Le client a déjà un compte épargne");
 		} else {
+			Transaction tr = new Transaction();
+			tr.setDateTransaction(new Date());
+			tr.setSoldeEntrant(compteEpargne.getSolde());
+			tr.setTypeTransaction("CreationCompteEpargne");
 			compteEpargne.setClientProprietaire(client);
 			compteRepository.save(compteEpargne);
 		}

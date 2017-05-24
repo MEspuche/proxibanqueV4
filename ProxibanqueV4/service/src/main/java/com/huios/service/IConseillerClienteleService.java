@@ -22,7 +22,7 @@ import com.huios.metier.Personne;
 public interface IConseillerClienteleService {
 
 	/** AUTHENTIFICATION */
-	public Personne authentification(String email) throws UserInvalidException;
+	public Personne authentification(String email, String pwd) throws UserInvalidException;
 
 
 	/** CREATE */
