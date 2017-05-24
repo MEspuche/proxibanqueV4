@@ -38,12 +38,6 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	@Autowired
 	private CompteRepository compteRepository;
 
-	// @Autowired
-	// private CompteCourantRepository compteCourantRepository;
-	//
-	// @Autowired
-	// private CompteEpargneRepository compteEpargneRepository;
-
 	@Autowired
 	private PersonneRepository personneRepository;
 
@@ -84,7 +78,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		if (personneRepository.findOne(c.getId()) == null) {
 			throw new UserInexistantException("Client inexistant");
 		} else {
-			personneRepository.modifierClient(c.getCodePostal(),c.getNom(), c.getPrenom(), c.getAdresse(), c.getCodePostal(),
+			personneRepository.modifierClient(c.getCivilite(),c.getNom(), c.getPrenom(), c.getAdresse(), c.getCodePostal(),
 					c.getVille(), c.getTelephone(), c.getEmail(), c.getId());
 		}
 	}
@@ -97,10 +91,8 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		} else {
 			CompteCourant cc = null;
 			CompteEpargne ce = null;
-			// double x = 1000;
-			cc = compteRepository.trouverCompteCourant(idClient);
-			// double y = 0.03;
-			ce = compteRepository.trouverCompteEpargne(idClient);
+			cc = compteRepository.trouverCompteCourantByClient(c);
+			ce = compteRepository.trouverCompteEpargneByClient(c);
 			Collection<Compte> col = new ArrayList<Compte>();
 			if (cc != null) {
 				col.add(cc);
