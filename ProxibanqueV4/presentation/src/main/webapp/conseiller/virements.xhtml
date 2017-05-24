@@ -1,0 +1,109 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">
+        Virements
+    </ui:define>
+
+	<ui:define name="content">
+		<c:if test="${ authentifierBean.conseillerConnecte!=null }">
+			<h:form>
+
+				<p:panel id="panelDebit" header="Compte à débiter" class="panel">
+
+					<p:dataTable value="#{virementBean.listeComptes}" var="compte"
+						selection="#{virementBean.selectedDebit}" selectionMode="single"
+						rowKey="#{compte.id}" first="#{compte.id}"
+						scrollable="true" scrollHeight="150" editable="true" >
+
+						<p:ajax event="rowSelect" listener="#{virementBean.onDebitSelect}" />
+
+						<p:column width="50px">
+							<f:facet name="header">
+								<h:outputText value="Numéro compte" />
+							</f:facet>
+							<h:outputText value="#{compte.id}" />
+						</p:column>
+
+						<p:column width="50px">
+							<f:facet name="header">
+								<h:outputText value="Titulaire" />
+							</f:facet>
+							<h:outputText value="#{compte.clientProprietaire.nom.concat(' ').concat(compte.clientProprietaire.prenom)}" />
+						</p:column>
+
+						<p:column width="50px">
+							<f:facet name="header">
+								<h:outputText value="Solde" />
+							</f:facet>
+							<h:outputText value="#{compte.solde}">
+							</h:outputText>
+						</p:column>
+
+					</p:dataTable>
+
+
+				</p:panel>
+
+				<p:panel id="panelCredit" header="Compte à créditer" class="panel">
+					<p:dataTable value="#{virementBean.listeComptes}" var="compte"
+						selection="#{virementBean.selectedCredit}" selectionMode="single"
+						rowKey="#{compte.id}" first="#{compte.id}"
+						scrollable="true" scrollHeight="150" editable="true">
+
+						<p:ajax event="rowSelect"
+							listener="#{virementBean.onCreditSelect}" />
+
+						<p:column width="50px">
+							<f:facet name="header">
+								<h:outputText value="Numéro compte" />
+							</f:facet>
+							<h:outputText value="#{compte.id}" />
+						</p:column>
+
+						<p:column width="50px">
+							<f:facet name="header">
+								<h:outputText value="Titulaire" />
+							</f:facet>
+							<h:outputText value="#{compte.clientProprietaire.nom.concat(' ').concat(compte.clientProprietaire.prenom)}" />
+						</p:column>
+
+						<p:column width="50px">
+							<f:facet name="header">
+								<h:outputText value="Solde" />
+							</f:facet>
+							<h:outputText value="#{compte.solde}">
+							</h:outputText>
+						</p:column>
+
+					</p:dataTable>
+
+
+				</p:panel>
+
+				<p:panel id="panelMontant" header="Montant du virement"
+					class="panel">
+
+					<p:inputText id="montant" required="true"
+						value="#{virementBean.montant}"></p:inputText>
+					<p:outputLabel for="montant" value="EUR"></p:outputLabel>
+
+					<h:commandButton type="submit" value="Effectuer Virement"
+						action="#{virementBean.effectuerVirement()}">
+					</h:commandButton>
+					
+					<h:messages globalOnly="false" infoClass="info" />
+
+				</p:panel>
+
+
+
+			</h:form>
+		</c:if>
+	</ui:define>
+</ui:composition>
