@@ -32,13 +32,6 @@
 							<td><h:message for="civilite" /></td>
 						</tr>
 
-<!-- 						<tr> -->
-<!-- 							<td>PRENOM</td> -->
-<!-- 							<td><h:inputText value="#{modifierClientEntrepriseBean.client.prenom}" -->
-<!-- 									required="true" requiredMessage="Saisissez le prénom" -->
-<!-- 									id="prenom" /></td> -->
-<!-- 							<td><h:message for="prenom" /></td> -->
-<!-- 						</tr> -->
 						<tr>
 							<td>NOM</td>
 							<td><h:inputText value="#{modifierClientEntrepriseBean.client.nom}"
@@ -48,14 +41,14 @@
 						<tr>
 							<td>N° et RUE</td>
 							<td><h:inputText
-									value="#{modifierClientEntrepriseBean.client.adresse.adresse}"
+									value="#{modifierClientEntrepriseBean.client.adresse}"
 									required="true" requiredMessage="Saisissez l'adresse" id="rue" /></td>
 							<td><h:message for="rue" /></td>
 						</tr>
 						<tr>
 							<td>CODE POSTAL</td>
 							<td><h:inputText
-									value="#{modifierClientEntrepriseBean.client.adresse.codePostal}"
+									value="#{modifierClientEntrepriseBean.client.codePostal}"
 									required="true" requiredMessage="Saisissez le code postal"
 									id="codePostal" /></td>
 							<td><h:message for="codePostal" /></td>
@@ -63,7 +56,7 @@
 						<tr>
 							<td>VILLE</td>
 							<td><h:inputText
-									value="#{modifierClientEntrepriseBean.client.adresse.ville}"
+									value="#{modifierClientEntrepriseBean.client.ville}"
 									required="true" requiredMessage="Saisissez la ville" id="ville" /></td>
 							<td><h:message for="ville" /></td>
 						</tr>
@@ -82,15 +75,6 @@
 							<td><h:message for="email" /></td>
 						</tr>
 
-<!-- 						<c:if test="${modifierClientEntrepriseBean.client.nomEntreprise!=null}"> -->
-<!-- 							<tr> -->
-<!-- 								<td>ENTREPRISE</td> -->
-<!-- 								<td><h:inputText -->
-<!-- 										value="#{modifierClientEntrepriseBean.client.nomEntreprise}" -->
-<!-- 										id="nomEntreprise" /></td> -->
-<!-- 								<td><h:message for="nomEntreprise" /></td> -->
-<!-- 							</tr> -->
-<!-- 						</c:if> -->
 					</table>
 					<h:messages globalOnly="true" errorClass="erreur" />
 					<p>

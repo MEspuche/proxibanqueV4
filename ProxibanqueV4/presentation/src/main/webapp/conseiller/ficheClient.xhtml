@@ -18,6 +18,7 @@
 				<br />
 
 				<h:panelGrid columns="2" styleClass="table table-hover">
+				
 					<h:outputText value="IDENTITE : " />
 					<h:outputText
 						value="#{(listerClientsBean.client.civilite).concat(' ').concat(listerClientsBean.client.prenom).concat(' ').concat(listerClientsBean.client.nom)}" />
@@ -27,10 +28,10 @@
 
 					<h:outputText value="CODE POSTAL : " />
 					<h:outputText
-						value="#{listerClientsBean.client.adresse.codePostal}" />
+						value="#{listerClientsBean.client.codePostal}" />
 
 					<h:outputText value="VILLE : " />
-					<h:outputText value="#{listerClientsBean.client.adresse.ville}" />
+					<h:outputText value="#{listerClientsBean.client.ville}" />
 
 					<h:outputText value="TELEPHONE : " />
 					<h:outputText value="#{listerClientsBean.client.telephone}" />
@@ -38,15 +39,11 @@
 					<h:outputText value="ADRESSE MAIL : " />
 					<h:outputText value="#{listerClientsBean.client.email}" />
 
-<!-- 					<h:outputText value="ENTREPRISE : " /> -->
-<!-- 					<h:outputText value="#{listerClientsBean.client.nomEntreprise}" /> -->
-
 					<c:forEach var="item"
 						items="${listerClientsBean.client.mesComptes}">
 						<h:outputText value="COMPTE : " />
 						<h:outputText value="${item}" />
 					</c:forEach>
-
 
 					<!-- 		if (client.getCompteCourant().getIdCompte()==0) { -->
 					<!-- 			request.setAttribute("comptecourant", "Ce client n'a pas encore de Compte Courant..."); -->
@@ -60,7 +57,9 @@
 					<!-- 			request.setAttribute("compteepargne", client.getCompteEpargne().toString()); -->
 					<!-- 		} -->
 				</h:panelGrid>
+				
 			</p:panel>
+			
 		</div>
 
 	</ui:define>

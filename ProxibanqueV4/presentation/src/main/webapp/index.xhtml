@@ -1,38 +1,22 @@
 <!DOCTYPE html>
-<html
-	xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-	
+	xmlns:f="http://java.sun.com/jsf/core">
+
 	<h:head>
-	<meta charset="UTF-8" />
+		<meta charset="UTF-8" />
 		<title>PROXIBANQUE</title>
-		<h:outputStylesheet library="css" name="bootstrap.min.css"/>
-		<h:outputStylesheet library="css" name="authentification.css"/>
+		<h:outputStylesheet library="css" name="bootstrap.min.css" />
+		<h:outputStylesheet library="css" name="authentification.css" />
 	</h:head>
-	
+
 	<h:body>
-		
 		<h1>PROXIBANQUE</h1>
 		<h2>La banque proche de ses clients</h2><br/>
 		
-		<h:panelGroup styleClass="container" layout="block">
-			<h:panelGroup styleClass="wrapper">
-				<h:form name="Login_Form" class="form-signin">       
-				    <h3 class="form-signin-heading">Bienvenue !<br/> Veuillez vous connecter</h3>
-					<hr class="colorgraph"/><br/>
-					  
-					<h:inputText styleClass="form-control" id="email" name="login" a:placeholder="E-mail" required="true" requiredMessage="Saisissez votre email " value="#{authentifierBean.conseillerClientele.email}"/>
-					<h:inputSecret styleClass="form-control" id="password" name="password" a:placeholder="Mot de passe" required="true" requiredMessage="Saisissez votre mot de passe" value="#{authentifierBean.conseillerClientele.password}"/>     		  
-					
-					<h:messages globalOnly="false" infoClass="info" />
-					
-					<h:commandButton styleClass="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="submit" action="#{authentifierBean.authentifier}"/>
-				</h:form>
-			</h:panelGroup>
-		</h:panelGroup>
-
-		
+		<a href="conseiller/listerClients.xhtml">Espace Conseiller</a>
+		<br />
+		<a href="directeurAgence/listerConseillers.xhtml">Espace Directeur</a>
+		<br />
 	</h:body>
 </html>

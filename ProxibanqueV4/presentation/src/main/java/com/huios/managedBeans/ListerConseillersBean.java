@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.huios.exceptions.UserInexistantException;
 import com.huios.metier.ConseillerClientele;
 import com.huios.metier.DirecteurAgence;
 import com.huios.service.IDirecteurAgenceService;
@@ -54,7 +55,12 @@ public class ListerConseillersBean {
 
 		// conseiller = service.chercherConseiller(((Conseiller)
 		// externalContext.getSessionMap().get("conseillerConnecte")).getId());
-		lesConseillers = service.listerConseillers(((DirecteurAgence) externalContext.getSessionMap().get("directeurConnecte")).getId());
+		try {
+			lesConseillers = service.listerConseillers(((DirecteurAgence) externalContext.getSessionMap().get("directeurConnecte")).getId());
+		} catch (UserInexistantException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return lesConseillers;
 	}
 
@@ -63,7 +69,12 @@ public class ListerConseillersBean {
 		// ExternalContext externalContext = context.getExternalContext();
 		// conseiller = service.chercherConseiller(((Conseiller)
 		// externalContext.getSessionMap().get("conseillerConnecte")).getId());
-		service.supprimerConseiller(conseiller.getId());
+		try {
+			service.supprimerConseiller(conseiller.getId());
+		} catch (UserInexistantException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/* ----------------- Getters & Setters ----------------- */

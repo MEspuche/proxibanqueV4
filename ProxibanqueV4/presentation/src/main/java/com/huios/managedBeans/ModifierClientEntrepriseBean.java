@@ -1,15 +1,15 @@
 package com.huios.managedBeans;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.huios.exceptions.UserInexistantException;
 import com.huios.metier.Client;
 import com.huios.metier.ClientEntreprise;
-import com.huios.metier.ClientParticulier;
 import com.huios.metier.ConseillerClientele;
 import com.huios.service.IConseillerClienteleService;
 
@@ -18,10 +18,6 @@ import com.huios.service.IConseillerClienteleService;
  * Bean de la vue modifier
  *
  */
-// @Named // pour dire que c'est un Bean dans le conteneur de CDI. @Named inclut
-// @ManagedBean de JSF
-//@ManagedBean(name = "modifierClientEntrepriseBean")
-//@SessionScoped
 @Scope("session")
 @Controller(value = "modifierClientEntrepriseBean")
 public class ModifierClientEntrepriseBean {
@@ -29,7 +25,6 @@ public class ModifierClientEntrepriseBean {
 	/* ----------------- Attributs ----------------- */
 
 	// appel de la couche service
-	// @Inject
 	@Autowired
 	private IConseillerClienteleService service;
 
@@ -39,38 +34,29 @@ public class ModifierClientEntrepriseBean {
 	private ClientEntreprise client;
 
 	private String civilite;
-	private String prenom="";
 	private String nom;
 	private String adresse;
 	private String codePostal;
 	private String ville;
 	private String telephone;
 	private String email;
-	//private String nomEntreprise;
 
 	/* ----------------- Méthodes ----------------- */
 
 	public String modifier() {
-		//System.out.println(client.toString());
-		//FacesContext context = FacesContext.getCurrentInstance();
+		FacesContext context = FacesContext.getCurrentInstance();
 		//ExternalContext externalContext = context.getExternalContext();
+		FacesMessage message;
+		
 		//conseillerClientele = (ConseillerClientele) externalContext.getSessionMap().get("conseillerConnecte");
-
-//		Adresse adresse = client.getAdresse();
-//
-//		client.setCivilite(civilite);
-//		client.setPrenom(prenom);
-//		client.setNom(nom);
-//		adresse.setRue(rue);
-//		adresse.setCodePostal(codePostal);
-//		adresse.setVille(ville);
-//		client.setTelephone(telephone);
-//		client.setEmail(email);
-//
-//		client.setNomEntreprise(nomEntreprise);
-
-		// client.setMonConseiller(conseillerClientele);
-		service.modifierClient(nom, prenom, adresse, codePostal, ville, telephone, email, client.getId());
+		
+		try {
+			service.modifierClient(client);
+		} catch (UserInexistantException e) {
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur lors de la tentative de modification du client : ce client n'existe pas", "");
+			context.addMessage(null, message);
+			e.printStackTrace();
+		}
 
 		return "listerClients";
 
@@ -94,7 +80,7 @@ public class ModifierClientEntrepriseBean {
 		this.conseillerClientele = conseillerClientele;
 	}
 
-	public Client getClient() {
+	public ClientEntreprise getClient() {
 		return client;
 	}
 
@@ -110,14 +96,6 @@ public class ModifierClientEntrepriseBean {
 		this.civilite = civilite;
 	}
 
-	public String getPrenom() {
-		return prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-
 	public String getNom() {
 		return nom;
 	}
@@ -130,7 +108,7 @@ public class ModifierClientEntrepriseBean {
 		return adresse;
 	}
 
-	public void setRue(String adresse) {
+	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
 
@@ -165,13 +143,5 @@ public class ModifierClientEntrepriseBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-//	public String getNomEntreprise() {
-//		return nomEntreprise;
-//	}
-//
-//	public void setNomEntreprise(String nomEntreprise) {
-//		this.nomEntreprise = nomEntreprise;
-//	}
 
 }

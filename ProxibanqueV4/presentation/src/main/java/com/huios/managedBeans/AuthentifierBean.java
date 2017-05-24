@@ -1,11 +1,10 @@
 package com.huios.managedBeans;
 
-import java.io.IOException;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 //import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -42,39 +41,58 @@ public class AuthentifierBean {
 	/* ----------------- Méthodes ----------------- */
 
 	public String authentifier() {
-		System.out.println(conseillerClientele.getEmail() + " | " + conseillerClientele.getPassword());
+		//System.out.println(conseillerClientele.getEmail() + " | " + conseillerClientele.getPassword());
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
+		FacesMessage message;
 		
-		conseillerConnecte = (ConseillerClientele) service.authentification(conseillerClientele.getEmail(), conseillerClientele.getPassword());
-
-		System.out.println("NOM = " + conseillerConnecte.getNom());
-		
-		externalContext.getSessionMap().put("conseillerConnecte", conseillerConnecte);
-
-		if (conseillerConnecte == null) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur d'authentification", "");
-			FacesContext.getCurrentInstance().addMessage(null, message);
-			return "index";
+		try {
+            HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+            request.login(conseillerClientele.getEmail(), conseillerClientele.getPassword());
+            
+			conseillerConnecte = (ConseillerClientele) service.authentification(conseillerClientele.getEmail(), conseillerClientele.getPassword());
+			externalContext.getSessionMap().put("conseillerConnecte", conseillerConnecte);
+			
+			message = new FacesMessage("Connecté");
+			context.addMessage(null, message);
+			
+            if(request.isUserInRole("Conseiller"))
+            	return "/conseiller/listerClients.xhtml";
+            else if(request.isUserInRole("DirecteurAgence"))
+            	return "/directeurAgence/listerConseillers.xhtml";
+            else {
+            	return "../index.xhtml";
+            }
+            
+		} catch (Exception e) {
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur d'authentification", "");
+			context.addMessage(null, message);
+			e.printStackTrace();
+			return "/login.xhtml";
 		}
-
-		FacesMessage message = new FacesMessage("Connecté");
-		FacesContext.getCurrentInstance().addMessage(null, message);
-		return "listerClients";
+		
 	}
 
 	public void deconnecter() {
-
-		conseillerConnecte = null;
-		conseillerClientele = new ConseillerClientele();
-
-		FacesContext ctx = FacesContext.getCurrentInstance();
-
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+		FacesMessage message;
+		
 		try {
-			ctx.getExternalContext().redirect("index.xhtml");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
+	        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+	        request.logout();
+	        
+			conseillerConnecte = null;
+			conseillerClientele = new ConseillerClientele();
+
+			externalContext.redirect("../index.xhtml");
+			
+		} catch (Exception e) {
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur lors de la tentative de déconnection", "");
+			context.addMessage(null, message);
 			e.printStackTrace();
 		}
 

@@ -12,11 +12,9 @@
 		<div class="block">
 			<p:panel class="panel">
 				<h:form>
-					<h:outputText styleClass="h3"
-					value="#{'Bienvenue '.concat(authentifierBean.conseillerConnecte.nom).concat(' !')}" />
-<!-- 						value="#{'Bienvenue '.concat(authentifierBean.conseillerConnecte.civilite).concat(' ').concat(authentifierBean.conseillerConnecte.nom).concat(' !')}" /> -->
+<!-- 					<h:outputText styleClass="h3" value="#{'Bienvenue '.concat(authentifierBean.conseillerConnecte.civilite).concat(' ').concat(authentifierBean.conseillerConnecte.nom).concat(' !')}" /> -->
 							
-					<h3>Vos clients particulier</h3>
+					<h3>Vos clients "PARTICULIER"</h3>
 
 					<h:dataTable styleClass="table table-hover"
 						value="#{listerClientsBean.listerClientsParticulier()}" var="c">
@@ -35,19 +33,6 @@
 							<f:facet name="header">PRENOM</f:facet>
 							<h:outputText value="#{c.prenom}" />
 						</h:column>
-
-<!-- 						<h:column> -->
-<!-- 							<f:facet name="header">ENTREPRISE</f:facet> -->
-
-<!-- 													<c:choose> -->
-<!-- 														<c:when test="${c.nomEntreprise != null}"> -->
-<!-- 							<h:outputText value="#{c.nomEntreprise}" /> -->
-<!-- 														</c:when> -->
-<!-- 														<c:otherwise> -->
-<!-- 															<h:outputText value="-" /> -->
-<!-- 														</c:otherwise> -->
-<!-- 													</c:choose> -->
-<!-- 						</h:column> -->
 
 						<h:column>
 							<f:facet name="header">DETAILS</f:facet>
@@ -76,18 +61,19 @@
 						</h:column>
 
 					</h:dataTable>
-					<h:messages errorClass="error" />
+<!-- 					<h:messages errorClass="error" /> -->
 				</h:form>
 			</p:panel>
+			
 			<p:panel class="panel">
 				<h:form>
-					<h3>Vos clients Entreprise</h3>
+					<h3>Vos clients "ENTREPRISE"</h3>
 
 					<h:dataTable styleClass="table table-hover"
 						value="#{listerClientsBean.listerClientsEntreprise()}" var="c">
 
 						<h:column>
-							<f:facet name="header">Statut</f:facet>
+							<f:facet name="header">STATUT</f:facet>
 							<h:outputText value="#{c.civilite}" />
 						</h:column>
 
@@ -95,24 +81,6 @@
 							<f:facet name="header">NOM</f:facet>
 							<h:outputText value="#{c.nom}" />
 						</h:column>
-
-						<h:column>
-							<f:facet name="header">PRENOM</f:facet>
-							<h:outputText value="#{c.prenom}" />
-						</h:column>
-
-<!-- 						<h:column> -->
-<!-- 							<f:facet name="header">ENTREPRISE</f:facet> -->
-
-<!-- 													<c:choose> -->
-<!-- 														<c:when test="${c.nomEntreprise != null}"> -->
-<!-- 							<h:outputText value="#{c.nomEntreprise}" /> -->
-<!-- 														</c:when> -->
-<!-- 														<c:otherwise> -->
-<!-- 															<h:outputText value="-" /> -->
-<!-- 														</c:otherwise> -->
-<!-- 													</c:choose> -->
-<!-- 						</h:column> -->
 
 						<h:column>
 							<f:facet name="header">DETAILS</f:facet>
@@ -141,7 +109,7 @@
 						</h:column>
 
 					</h:dataTable>
-					<h:messages errorClass="error" />
+<!-- 					<h:messages errorClass="error" /> -->
 				</h:form>
 			</p:panel>
 		</div>
