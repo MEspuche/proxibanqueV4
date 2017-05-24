@@ -22,7 +22,11 @@ Comment lancer l'application Java proxibanqueV4
 	- Créer les tables et peupler la base de donnée en exécutant les fichiers "BDD\proxibanque.sql" et "BDD\proxibanqueData.sql"
 		
 	(dans phpMyAdmin en cliquant sur l'onglet import)
-			
+	
+	- Copier le fichier "Livraison\context.xml" dans le repertoire "conf" de Tomcat (remplacer le fichier déjà présent)
+		
+	(ex: C:\apache-tomcat-9.0.0.M19\conf, si Tomcat est installé dans C:\apache-tomcat-9.0.0.M19)
+	
 	- Copier le fichier "Livraison\presentation.war" dans le repertoire "webapps" de Tomcat
 		
 	(ex: C:\apache-tomcat-9.0.0.M19\webapps, si Tomcat est installé dans C:\apache-tomcat-9.0.0.M19)
