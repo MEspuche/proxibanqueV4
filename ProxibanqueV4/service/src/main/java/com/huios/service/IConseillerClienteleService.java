@@ -117,7 +117,7 @@ public interface IConseillerClienteleService {
 	 * Méthode qui permet de modifier un compte qui existe déjà en base de données 
 	 * @param compte Compte à modifier
 	 */
-	public void modifierCompte(Compte compte);
+	public Compte modifierCompte(Compte compte);
 
 	/** 
 	 * Méthode qui permet de supprimer un client en base de données
@@ -142,7 +142,7 @@ public interface IConseillerClienteleService {
 	 * @throws SoldeInsuffisantException
 	 * @throws MontantNegatifException
 	 */
-	public double effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant)
+	public Compte effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant)
 			throws SoldeInsuffisantException, MontantNegatifException;
 
 	/**

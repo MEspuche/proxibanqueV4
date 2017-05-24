@@ -227,7 +227,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	 * Méthode qui permet de modifier un compte qui existe déjà en base de données 
 	 */
 	@Override
-	public void modifierCompte(Compte compte) {
+	public Compte modifierCompte(Compte compte) {
 		double soldeInitial = compteRepository.findOne(compte.getId()).getSolde();
 		double soldeFinal = compte.getSolde();
 		compteRepository.modifierCompte(compte.getNumCompte(), compte.getSolde(), compte.getDateOuverture(),
@@ -247,6 +247,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			tr.setTypeTransaction("RetraitArgent");
 			transactionRepository.save(tr);
 		}
+		return compte;
 
 	}
 
@@ -340,7 +341,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	 * Méthode qui permet d'effectuer un virement
 	 */
 	@Override
-	public double effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant)
+	public Compte effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant)
 			throws SoldeInsuffisantException, MontantNegatifException {
 		if (montant < 0) // Test si le montant entré est inférieur à 0
 		{
@@ -355,8 +356,8 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 				if (montant < ce.getSolde()) // Test si le montant est inferieur
 												// au solde du compte
 				{
-					double soldeDebiteur = ce.getSolde() - montant;
-					ce.setSolde(soldeDebiteur);
+					
+					ce.setSolde(ce.getSolde() - montant);
 					c.setSolde(c.getSolde() + montant);
 					Transaction tr3 = new Transaction();
 					tr3.setTypeTransaction("Virement");
@@ -364,7 +365,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 					tr3.setSoldeEntrant(montant);
 					tr3.setDateTransaction(new Date());
 					transactionRepository.save(tr3);
-					return soldeDebiteur;
+					return ce;
 				} else {
 					throw new SoldeInsuffisantException("Montant supérieur au solde");
 				}
@@ -377,8 +378,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 															// découvert
 															// autorisé
 					{
-						double soldeDebiteur = cc.getSolde() - montant;
-						cc.setSolde(soldeDebiteur);
+						cc.setSolde(cc.getSolde() - montant);
 						cc.setSolde(cc.getSolde() - montant);
 						c.setSolde(c.getSolde() + montant);
 						Transaction tr = new Transaction();
@@ -387,7 +387,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 						tr.setSoldeEntrant(montant);
 						tr.setDateTransaction(new Date());
 						transactionRepository.save(tr);
-						return soldeDebiteur;
+						return cc;
 
 					} else {
 						throw new SoldeInsuffisantException("Le découvert n'autorise pas ce virement");
@@ -396,7 +396,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 			}
 		}
-		return 0;
+		return null;
 	}
 
 	/**

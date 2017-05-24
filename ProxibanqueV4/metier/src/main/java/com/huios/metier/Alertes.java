@@ -1,5 +1,6 @@
 package com.huios.metier;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -23,7 +24,21 @@ public class Alertes {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	private Collection<String> alertes;
+	private ArrayList<String> alertes;
+
+	/**
+	 * @return the alertes
+	 */
+	public Collection<String> getAlertes() {
+		return alertes;
+	}
+
+	/**
+	 * @param alertes the alertes to set
+	 */
+	public void setAlertes(ArrayList<String> alertes) {
+		this.alertes = alertes;
+	}
 	
 	
 	
