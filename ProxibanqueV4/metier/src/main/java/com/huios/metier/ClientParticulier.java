@@ -25,6 +25,16 @@ public class ClientParticulier extends Client implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "ClientParticulier [getMesComptes()=" + getMesComptes() + ", getMonConseiller()=" + getMonConseiller()
+				+ ", toString()=" + super.toString() + ", getCivilite()=" + getCivilite() + ", getId()=" + getId()
+				+ ", getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getAdresse()=" + getAdresse()
+				+ ", getCodePostal()=" + getCodePostal() + ", getVille()=" + getVille() + ", getTelephone()="
+				+ getTelephone() + ", getEmail()=" + getEmail() + ", getPassword()=" + getPassword() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + "]";
+	}
+
 	
 	
 }
