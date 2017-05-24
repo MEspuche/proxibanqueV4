@@ -21,7 +21,7 @@ public class Transaction {
 	private String typeTransaction;
 	private Date dateTransaction;
 	private double soldeEntrant;
-	private double soldeSortant;
+	private double soleSortant;
 	public int getId() {
 		return id;
 	}
@@ -46,11 +46,11 @@ public class Transaction {
 	public void setSoldeEntrant(double soldeEntrant) {
 		this.soldeEntrant = soldeEntrant;
 	}
-	public double getSoldeSortant() {
-		return soldeSortant;
+	public double getSoleSortant() {
+		return soleSortant;
 	}
-	public void setSoldeSortant(double soldeSortant) {
-		this.soldeSortant = soldeSortant;
+	public void setSoleSortant(double soleSortant) {
+		this.soleSortant = soleSortant;
 	}
 	
 	

@@ -55,7 +55,7 @@ public class DirecteurAgenceService implements IDirecteurAgenceService {
 		if (personneRepository.findOne(idConseiller) == null) {
 			throw new UserInexistantException("Conseiller inexistant");
 		} else {
-			personneRepository.modifierConseiller(c.getCivilite(), c.getNom(), c.getPrenom(), c.getAdresse(), c.getCodePostal(),
+			personneRepository.modifierConseiller(c.getNom(), c.getPrenom(), c.getAdresse(), c.getCodePostal(),
 					c.getVille(), c.getTelephone(), c.getEmail(), c.getPassword(), idConseiller);
 		}
 	}
