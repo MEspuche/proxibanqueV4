@@ -19,13 +19,13 @@ public class DirecteurTests {
 		
 		@Test
 		public void testAuthentificationDirecteur() throws UserInvalidException {
-			DirecteurAgence dir =  (DirecteurAgence) dirAgenceService.authentification("bla@bla.com");
+			DirecteurAgence dir =  (DirecteurAgence) dirAgenceService.authentification("bla@bla.com", "lol");
 			assertEquals(dir.getNom(), "LOL");
 		}
 
 		@Test(expected = UserInvalidException.class)
 		public void testAuthentificationDirecteurNonExistant() throws UserInvalidException {
-			dirAgenceService.authentification("nope");
+			dirAgenceService.authentification("nope", "nope");
 		}
 		
 }

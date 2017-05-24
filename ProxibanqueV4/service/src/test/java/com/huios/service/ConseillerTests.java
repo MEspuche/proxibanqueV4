@@ -20,13 +20,13 @@ public class ConseillerTests {
 
 	@Test
 	public void testAuthentificationConseiller() throws UserInvalidException {
-		ConseillerClientele cons =  (ConseillerClientele) consClienteleService.authentification("Moi");
+		ConseillerClientele cons =  (ConseillerClientele) consClienteleService.authentification("Moi", "moi");
 		assertEquals(cons.getNom(), "NOEL");
 	}
 	
 	@Test(expected = UserInvalidException.class)
 	public void testAuthentificationDirecteurNonExistant() throws UserInvalidException {
-		consClienteleService.authentification("nope");
+		consClienteleService.authentification("nope", "nope");
 	}
 
 }
