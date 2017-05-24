@@ -49,7 +49,7 @@ public class TestCRUDClient {
 	@Test
 	public void testmodifierClientExistant() {
 		ClientParticulier cl = (ClientParticulier) clientParticulierRepository.findOne(3);
-		personneRepository.modifierClient(cl.getNom(), cl.getPrenom(), "24 rue de la bienveillance", cl.getCodePostal(),
+		personneRepository.modifierClient(cl.getCivilite(), cl.getNom(), cl.getPrenom(), "24 rue de la bienveillance", cl.getCodePostal(),
 				cl.getVille(), cl.getTelephone(), cl.getEmail(), 3);
 
 		assertEquals(personneRepository.findOne(3).getAdresse(), "24 rue de la bienveillance");

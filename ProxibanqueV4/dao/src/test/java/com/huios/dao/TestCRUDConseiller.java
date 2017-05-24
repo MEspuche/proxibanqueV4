@@ -37,7 +37,7 @@ public class TestCRUDConseiller extends TestCase {
 	@Test
 	public void testmodifierConseillerExistant() {
 		ConseillerClientele cl= (ConseillerClientele) conseillerRepository.findOne(19);
-		conseillerRepository.modifierConseiller(cl.getNom(), cl.getPrenom(), "24 rue de la bienveillance", cl.getCodePostal(), cl.getVille(), cl.getTelephone(), cl.getEmail(), cl.getPassword(), 19);
+		conseillerRepository.modifierConseiller(cl.getCivilite(), cl.getNom(), cl.getPrenom(), "24 rue de la bienveillance", cl.getCodePostal(), cl.getVille(), cl.getTelephone(), cl.getEmail(), cl.getPassword(), 19);
 		assertEquals(conseillerRepository.findOne(19).getAdresse(), "24 rue de la bienveillance");
 	}
 	
