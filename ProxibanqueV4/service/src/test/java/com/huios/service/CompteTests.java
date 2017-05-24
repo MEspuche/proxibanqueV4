@@ -7,11 +7,8 @@ import java.util.Collection;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.huios.dao.ClientParticulierRepository;
-import com.huios.dao.PersonneRepository;
 import com.huios.exceptions.CompteCourantDejaExistantException;
 import com.huios.exceptions.CompteEpargneDejaExistantException;
 import com.huios.exceptions.CompteInexistantException;

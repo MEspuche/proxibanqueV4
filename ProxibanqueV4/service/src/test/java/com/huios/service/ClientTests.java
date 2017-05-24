@@ -14,7 +14,7 @@ import com.huios.exceptions.NombreClientsMaxAtteintException;
 import com.huios.exceptions.UserInexistantException;
 import com.huios.metier.Client;
 import com.huios.metier.ClientParticulier;
-import com.huios.metier.Compte;
+
 
 public class ClientTests {
 
