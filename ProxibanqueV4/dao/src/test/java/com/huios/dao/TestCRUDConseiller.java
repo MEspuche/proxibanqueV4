@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.huios.metier.ConseillerClientele;
+import com.huios.metier.Personne;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -20,7 +21,7 @@ public class TestCRUDConseiller extends TestCase {
 	ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 	// 2- Récupération d'un bean
-	ConseillerRepository conseillerRepository = (ConseillerRepository) appContext.getBean("conseillerRepository");
+	PersonneRepository personneRepository =  (PersonneRepository) appContext.getBean("personneRepository");
 	
 	
 	@Test
@@ -28,30 +29,30 @@ public class TestCRUDConseiller extends TestCase {
 		ConseillerClientele c = new ConseillerClientele();
 		c.setNom("NOEL");
 		c.setPrenom("Christian");
-		conseillerRepository.save(c);
-		ConseillerClientele c1= (ConseillerClientele) conseillerRepository.findByNom("NOEL");
+		personneRepository.save(c);
+		ConseillerClientele c1= personneRepository.findConseillerByNom("NOEL");
 		assertEquals(c.getNom(), c1.getNom() );	
 		assertEquals(c.getPrenom(), c1.getPrenom() );	
 	}
 @Ignore
 	@Test
 	public void testmodifierConseillerExistant() {
-		ConseillerClientele cl= (ConseillerClientele) conseillerRepository.findOne(19);
-		conseillerRepository.modifierConseiller(cl.getCivilite(), cl.getNom(), cl.getPrenom(), "24 rue de la bienveillance", cl.getCodePostal(), cl.getVille(), cl.getTelephone(), cl.getEmail(), cl.getPassword(), 19);
-		assertEquals(conseillerRepository.findOne(19).getAdresse(), "24 rue de la bienveillance");
+		ConseillerClientele cl= (ConseillerClientele) personneRepository.findOne(19);
+		personneRepository.modifierConseiller(cl.getCivilite(), cl.getNom(), cl.getPrenom(), "24 rue de la bienveillance", cl.getCodePostal(), cl.getVille(), cl.getTelephone(), cl.getEmail(), cl.getPassword(), 19);
+		assertEquals(personneRepository.findOne(19).getAdresse(), "24 rue de la bienveillance");
 	}
 	
 	@Ignore
 	@Test
 	public void testsupprimerConseillerExistant() {
-		conseillerRepository.delete(2);
-		ConseillerClientele cl= (ConseillerClientele) conseillerRepository.findOne(2);
+		personneRepository.delete(2);
+		ConseillerClientele cl= (ConseillerClientele) personneRepository.findOne(2);
 		Assert.assertEquals(cl, null);
 	}
 	
 	@Test
 	public void testAfficherConseillers(){
-		Collection <ConseillerClientele> conseillers = conseillerRepository.findAll();
+		Collection<Personne> conseillers = personneRepository.findAll();
 		assertNotNull(conseillers);
 		
 	}

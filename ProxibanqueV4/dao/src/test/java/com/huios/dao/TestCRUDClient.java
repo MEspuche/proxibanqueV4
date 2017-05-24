@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.huios.metier.ClientParticulier;
+import com.huios.metier.Personne;
 
 import junit.framework.Assert;
 
@@ -21,8 +22,6 @@ public class TestCRUDClient {
 	ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 	// 2- Récupération d'un bean
-	ClientParticulierRepository clientParticulierRepository = (ClientParticulierRepository) appContext
-			.getBean("clientParticulierRepository");
 	PersonneRepository personneRepository = (PersonneRepository) appContext.getBean("personneRepository");
 
 	// @Autowired
@@ -40,7 +39,7 @@ public class TestCRUDClient {
 		// cons.setId(51);
 		// c.setMonConseiller(cons);
 		personneRepository.save(c);
-		ClientParticulier c1 = (ClientParticulier) personneRepository.findByNom("CIEL");
+		ClientParticulier c1 = (ClientParticulier) personneRepository.findClientByNom("CIEL");
 		Assert.assertEquals(c.getNom(), c1.getNom());
 		Assert.assertEquals(c.getPrenom(), c1.getPrenom());
 	}
@@ -48,7 +47,7 @@ public class TestCRUDClient {
 	@Ignore
 	@Test
 	public void testmodifierClientExistant() {
-		ClientParticulier cl = (ClientParticulier) clientParticulierRepository.findOne(3);
+		ClientParticulier cl = (ClientParticulier) personneRepository.findOne(3);
 		personneRepository.modifierClient(cl.getCivilite(), cl.getNom(), cl.getPrenom(), "24 rue de la bienveillance", cl.getCodePostal(),
 				cl.getVille(), cl.getTelephone(), cl.getEmail(), 3);
 
@@ -65,7 +64,7 @@ public class TestCRUDClient {
 
 	@Test
 	public void testAfficherClients() {
-		Collection<ClientParticulier> clients =clientParticulierRepository.findAll();
+		Collection<Personne> clients =personneRepository.findAll();
 		assertNotNull(clients);
 
 	}
