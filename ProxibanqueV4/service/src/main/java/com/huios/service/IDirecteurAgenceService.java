@@ -6,8 +6,8 @@ import java.util.List;
 import com.huios.exceptions.UserInexistantException;
 import com.huios.exceptions.UserInvalidException;
 import com.huios.metier.ConseillerClientele;
-import com.huios.metier.DirecteurAgence;
 import com.huios.metier.Personne;
+import com.huios.metier.Transaction;
 
 public interface IDirecteurAgenceService {
 
@@ -32,6 +32,6 @@ public interface IDirecteurAgenceService {
 	public void supprimerConseiller (int idConseiller) throws UserInexistantException;
 	
 	/** AUTRES METHODES (fonctionnalités à forte valeur ajoutée) */
-	public Collection<String> rapportTransactionMois();
-	public Collection<String> rapportTransactionSemaine();
+	public List<Transaction> rapportTransactionMois(int nbMois);
+	public List<Transaction> rapportTransactionSemaine();
 }

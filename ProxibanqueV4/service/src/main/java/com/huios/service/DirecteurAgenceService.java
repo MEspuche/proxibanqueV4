@@ -1,6 +1,7 @@
 package com.huios.service;
 
-import java.util.Collection;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.dao.PersonneRepository;
 import com.huios.dao.RolesRepository;
+import com.huios.dao.TransactionRepository;
 import com.huios.exceptions.UserInexistantException;
 import com.huios.exceptions.UserInvalidException;
 import com.huios.metier.ConseillerClientele;
 import com.huios.metier.DirecteurAgence;
 import com.huios.metier.Personne;
 import com.huios.metier.Roles;
+import com.huios.metier.Transaction;
 
 @Transactional
 @Service
@@ -25,6 +28,9 @@ public class DirecteurAgenceService implements IDirecteurAgenceService {
 
 	@Autowired
 	private RolesRepository rolesRepository;
+	
+	@Autowired
+	private TransactionRepository transactionRepository;
 
 	@Override
 	public Personne authentification(String email, String pwd) throws UserInvalidException {
@@ -92,13 +98,21 @@ public class DirecteurAgenceService implements IDirecteurAgenceService {
 	}
 
 	@Override
-	public Collection<String> rapportTransactionMois() {
-		return null;
+	public List<Transaction> rapportTransactionMois(int nbMois) {
+		Date date = new Date();
+		date.setMonth(date.getMonth()-nbMois);
+		System.out.println(date);
+		return transactionRepository.findByDateTransactionAfter(date);
 	}
+	
+	
 
 	@Override
-	public Collection<String> rapportTransactionSemaine() {
-		return null;
+	public List<Transaction> rapportTransactionSemaine() {
+		Date date = new Date();
+		date.setMinutes(date.getMinutes()-10080);
+		System.out.println(date);
+		return transactionRepository.findByDateTransactionAfter(date);
 	}
 
 }

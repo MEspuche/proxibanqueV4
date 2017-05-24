@@ -52,6 +52,11 @@ public class Transaction {
 	public void setSoldeSortant(double soldeSortant) {
 		this.soldeSortant = soldeSortant;
 	}
+	@Override
+	public String toString() {
+		return "Transaction [id=" + id + ", typeTransaction=" + typeTransaction + ", dateTransaction=" + dateTransaction
+				+ ", soldeEntrant=" + soldeEntrant + ", soldeSortant=" + soldeSortant + "]";
+	}
 	
 	
 	
