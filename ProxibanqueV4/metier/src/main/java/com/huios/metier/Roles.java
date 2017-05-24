@@ -9,15 +9,16 @@ import javax.persistence.Id;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
+/**
+ * Classe Roles qui génère la tables utilisée par JAAS (sécurité)
+ * @author Perrine Stephane Vincent Marine
+ *
+ */
 @Entity
 @Component
 @Scope("prototype")
 public class Roles implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

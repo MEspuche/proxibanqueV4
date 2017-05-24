@@ -11,15 +11,21 @@ import javax.persistence.OneToMany;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+
+/**
+ * Classe DirecteurAgence qui hérite de Personne
+ * Le Directeur d'agence peut ajouter, modifier et supprimer ses conseillers. Il peut aussi être alerté par la présence de comptes négatifs 
+ * Il a également acces au transactions faites la semaine dernière ou dans les mois précédents
+ * @author Perrine Stephane Vincent Marine
+ *
+ */
 @Entity
 @Component
 @Scope("prototype")
 @DiscriminatorValue(value="DirecteurAgence")
 public class DirecteurAgence extends Personne implements Serializable{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	@OneToMany(fetch = FetchType.EAGER , mappedBy="monDirecteurAgence")
 	private Collection<ConseillerClientele> mesConseillers;

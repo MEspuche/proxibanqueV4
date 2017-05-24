@@ -7,16 +7,17 @@ import javax.persistence.Entity;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
+/**
+ * Classe ClientParticulier qui hérite de la classe Client
+ * @author Stagiaire
+ *
+ */
 @Entity
 @Component
 @Scope("prototype")
 @DiscriminatorValue(value="ClientParticulier")
 public class ClientParticulier extends Client implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public ClientParticulier() {

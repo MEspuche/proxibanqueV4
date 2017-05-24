@@ -13,7 +13,11 @@ import javax.persistence.InheritanceType;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
+/**
+ * Classe Abstraite Personne qui rassemble les attributs suivant : civilité, nom, prenom, adresse, codePostal, ville, telephone, email et mot de passe
+ * @author Perrine Stephane Vincent Marine
+ *
+ */
 @Entity
 @Component
 @Scope("prototype")
@@ -21,9 +25,7 @@ import org.springframework.stereotype.Component;
 @DiscriminatorColumn(name="TypePersonne")
 public abstract class Personne implements Serializable{
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

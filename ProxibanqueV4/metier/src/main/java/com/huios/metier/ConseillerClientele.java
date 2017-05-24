@@ -12,7 +12,14 @@ import javax.persistence.OneToMany;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
+/**
+ * 
+ * /**
+ * Classe ConseillerClientele qui hérite de la classe Personne  
+ * le conseiller clientèle peut ajouter, modifier, supprimer ses clients ainsi que gérer les comptes de ses clients
+ * @author Perrine Stephane Vincent Marine
+ *
+ */
 @Entity
 @Component
 @Scope("prototype")
@@ -20,9 +27,7 @@ import org.springframework.stereotype.Component;
 public class ConseillerClientele extends Personne implements Serializable{
 
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne

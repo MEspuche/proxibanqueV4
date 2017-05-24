@@ -9,7 +9,11 @@ import javax.persistence.Id;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
+/**
+ * Classe Transaction qui permet d'enregistrer les transactions effectuées au sein de la banque 
+ * @author Perrine Stephane Vincent Marine
+ *
+ */
 @Entity
 @Component
 @Scope("prototype")

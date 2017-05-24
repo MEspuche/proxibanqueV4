@@ -15,7 +15,11 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
+/**
+ * Classe Compte : description des comptes clients 
+ * @author Perrine Stephane Vincent Marine
+ *
+ */
 @Entity
 @Component
 @Scope("prototype")
@@ -23,9 +27,7 @@ import org.springframework.stereotype.Component;
 @DiscriminatorColumn(name="TypeCompte")
 public abstract class Compte implements Serializable{
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

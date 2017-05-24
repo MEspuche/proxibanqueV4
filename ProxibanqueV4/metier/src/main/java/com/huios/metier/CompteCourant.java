@@ -8,15 +8,19 @@ import javax.persistence.Entity;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * Classe CompteCourant qui hérite de la classe Compte
+ * Le compte courant a un découvert autorisé de 1000 mais il peut être modifié
+ * @author Perrine Stephane Vincent Marine
+ *
+ */
 @Entity
 @Component
 @Scope("prototype")
 @DiscriminatorValue(value="CompteCourant")
 public class CompteCourant extends Compte implements Serializable{
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private double decouvert=1000;
 

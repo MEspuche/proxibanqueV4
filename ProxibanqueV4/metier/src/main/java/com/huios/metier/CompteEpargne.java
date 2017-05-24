@@ -8,15 +8,18 @@ import javax.persistence.Entity;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * Classe CompteEpargne qui hérite de la classe Compte
+ * Le compte courant a un taux de rémunération de 0.03 mais il peut être modifié
+ * @author Perrine Stephane Vincent Marine
+ *
+ */
 @Entity
 @Component
 @Scope("prototype")
 @DiscriminatorValue(value="CompteEpargne")
 public class CompteEpargne extends Compte implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private double tauxRemuneration = 0.03;
 
