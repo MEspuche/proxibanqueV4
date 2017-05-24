@@ -16,16 +16,16 @@
 
 						<h3>Ajout d'un nouveau conseiller</h3>
 
-<!-- 						<tr> -->
-<!-- 							<td>CIVILITE</td> -->
-<!-- 							<td><h:selectOneMenu value="#{ajouterConseillerBean.civilite}" -->
-<!-- 									required="true" id="civilite"> -->
-<!-- 									<f:selectItem itemLabel="Monsieur" itemValue="Monsieur" /> -->
-<!-- 									<f:selectItem itemLabel="Madame" itemValue="Madame" /> -->
-<!-- 									<f:selectItem itemLabel="Mademoiselle" itemValue="Mademoiselle" /> -->
-<!-- 								</h:selectOneMenu></td> -->
-<!-- 							<td><h:message for="civilite" /></td> -->
-<!-- 						</tr> -->
+						<tr>
+							<td>CIVILITE</td>
+							<td><h:selectOneMenu value="#{ajouterConseillerBean.civilite}"
+									required="true" id="civilite">
+									<f:selectItem itemLabel="Monsieur" itemValue="Monsieur" />
+									<f:selectItem itemLabel="Madame" itemValue="Madame" />
+									<f:selectItem itemLabel="Mademoiselle" itemValue="Mademoiselle" />
+								</h:selectOneMenu></td>
+							<td><h:message for="civilite" /></td>
+						</tr>
 						<tr>
 							<td>PRENOM</td>
 							<td><h:inputText value="#{ajouterConseillerBean.prenom}"
@@ -73,13 +73,6 @@
 									id="email" /></td>
 							<td><h:message for="email" /></td>
 						</tr>
-
-<!-- 						<tr> -->
-<!-- 							<td>ENTREPRISE</td> -->
-<!-- 							<td><h:inputText value="#{ajouterConseillerBean.nomEntreprise}" -->
-<!-- 									id="nomEntreprise" /></td> -->
-<!-- 							<td><h:message for="nomEntreprise" /></td> -->
-<!-- 						</tr> -->
 					</table>
 					<h:messages globalOnly="true" errorClass="erreur" />
 					<p>

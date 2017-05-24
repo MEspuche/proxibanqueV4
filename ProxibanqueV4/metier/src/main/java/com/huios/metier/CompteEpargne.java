@@ -33,7 +33,7 @@ public class CompteEpargne extends Compte implements Serializable{
 
 	@Override
 	public String toString() {
-		return "CompteEpargne [tauxRemuneration=" + tauxRemuneration + "]";
+		return "[ Compte Epargne n° " + super.id + " ] Solde = " + super.solde + " € | Date d'ouverture = " + super.dateOuverture + " | Taux de rémunération = " + this.tauxRemuneration + " %";
 	}
 
 	public CompteEpargne(int id, long numCompte, double solde, String dateOuverture, double tauxRemuneration) {
@@ -43,12 +43,10 @@ public class CompteEpargne extends Compte implements Serializable{
 
 	public CompteEpargne() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CompteEpargne(int id, long numCompte, double solde, String dateOuverture) {
 		super(id, numCompte, solde, dateOuverture);
-		// TODO Auto-generated constructor stub
 	}
 
 	

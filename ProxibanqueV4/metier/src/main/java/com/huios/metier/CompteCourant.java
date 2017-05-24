@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component;
 @DiscriminatorValue(value="CompteCourant")
 public class CompteCourant extends Compte implements Serializable{
 
-
 	private static final long serialVersionUID = 1L;
 	private double decouvert=1000;
 
@@ -31,10 +30,9 @@ public class CompteCourant extends Compte implements Serializable{
 	public void setDecouvert(double decouvert) {
 		this.decouvert = decouvert;
 	}
-
-	@Override
+	
 	public String toString() {
-		return "CompteCourant [decouvert=" + decouvert + "]";
+		return "[ Compte Courant n° " + super.id + " ] Solde = " + super.solde + " € | Date d'ouverture = " + super.dateOuverture + " | Découvert autorisé = " + this.decouvert + " €";
 	}
 
 	public CompteCourant(int id, long numCompte, double solde, String dateOuverture, double decouvert) {
@@ -44,14 +42,10 @@ public class CompteCourant extends Compte implements Serializable{
 
 	public CompteCourant() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CompteCourant(int id, long numCompte, double solde, String dateOuverture) {
 		super(id, numCompte, solde, dateOuverture);
-		// TODO Auto-generated constructor stub
 	}
-	
-	
 	
 }

@@ -94,7 +94,6 @@ public class AuthentifierBean {
 		} catch (Exception e) {
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur d'authentification", "");
 			context.addMessage(null, message);
-			e.printStackTrace();
 			return "/login.xhtml";
 		}
 		

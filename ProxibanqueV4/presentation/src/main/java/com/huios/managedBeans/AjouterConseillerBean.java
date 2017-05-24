@@ -11,15 +11,11 @@ import com.huios.metier.ConseillerClientele;
 import com.huios.metier.DirecteurAgence;
 import com.huios.service.IDirecteurAgenceService;
 
-
 /**
  * 
  * Bean de la vue ajouter
  *
  */
-//@Named	// pour dire que c'est un Bean dans le conteneur de CDI. @Named inclut @ManagedBean de JSF
-//@ManagedBean(name = "ajouterConseillerBean")
-//@RequestScoped
 @Scope("request")
 @Controller(value = "ajouterConseillerBean")
 public class AjouterConseillerBean {
@@ -27,62 +23,63 @@ public class AjouterConseillerBean {
 	/* ----------------- Attributs ----------------- */
 
 	// appel de la couche service
-	// @Inject
 	@Autowired
 	private IDirecteurAgenceService service;
 
 	// le directeur clientèle courant
-	private DirecteurAgence directeur; 
-	
+	private DirecteurAgence directeur;
+
 	private ConseillerClientele conseiller;
-	
-	//private String civilite;
+
+	private String civilite;
 	private String prenom;
 	private String nom;
-	//private String rue;
 	private String adresse;
 	private String codePostal;
 	private String ville;
 	private String telephone;
 	private String email;
-	//private String nomEntreprise;
 
 	/* ----------------- Méthodes ----------------- */
 
 	public String ajouter() {
-	    FacesContext context = FacesContext.getCurrentInstance();
-	    ExternalContext externalContext = context.getExternalContext();
-	    //directeur = service.chercherDirecteurAgence(((DirecteurAgence) externalContext.getSessionMap().get("directeurConnecte")).getId());
-	    //System.out.println("nbr de clients directeur = " + directeur.getMesClients().size());
-	    
-	   conseiller = new ConseillerClientele();
-	    
-	   //Adresse adresse = new Adresse(rue, codePostal, ville);
-	    
-	   // client.setCivilite(civilite);
-	   conseiller.setPrenom(prenom);
-	   conseiller.setNom(nom);
-	    //client.setAdresse(adresse);
-	   conseiller.setAdresse(adresse);
-	   conseiller.setCodePostal(codePostal);
-	   conseiller.setVille(ville);
-	   conseiller.setTelephone(telephone);
-	   conseiller.setEmail(email);
-	    //client.setNomEntreprise(nomEntreprise);
-	    //client.setMonDirecteurAgence(directeur);
-	    
-		//try {
-			service.ajouterConseiller(((DirecteurAgence) externalContext.getSessionMap().get("directeurConnecte")).getId(), conseiller);
-//		} catch (NombreClientsMaxAtteintException e) {
-//			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null);
-//	        FacesContext.getCurrentInstance().addMessage(null, message);
-//		}
-		
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+		// directeur = service.chercherDirecteurAgence(((DirecteurAgence)
+		// externalContext.getSessionMap().get("personneConnectee")).getId());
+
+		conseiller = new ConseillerClientele();
+
+		conseiller.setCivilite(civilite);
+		conseiller.setPrenom(prenom);
+		conseiller.setNom(nom);
+		conseiller.setAdresse(adresse);
+		conseiller.setCodePostal(codePostal);
+		conseiller.setVille(ville);
+		conseiller.setTelephone(telephone);
+		conseiller.setEmail(email);
+		// conseiller.setMonDirecteurAgence(directeur);
+
+		// try {
+		service.ajouterConseiller(((DirecteurAgence) externalContext.getSessionMap().get("directeurConnecte")).getId(),	conseiller);
+		// } catch (Exception e) {
+		// FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null);
+		// FacesContext.getCurrentInstance().addMessage(null, message);
+		// }
+
 		return "listerConseillers";
 	}
 
 	/* ----------------- Getters & Setters ----------------- */
-	
+
+	public String getCivilite() {
+		return civilite;
+	}
+
+	public void setCivilite(String civilite) {
+		this.civilite = civilite;
+	}
+
 	public IDirecteurAgenceService getService() {
 		return service;
 	}
@@ -106,14 +103,14 @@ public class AjouterConseillerBean {
 	public void setConseiller(ConseillerClientele conseiller) {
 		this.conseiller = conseiller;
 	}
-	
-//	public String getCivilite() {
-//	return civilite;
-//}
-//
-//public void setCivilite(String civilite) {
-//	this.civilite = civilite;
-//}
+
+	// public String getCivilite() {
+	// return civilite;
+	// }
+	//
+	// public void setCivilite(String civilite) {
+	// this.civilite = civilite;
+	// }
 
 	public String getPrenom() {
 		return prenom;
@@ -131,13 +128,13 @@ public class AjouterConseillerBean {
 		this.nom = nom;
 	}
 
-//	public String getRue() {
-//		return rue;
-//	}
-//
-//	public void setRue(String rue) {
-//		this.rue = rue;
-//	}
+	// public String getRue() {
+	// return rue;
+	// }
+	//
+	// public void setRue(String rue) {
+	// this.rue = rue;
+	// }
 
 	public String getCodePostal() {
 		return codePostal;
@@ -179,14 +176,12 @@ public class AjouterConseillerBean {
 		this.adresse = adresse;
 	}
 
-//	public String getNomEntreprise() {
-//		return nomEntreprise;
-//	}
-//
-//	public void setNomEntreprise(String nomEntreprise) {
-//		this.nomEntreprise = nomEntreprise;
-//	}
-	
+	// public String getNomEntreprise() {
+	// return nomEntreprise;
+	// }
+	//
+	// public void setNomEntreprise(String nomEntreprise) {
+	// this.nomEntreprise = nomEntreprise;
+	// }
 
-	
 }
