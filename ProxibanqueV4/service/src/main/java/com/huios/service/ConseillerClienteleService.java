@@ -43,7 +43,6 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	@Autowired
 	private ClientRepository clientRepository;
 
-
 	/**
 	 * Méthode permettant à un conseiller clientèle de s'authentifier
 	 * 
@@ -75,8 +74,8 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		if (personneRepository.findOne(c.getId()) == null) {
 			throw new UserInexistantException("Client inexistant");
 		} else {
-			personneRepository.modifierClient(c.getCivilite(),c.getNom(), c.getPrenom(), c.getAdresse(), c.getCodePostal(),
-					c.getVille(), c.getTelephone(), c.getEmail(), c.getId());
+			personneRepository.modifierClient(c.getCivilite(), c.getNom(), c.getPrenom(), c.getAdresse(),
+					c.getCodePostal(), c.getVille(), c.getTelephone(), c.getEmail(), c.getId());
 		}
 	}
 
@@ -111,27 +110,20 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 	@Override
 	public void supprimerClient(int idClient) throws UserInexistantException {
-		if (personneRepository.findOne(idClient) != null) {
-			System.out.println(personneRepository.findOne(idClient));
-			if (compteRepository.trouverCompteCourant(idClient) != null
-					|| compteRepository.trouverCompteEpargne(idClient) != null) {
-				supprimerComptesClient(idClient);
-				personneRepository.delete(idClient);
-
-			} else {
-				personneRepository.delete(idClient);
-			}
+		Client c = (Client) personneRepository.findOne(idClient);
+		if (c != null) {
+			supprimerComptesClient(idClient);
+			personneRepository.delete(idClient);
+		} else {
+			throw new UserInexistantException("Client inexistant");
 		}
-		throw new UserInexistantException("Client inexistant");
 	}
 
 	public void supprimerComptesClient(int idClient) {
 		CompteCourant cc = null;
 		CompteEpargne ce = null;
-		// double x = 1000;
 		Client c = (Client) personneRepository.findOne(idClient);
 		cc = compteRepository.trouverCompteCourantByClient(c);
-		// double y = 0.03;
 		ce = compteRepository.trouverCompteEpargneByClient(c);
 		if (cc != null) {
 			Transaction tr1 = new Transaction();
@@ -163,10 +155,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			throws CompteEpargneDejaExistantException {
 		CompteEpargne ce = null;
 		Client client = (Client) personneRepository.findOne(idClient);
-		System.out.println(client);
-		// double y = 0.03;
 		ce = compteRepository.trouverCompteEpargneByClient(client);
-		System.out.println(ce);
 		if (ce != null) {
 			throw new CompteEpargneDejaExistantException("Le client a déjà un compte épargne");
 		} else {
@@ -185,7 +174,6 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			throws CompteCourantDejaExistantException {
 		CompteCourant cc = null;
 		Client c = (Client) personneRepository.findOne(idClient);
-		// double x = 1000;
 		cc = compteRepository.trouverCompteCourantByClient(c);
 		if (cc != null) {
 			throw new CompteCourantDejaExistantException("Le client a déjà un compte courant");
@@ -205,16 +193,14 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		double soldeFinal = compte.getSolde();
 		compteRepository.modifierCompte(compte.getNumCompte(), compte.getSolde(), compte.getDateOuverture(),
 				compte.getId());
-		double solde = (soldeFinal - soldeInitial) ;
-		if(solde>0)
-		{
+		double solde = (soldeFinal - soldeInitial);
+		if (solde > 0) {
 			Transaction tr = new Transaction();
 			tr.setDateTransaction(new Date());
 			tr.setSoldeEntrant(solde);
 			tr.setTypeTransaction("DepotArgent");
 		}
-		if(solde<0)
-		{
+		if (solde < 0) {
 			Transaction tr = new Transaction();
 			tr.setDateTransaction(new Date());
 			tr.setSoldeSortant(solde);
@@ -232,36 +218,22 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		if (cc == null && ce == null) {
 			throw new CompteInexistantException("Le compte à supprimer n'existe pas");
 		} else {
-			
+
 			if (cc != null) {
 				Transaction tr1 = new Transaction();
 				tr1.setTypeTransaction("SuppressionCompteCourant");
 				tr1.setSoldeSortant(cc.getSolde());
 				tr1.setDateTransaction(new Date());
 				compteRepository.delete(cc);
-				if (ce != null) {
-					Transaction tr2 = new Transaction();
-					tr2.setTypeTransaction("SuppressionCompteEpargne");
-					tr2.setSoldeSortant(ce.getSolde());
-					tr2.setDateTransaction(new Date());
-					compteRepository.delete(ce);
-				}
 			} else {
-				if ((ce != null)) {
-					Transaction tr3 = new Transaction();
-					tr3.setTypeTransaction("SuppressionCompteEpargne");
-					tr3.setSoldeSortant(ce.getSolde());
-					tr3.setDateTransaction(new Date());
-					compteRepository.delete(ce);
-					compteRepository.delete(ce);
-				}
-			
+				Transaction tr3 = new Transaction();
+				tr3.setTypeTransaction("SuppressionCompteEpargne");
+				tr3.setSoldeSortant(ce.getSolde());
+				tr3.setDateTransaction(new Date());
+				compteRepository.delete(ce);
 			}
 		}
-	
 	}
-	
-	
 
 	@Override
 	public Collection<Compte> afficherComptes(int idClient) throws CompteInexistantException {
@@ -355,7 +327,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 						tr.setSoldeSortant(montant);
 						tr.setSoldeEntrant(montant);
 						tr.setDateTransaction(new Date());
-						
+
 					} else {
 						throw new SoldeInsuffisantException("Le découvert n'autorise pas ce virement");
 					}
