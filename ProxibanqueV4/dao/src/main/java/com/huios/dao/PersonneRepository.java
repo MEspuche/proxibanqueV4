@@ -20,12 +20,12 @@ public interface PersonneRepository extends JpaRepository<Personne, Integer> {
 	public Personne authentification(String email, String pwd);
 	
 	@Modifying
-	@Query("UPDATE Personne p SET p.nom = ?1, p.prenom= ?2, p.adresse = ?3, p.codePostal = ?4, p.ville = ?5, p.telephone = ?6, p.email = ?7, p.password = ?8 WHERE p.id = ?9")
-	public void modifierConseiller(String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, String password, int idConseiller);
+	@Query("UPDATE Personne p SET p.civilite = ?1, p.nom = ?2, p.prenom= ?3, p.adresse = ?4, p.codePostal = ?5, p.ville = ?6, p.telephone = ?7, p.email = ?8, p.password = ?9 WHERE p.id = ?10")
+	public void modifierConseiller(String civilite, String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, String password, int idConseiller);
 	
 	@Modifying
-	@Query("UPDATE Personne p SET p.nom = ?1, p.prenom= ?2, p.adresse = ?3, p.codePostal = ?4, p.ville = ?5, p.telephone = ?6, p.email = ?7 WHERE p.id = ?8")
-	public void modifierClient(String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, int idConseiller);
+	@Query("UPDATE Personne p SET p.civilite = ?1, p.nom = ?2, p.prenom= ?3, p.adresse = ?4, p.codePostal = ?5, p.ville = ?6, p.telephone = ?7, p.email = ?8 WHERE p.id = ?9")
+	public void modifierClient(String civilite, String nom, String prenom, String adresse, String codepostal, String ville, String telephone, String email, int idConseiller);
 	
 	@Query("FROM Personne p WHERE p.monConseiller.id = ?1")
 	public List<Client> listerClients(int id);
