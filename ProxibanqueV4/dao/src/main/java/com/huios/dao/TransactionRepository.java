@@ -10,13 +10,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.metier.Transaction;
 
+/**
+ * Interface SpringData pour faire les requête sur la table de transaction en base de données
+ * @author Perrine Stephane Vincent Marine
+ *
+ */
 @Transactional
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer>{
 
 
 	
-	
+	/**
+	 * Requête pour récupérer des transaction après la date indiquée
+	 * @param date date indiquée
+	 * @return une liste de transactions
+	 */
 	public List<Transaction> findByDateTransactionAfter(Date date);
 	
 	
