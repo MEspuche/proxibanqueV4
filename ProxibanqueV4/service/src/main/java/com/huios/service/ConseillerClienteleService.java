@@ -30,7 +30,12 @@ import com.huios.metier.CompteEpargne;
 import com.huios.metier.ConseillerClientele;
 import com.huios.metier.Personne;
 import com.huios.metier.Transaction;
-
+/**
+ * Classe ConseillerClienteleService 
+ * Fonctions accessibles uniquement par le conseiller
+ * @author Perrine Stephane Vincent Marine
+ *
+ */
 @Transactional
 @Service
 public class ConseillerClienteleService implements IConseillerClienteleService {
@@ -50,7 +55,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	/**
 	 * Méthode permettant à un conseiller clientèle de s'authentifier
 	 * 
-	 * @throws UserInvalidException
+	 * @throws UserInvalidException exception si il n'existe pas en base de données
 	 */
 	@Override
 	public Personne authentification(String email, String pwd) throws UserInvalidException {
@@ -61,6 +66,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		}
 	}
 
+	/**
+	 * Méthode qui permet d'ajouter un client en base de données
+	 */
 	@Override
 	public void ajouterClient(int idConseiller, Client client) throws NombreClientsMaxAtteintException {
 		ConseillerClientele c1 = (ConseillerClientele) personneRepository.findOne(idConseiller);
@@ -73,6 +81,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		}
 	}
 
+	/**
+	 * Méthode quui permet de modifier un client qui existe déjà en base de données
+	 */
 	@Override
 	public void modifierClient(Client c) throws UserInexistantException {
 		if (personneRepository.findOne(c.getId()) == null) {
@@ -83,6 +94,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		}
 	}
 
+	/**
+	 * Méthode qui permet de récuperer un Client en base de données
+	 */
 	@Override
 	public Client afficherClient(int idClient) throws UserInexistantException {
 		Client c = (Client) personneRepository.findOne(idClient);
@@ -112,6 +126,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		}
 	}
 
+	/**
+	 * Méthode qui permet de supprimer un client en base de données
+	 */
 	@Override
 	public void supprimerClient(int idClient) throws UserInexistantException {
 		Client c = (Client) personneRepository.findOne(idClient);
@@ -123,6 +140,10 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		}
 	}
 
+	/**
+	 * Métode qui permet de supprimer les comptes d'un client 
+	 * @param idClient identifiant du client
+	 */
 	public void supprimerComptesClient(int idClient) {
 		CompteCourant cc = null;
 		CompteEpargne ce = null;
@@ -157,6 +178,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		}
 	}
 
+	/**
+	 * Méthode qui permet d'ajouter un compte epargne à un client en base de données
+	 */
 	@Override
 	public void ajouterCompteEpargne(int idClient, CompteEpargne compteEpargne)
 			throws CompteEpargneDejaExistantException {
@@ -177,6 +201,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 	}
 
+	/**
+	 * Méthode qui permet d'ajouter un compte courant à un client en base de données
+	 */
 	@Override
 	public void ajouterCompteCourant(int idClient, CompteCourant compteCourant)
 			throws CompteCourantDejaExistantException {
@@ -196,6 +223,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		}
 	}
 
+	/**
+	 * Méthode qui permet de modifier un compte qui existe déjà en base de données 
+	 */
 	@Override
 	public void modifierCompte(Compte compte) {
 		double soldeInitial = compteRepository.findOne(compte.getId()).getSolde();
@@ -220,6 +250,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 	}
 
+	/**
+	 * Méthode qui permet de supprimer un compte grace à son identifiant
+	 */
 	@Override
 	public void supprimerCompte(int idCompte) throws CompteInexistantException {
 		CompteCourant cc = null;
@@ -248,6 +281,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		}
 	}
 
+	/**
+	 * Méthode qui permet de récuperer la liste des comptes d'un client en base de données
+	 */
 	@Override
 	public Collection<Compte> afficherComptes(int idClient) throws CompteInexistantException {
 		CompteCourant cc = null;
@@ -274,6 +310,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		}
 	}
 
+	/**
+	 * Méthode qui permet de lister tous les comptes de la base de données
+	 */
 	@Override
 	public Collection<Compte> listerComptes() throws CompteInexistantException {
 		Collection<Compte> comptes = new ArrayList<Compte>();
@@ -297,6 +336,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		}
 	}
 
+	/**
+	 * Méthode qui permet d'effectuer un virement
+	 */
 	@Override
 	public double effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant)
 			throws SoldeInsuffisantException, MontantNegatifException {
@@ -357,6 +399,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		return 0;
 	}
 
+	/**
+	 * Méthode qui permet de récupérer tous les comptes de la banque sauf celui déjà selectionné
+	 */
 	@Override
 	public Collection<Compte> recuperationAutresComptes(Compte compte) throws CompteInexistantException {
 		Collection<Compte> col = compteRepository.recupererTousLesComptes();
@@ -372,11 +417,17 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		}
 	}
 
+	/**
+	 * Méthode qui permet de lister les clients particulier d'un conseiller
+	 */
 	@Override
 	public List<ClientParticulier> listerClientsParticulier(int idConseiller) {
 		return clientRepository.listerClientsParticuliers(idConseiller);
 	}
 
+	/**
+	 * Méthode qui permet de lister les clients entreprise d'un conseiller
+	 */
 	@Override
 	public List<ClientEntreprise> listerClientsEntreprise(int idConseiller) {
 		return clientRepository.listerClientsEntreprises(idConseiller);
