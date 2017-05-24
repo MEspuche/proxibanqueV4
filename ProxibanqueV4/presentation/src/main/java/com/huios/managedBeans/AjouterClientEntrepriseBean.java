@@ -20,9 +20,6 @@ import com.huios.service.IConseillerClienteleService;
  * Bean de la vue ajouter
  *
  */
-//@Named	// pour dire que c'est un Bean dans le conteneur de CDI. @Named inclut @ManagedBean de JSF
-//@ManagedBean(name = "ajouterClientEntrepriseBean")
-//@RequestScope
 @Scope("request")
 @Controller(value = "ajouterClientEntrepriseBean")
 public class AjouterClientEntrepriseBean {
@@ -30,10 +27,9 @@ public class AjouterClientEntrepriseBean {
 	/* ----------------- Attributs ----------------- */
 
 	// appel de la couche service
-	// @Inject
+
 	@Autowired
 	private IConseillerClienteleService service;
-	//private IServiceConseiller service = new ServiceConseiller();
 
 	// le conseiller clientèle courant
 	private ConseillerClientele conseiller; 
@@ -41,15 +37,12 @@ public class AjouterClientEntrepriseBean {
 	private ClientEntreprise client;
 	
 	private String civilite;
-	private String prenom;
 	private String nom;
-	//private String rue;
 	private String adresse;
 	private String codePostal;
 	private String ville;
 	private String telephone;
 	private String email;
-	//private String nomEntreprise;
 
 	/* ----------------- Méthodes ----------------- */
 
@@ -59,29 +52,19 @@ public class AjouterClientEntrepriseBean {
 	    //conseiller = service.chercherConseiller(((Conseiller) externalContext.getSessionMap().get("conseillerConnecte")).getId());
 	    //System.out.println("nbr de clients conseiller = " + conseiller.getMesClients().size());
 	    
-	   
-		client = new ClientEntreprise();
-
+		ClientEntreprise nouveauClient = new ClientEntreprise();
 	    
-	   //Adresse adresse = new Adresse(rue, codePostal, ville);
-	    
-	   // client.setCivilite(civilite);
-	    client.setPrenom("");
-	    client.setNom(nom);
-	    //client.setAdresse(adresse);
-	    client.setAdresse(adresse);
-	    client.setCodePostal(codePostal);
-	    client.setVille(ville);
-	    client.setTelephone(telephone);
-	    client.setEmail(email);
-	    //client.setNomEntreprise(nomEntreprise);
-	    //client.setMonConseiller(conseiller);
+		nouveauClient.setCivilite(civilite);
+		nouveauClient.setPrenom("");
+		nouveauClient.setNom(nom);
+		nouveauClient.setAdresse(adresse);
+		nouveauClient.setCodePostal(codePostal);
+		nouveauClient.setVille(ville);
+		nouveauClient.setTelephone(telephone);
+		nouveauClient.setEmail(email);
 	    
 		try {
-			service.ajouterClient(((ConseillerClientele) externalContext.getSessionMap().get("conseillerConnecte")).getId(), client);
-		
-			//rajouter "throws NombreClientsMaxAtteintException" à méthode service.ajouterClient
-			
+			service.ajouterClient(((ConseillerClientele) externalContext.getSessionMap().get("personneConnectee")).getId(), nouveauClient);
 		} catch (NombreClientsMaxAtteintException e) {
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null);
 	        FacesContext.getCurrentInstance().addMessage(null, message);
@@ -124,14 +107,6 @@ public class AjouterClientEntrepriseBean {
 		this.civilite = civilite;
 	}
 
-	public String getPrenom() {
-		return prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-
 	public String getNom() {
 		return nom;
 	}
@@ -139,14 +114,6 @@ public class AjouterClientEntrepriseBean {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
-//	public String getRue() {
-//		return rue;
-//	}
-//
-//	public void setRue(String rue) {
-//		this.rue = rue;
-//	}
 
 	public String getCodePostal() {
 		return codePostal;
@@ -188,14 +155,4 @@ public class AjouterClientEntrepriseBean {
 		this.adresse = adresse;
 	}
 
-//	public String getNomEntreprise() {
-//		return nomEntreprise;
-//	}
-//
-//	public void setNomEntreprise(String nomEntreprise) {
-//		this.nomEntreprise = nomEntreprise;
-//	}
-	
-
-	
 }

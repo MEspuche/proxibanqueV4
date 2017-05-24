@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title><ui:insert name="title">Default title</ui:insert></title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titre">
+
+				<h1 class="mytitle">PROXIBANQUE</h1>
+				<h2 class="mysubtitle">La banque proche de ses clients</h2>
+				<br/>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 infoCon">
+				<p:panel class="panel">
+					<h:outputText value="#{authentifierBean.personneConnectee != null ? 'Bienvenue '.concat(authentifierBean.personneConnectee.civilite).concat(' ').concat(authentifierBean.personneConnectee.prenom).concat(' ').concat(authentifierBean.personneConnectee.nom) : 'Non connecté'}">
+					
+					</h:outputText>
+				</p:panel>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<!-- MENU -->
+				<div class="panel">
+					<h:form>
+						<p:growl id="messages" showDetail="false" />
+
+						<p:menu class="menu">
+							<p:submenu label="CONNEXION" class="menuHeader">
+								<c:if test="${ authentifierBean.personneConnectee!=null }">
+									<p:menuitem value="Déconnection"
+										action="#{authentifierBean.deconnecter()}" update="messages"
+										ajax="false" class="menuItem" />
+								</c:if>
+								<c:if test="${ authentifierBean.personneConnectee==null }">
+									<p:menuitem value="Connexion" url="../login.xhtml"
+										update="messages" ajax="false" class="menuItem" />
+								</c:if>
+							</p:submenu>
+							
+							<c:if test="${ authentifierBean.personneConnectee!=null }">
+								<p:submenu label="CLIENTS" class="menuHeader">
+
+									<p:menuitem value="Liste des clients" action="listerClients"
+										update="messages" ajax="false" class="menuItem" />
+									<p:menuitem value="Ajouter un client particulier" action="ajouterClientParticulier"
+										update="messages" ajax="false" class="menuItem" />
+									<p:menuitem value="Ajouter un client entreprise" action="ajouterClientEntreprise"
+										update="messages" ajax="false" class="menuItem" />
+								</p:submenu>
+							</c:if>
+							
+							<c:if test="${ authentifierBean.personneConnectee!=null }">
+								<p:submenu label="COMPTES" class="menuHeader">
+									<p:menuitem value="Virements" action="virements"
+										update="messages" ajax="false" class="menuItem" />
+								</p:submenu>
+							</c:if>
+						</p:menu>
+
+
+					</h:form>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 content">
+
+				<c:if test="${ authentifierBean.personneConnectee!=null }">
+
+					<ui:insert name="content">Default content apparait uniquement un utilisateur est connecté</ui:insert>
+
+				</c:if>
+
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 footer">
+				Copyright 2017 : Marine ESPUCHE - Perrine EMIN - Stéphane BERNY - Vincent SALOMON</div>
+		</div>
+
+	</div>
+
+
+</h:body>
+</html>

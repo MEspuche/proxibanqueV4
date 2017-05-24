@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 infoCon">
 				<p:panel class="panel">
-					<h:outputText value="#{authentifierBean.conseillerConnecte != null ? 'Bienvenue '.concat(authentifierBean.conseillerConnecte.civilite).concat(' ').concat(authentifierBean.conseillerConnecte.prenom).concat(' ').concat(authentifierBean.conseillerConnecte.nom) : 'Non connecté'}">
+					<h:outputText value="#{authentifierBean.personneConnectee != null ? 'Bienvenue '.concat(authentifierBean.personneConnectee.civilite).concat(' ').concat(authentifierBean.personneConnectee.prenom).concat(' ').concat(authentifierBean.personneConnectee.nom) : 'Non connecté'}">
 					
 					</h:outputText>
 				</p:panel>
@@ -44,32 +44,31 @@
 
 						<p:menu class="menu">
 							<p:submenu label="CONNEXION" class="menuHeader">
-								<c:if test="${ authentifierBean.conseillerConnecte!=null }">
+								<c:if test="${ authentifierBean.personneConnectee!=null }">
 									<p:menuitem value="Déconnection"
 										action="#{authentifierBean.deconnecter()}" update="messages"
 										ajax="false" class="menuItem" />
 								</c:if>
-								<c:if test="${ authentifierBean.conseillerConnecte==null }">
+								<c:if test="${ authentifierBean.personneConnectee==null }">
 									<p:menuitem value="Connexion" url="../login.xhtml"
 										update="messages" ajax="false" class="menuItem" />
 								</c:if>
 							</p:submenu>
 							
-							<c:if test="${ authentifierBean.conseillerConnecte!=null }">
-								<p:submenu label="CLIENTS" class="menuHeader">
-
-									<p:menuitem value="Liste des clients" action="listerClients"
+							<c:if test="${ authentifierBean.personneConnectee!=null }">
+								<p:submenu label="CONSEILLERS" class="menuHeader">
+									<p:menuitem value="Liste des conseillers" action="listerConseillers"
 										update="messages" ajax="false" class="menuItem" />
-									<p:menuitem value="Ajouter un client particulier" action="ajouterClientParticulier"
-										update="messages" ajax="false" class="menuItem" />
-									<p:menuitem value="Ajouter un client entreprise" action="ajouterClientEntreprise"
+									<p:menuitem value="Ajouter un conseiller" action="ajouterConseiller"
 										update="messages" ajax="false" class="menuItem" />
 								</p:submenu>
 							</c:if>
 							
-							<c:if test="${ authentifierBean.conseillerConnecte!=null }">
-								<p:submenu label="COMPTES" class="menuHeader">
-									<p:menuitem value="(Virements)" action="virements"
+							<c:if test="${ authentifierBean.personneConnectee!=null }">
+								<p:submenu label="TRANSACTIONS" class="menuHeader">
+									<p:menuitem value="Transactions du mois" action="afficherTransactionsSemaine"
+										update="messages" ajax="false" class="menuItem" />
+									<p:menuitem value="Transactions de la semaine" action="afficherTransactionsXMois"
 										update="messages" ajax="false" class="menuItem" />
 								</p:submenu>
 							</c:if>
@@ -82,9 +81,9 @@
 
 			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 content">
 
-				<c:if test="${ authentifierBean.conseillerConnecte!=null }">
+				<c:if test="${ authentifierBean.personneConnectee!=null }">
 
-					<ui:insert name="content">Default content apparait uniquement si le conseiller est connecté</ui:insert>
+					<ui:insert name="content">Default content apparait uniquement un utilisateur est connecté</ui:insert>
 
 				</c:if>
 

@@ -1,0 +1,43 @@
+<ui:composition template="/WEB-INF/templateDirecteur.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">PROXIBANQUE</ui:define>
+
+	<ui:define name="content">
+		<div class="block">
+			<p:panel class="panel">
+
+	<h3>Les transactions de la dernière semaine</h3>
+	<h:form>
+		Voir les<h:selectOneMenu value="#{transactionsXMois.nbMois}" id="nbmois">
+			<f:selectItem itemValue="1" itemLabel="1" />
+			<f:selectItem itemValue="2" itemLabel="2" />
+			<f:selectItem itemValue="3" itemLabel="3" />
+			<f:selectItem itemValue="4" itemLabel="4" />
+			<f:selectItem itemValue="5" itemLabel="5" />
+			<f:selectItem itemValue="6" itemLabel="6" />
+			<f:selectItem itemValue="7" itemLabel="7" />
+			<f:selectItem itemValue="8" itemLabel="8" />
+			<f:selectItem itemValue="9" itemLabel="9" />
+			<f:selectItem itemValue="10" itemLabel="10" />
+			<f:selectItem itemValue="11" itemLabel="11" />
+			<f:selectItem itemValue="12" itemLabel="12" />
+		</h:selectOneMenu>derniers mois
+		<h:commandButton  value="Valider" action="afficherTransactionsXMois.xhtml" />
+	</h:form>
+	<p:chart type="pie" model="#{transactionsSemaine.pieModel}"
+		id="entreesortiepie" style="width:350px;height:300px" />
+	<p:chart type="bar" model="#{transactionsSemaine.barModel}"
+		id="entreesortiebar" style="width:350px;height:300px" />
+
+			</p:panel>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

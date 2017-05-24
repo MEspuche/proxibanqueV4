@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template.xhtml"
+<ui:composition template="/WEB-INF/templateDirecteur.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -12,20 +12,16 @@
 		<div class="block">
 			<p:panel class="panel">
 				<h:form>
-					<h:outputText styleClass="h3"
-					value="#{'Bienvenue '.concat(authentifierBean.directeurConnecte.nom).concat(' !')}" />
-<!-- 						value="#{'Bienvenue '.concat(authentifierBean.directeurConnecte.civilite).concat(' ').concat(authentifierBean.conseillerConnecte.nom).concat(' !')}" /> -->
-						
 
 					<h3>Vos conseillers</h3>
 
 					<h:dataTable styleClass="table table-hover"
 						value="#{listerConseillersBean.lister()}" var="c">
 
-<!-- 						<h:column> -->
-<!-- 							<f:facet name="header">CIVILITE</f:facet> -->
-<!-- 							<h:outputText value="#{c.civilite}" /> -->
-<!-- 						</h:column> -->
+						<h:column>
+							<f:facet name="header">CIVILITE</f:facet>
+							<h:outputText value="#{c.civilite}" />
+						</h:column>
 
 						<h:column>
 							<f:facet name="header">NOM</f:facet>
@@ -37,19 +33,6 @@
 							<h:outputText value="#{c.prenom}" />
 						</h:column>
 
-<!-- 						<h:column> -->
-<!-- 							<f:facet name="header">ENTREPRISE</f:facet> -->
-
-<!-- 													<c:choose> -->
-<!-- 														<c:when test="${c.nomEntreprise != null}"> -->
-<!-- 							<h:outputText value="#{c.nomEntreprise}" /> -->
-<!-- 														</c:when> -->
-<!-- 														<c:otherwise> -->
-<!-- 															<h:outputText value="-" /> -->
-<!-- 														</c:otherwise> -->
-<!-- 													</c:choose> -->
-<!-- 						</h:column> -->
-
 						<h:column>
 							<f:facet name="header">DETAILS</f:facet>
 							<h:commandButton action="ficheConseiller" value="Détails">
@@ -58,26 +41,26 @@
 							</h:commandButton>
 						</h:column>
 
-						<h:column>
-							<f:facet name="header">MODIFIER</f:facet>
-							<h:commandButton action="modifierConseiller"
-								value="Modifier">
-								<f:setPropertyActionListener
-									target="#{listerConseillersBean.conseiller}" value="#{c}" />
-							</h:commandButton>
-						</h:column>
+<!-- 						<h:column> -->
+<!-- 							<f:facet name="header">MODIFIER</f:facet> -->
+<!-- 							<h:commandButton action="modifierConseiller" -->
+<!-- 								value="Modifier"> -->
+<!-- 								<f:setPropertyActionListener -->
+<!-- 									target="#{listerConseillersBean.conseiller}" value="#{c}" /> -->
+<!-- 							</h:commandButton> -->
+<!-- 						</h:column> -->
 
-						<h:column>
-							<f:facet name="header">SUPPRIMER</f:facet>
-							<h:commandButton action="#{listerConseillersBean.supprimer}"
-								value="Supprimer">
-								<f:setPropertyActionListener
-									target="#{listerConseillersBean.conseiller}" value="#{c}" />
-							</h:commandButton>
-						</h:column>
+<!-- 						<h:column> -->
+<!-- 							<f:facet name="header">SUPPRIMER</f:facet> -->
+<!-- 							<h:commandButton action="#{listerConseillersBean.supprimer}" -->
+<!-- 								value="Supprimer"> -->
+<!-- 								<f:setPropertyActionListener -->
+<!-- 									target="#{listerConseillersBean.conseiller}" value="#{c}" /> -->
+<!-- 							</h:commandButton> -->
+<!-- 						</h:column> -->
 
 					</h:dataTable>
-					<h:messages errorClass="error" />
+<!-- 					<h:messages errorClass="error" /> -->
 				</h:form>
 			</p:panel>
 		</div>

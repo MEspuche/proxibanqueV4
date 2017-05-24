@@ -104,7 +104,7 @@ public class VirementBean {
 				FacesContext.getCurrentInstance().addMessage(null, message);
 				return "virements";
 			}
-			FacesMessage message = new FacesMessage("Virement éffectué " + montant + "€ du compte " + compteADebiter.getNumCompte() + " vers le compte " + compteACrediter.getNumCompte());
+			FacesMessage message = new FacesMessage("Virement effectué " + montant + "€ du compte " + compteADebiter.getNumCompte() + " vers le compte " + compteACrediter.getNumCompte());
 			FacesContext.getCurrentInstance().addMessage(null, message);
 
 //		} catch (Exception e) {

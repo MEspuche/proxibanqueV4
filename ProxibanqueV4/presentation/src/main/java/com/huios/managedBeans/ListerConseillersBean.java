@@ -56,7 +56,7 @@ public class ListerConseillersBean {
 		// conseiller = service.chercherConseiller(((Conseiller)
 		// externalContext.getSessionMap().get("conseillerConnecte")).getId());
 		try {
-			lesConseillers = service.listerConseillers(((DirecteurAgence) externalContext.getSessionMap().get("directeurConnecte")).getId());
+			lesConseillers = service.listerConseillers(((DirecteurAgence) externalContext.getSessionMap().get("personneConnectee")).getId());
 		} catch (UserInexistantException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

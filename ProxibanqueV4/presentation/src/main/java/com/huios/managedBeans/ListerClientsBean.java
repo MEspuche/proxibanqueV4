@@ -33,7 +33,6 @@ public class ListerClientsBean {
 	/* ----------------- Attributs ----------------- */
 
 	// appel de la couche service
-	// @Inject
 	@Autowired
 	private IConseillerClienteleService service;
 
@@ -53,11 +52,7 @@ public class ListerClientsBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 
-		// c'est pas le conseiller courant qu'on peut utiliser ?
-
-		// conseiller = service.chercherConseiller(((Conseiller)
-		// externalContext.getSessionMap().get("conseillerConnecte")).getId());
-		lesClientsParticulier = service.listerClientsParticulier(((ConseillerClientele) externalContext.getSessionMap().get("conseillerConnecte")).getId());
+		lesClientsParticulier = service.listerClientsParticulier(((ConseillerClientele) externalContext.getSessionMap().get("personneConnectee")).getId());
 		return lesClientsParticulier;
 	}
 
@@ -65,11 +60,7 @@ public class ListerClientsBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 
-		// c'est pas le conseiller courant qu'on peut utiliser ?
-
-		// conseiller = service.chercherConseiller(((Conseiller)
-		// externalContext.getSessionMap().get("conseillerConnecte")).getId());
-		lesClientsEntreprise = service.listerClientsEntreprise(((ConseillerClientele) externalContext.getSessionMap().get("conseillerConnecte")).getId());
+		lesClientsEntreprise = service.listerClientsEntreprise(((ConseillerClientele) externalContext.getSessionMap().get("personneConnectee")).getId());
 		return lesClientsEntreprise;
 	}
 
@@ -78,10 +69,6 @@ public class ListerClientsBean {
 		//ExternalContext externalContext = context.getExternalContext();
 		FacesMessage message;
 		
-		// c'est pas le conseiller courant qu'on peut utiliser ?
-		
-		// conseiller = service.chercherConseiller(((Conseiller)
-		// externalContext.getSessionMap().get("conseillerConnecte")).getId());
 		try {
 			service.supprimerClient(client.getId());
 		} catch (UserInexistantException e) {

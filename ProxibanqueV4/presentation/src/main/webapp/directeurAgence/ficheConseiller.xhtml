@@ -1,0 +1,50 @@
+<ui:composition template="/WEB-INF/templateDirecteur.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<!-- 	xmlns:c="http://javax.servlet.jsp.jstl.core" -->
+
+	<ui:define name="title">PROXIBANQUE</ui:define>
+
+	<ui:define name="content">
+		<div class="block">
+			<p:panel class="panel">
+				<h:outputText styleClass="h3"
+					value="#{'Fiche détaillée de '.concat(listerConseillersBean.conseiller.civilite).concat(' ').concat(listerConseillersBean.conseiller.nom)}" />
+				<br />
+				<br />
+
+				<h:panelGrid columns="2" styleClass="table table-hover">
+				
+					<h:outputText value="IDENTITE : " />
+					<h:outputText
+						value="#{(listerConseillersBean.conseiller.civilite).concat(' ').concat(listerConseillersBean.conseiller.prenom).concat(' ').concat(listerConseillersBean.conseiller.nom)}" />
+
+					<h:outputText value="ADRESSE : " />
+					<h:outputText value="#{listerConseillersBean.conseiller.adresse}" />
+
+					<h:outputText value="CODE POSTAL : " />
+					<h:outputText
+						value="#{listerConseillersBean.conseiller.codePostal}" />
+
+					<h:outputText value="VILLE : " />
+					<h:outputText value="#{listerConseillersBean.conseiller.ville}" />
+
+					<h:outputText value="TELEPHONE : " />
+					<h:outputText value="#{listerConseillersBean.conseiller.telephone}" />
+
+					<h:outputText value="ADRESSE MAIL : " />
+					<h:outputText value="#{listerConseillersBean.conseiller.email}" />
+
+				</h:panelGrid>
+				
+			</p:panel>
+			
+		</div>
+
+	</ui:define>
+
+</ui:composition>

@@ -3,6 +3,7 @@ package com.huios.managedBeans;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.RequestDispatcher;
 //import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.huios.metier.ConseillerClientele;
+import com.huios.metier.DirecteurAgence;
+import com.huios.metier.Personne;
 import com.huios.service.IConseillerClienteleService;
 
 
@@ -26,20 +29,43 @@ public class AuthentifierBean {
 	/* ----------------- Attributs ----------------- */
 
 	// appel de la couche service
-	// @Inject
-	//private IConseillerClienteleService service = new ConseillerClienteleService();
-
 	@Autowired
 	private IConseillerClienteleService service;
 	
-	// objet ConseillerClientele permettant de récupérer les paramètres saisis dans le formulaire
-	private ConseillerClientele conseillerClientele = new ConseillerClientele();
+	// objet Personne permettant de récupérer les paramètres saisis dans le formulaire
+	private Personne personne = null;
 
-	// objet ConseillerClientele permettant de gérer la connexion à proxibanque
-	private ConseillerClientele conseillerConnecte;
-
+	// objet Personne permettant de gérer la connexion à proxibanque
+	private Personne personneConnectee;
+	
 	/* ----------------- Méthodes ----------------- */
 
+	public void recupererRole() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+		//FacesMessage message;
+		String espace;
+		
+		try {
+			String url = (String) externalContext.getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
+	        //System.out.println(url);
+	        String[] urlTable = url.split("/");
+	        espace = urlTable[2];
+	        //System.out.println(role);
+
+	        if (personne == null && espace.equals("conseiller")) {
+	        	personne = new ConseillerClientele();
+	        	//espace = "Espace Conseiller Clientele";
+	        } else if (personne == null && espace.equals("directeurAgence")) {
+	        	personne = new DirecteurAgence();
+	        	//espace = "Espace Directeur d'Agence";
+			}
+        } catch (Exception e) {
+
+		}
+        //return espace;
+	}
+	
 	public String authentifier() {
 		//System.out.println(conseillerClientele.getEmail() + " | " + conseillerClientele.getPassword());
 
@@ -49,10 +75,10 @@ public class AuthentifierBean {
 		
 		try {
             HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-            request.login(conseillerClientele.getEmail(), conseillerClientele.getPassword());
+            request.login(personne.getEmail(), personne.getPassword());
             
-			conseillerConnecte = (ConseillerClientele) service.authentification(conseillerClientele.getEmail(), conseillerClientele.getPassword());
-			externalContext.getSessionMap().put("conseillerConnecte", conseillerConnecte);
+            personneConnectee = service.authentification(personne.getEmail(), personne.getPassword());
+			externalContext.getSessionMap().put("personneConnectee", personneConnectee);
 			
 			message = new FacesMessage("Connecté");
 			context.addMessage(null, message);
@@ -85,8 +111,9 @@ public class AuthentifierBean {
 	        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
 	        request.logout();
 	        
-			conseillerConnecte = null;
-			conseillerClientele = new ConseillerClientele();
+	        personneConnectee = null;
+			//conseillerClientele = new ConseillerClientele();
+			personne = null;
 
 			externalContext.redirect("../index.xhtml");
 			
@@ -99,21 +126,21 @@ public class AuthentifierBean {
 	}
 
 	/* ----------------- Getters & Setters ----------------- */
-
-	public ConseillerClientele getConseillerClientele() {
-		return conseillerClientele;
+	
+	public Personne getPersonne() {
+		return personne;
 	}
 
-	public void setConseillerClientele(ConseillerClientele conseillerClientele) {
-		this.conseillerClientele = conseillerClientele;
+	public void setPersonne(Personne personne) {
+		this.personne = personne;
 	}
 
-	public ConseillerClientele getConseillerConnecte() {
-		return conseillerConnecte;
+	public Personne getPersonneConnectee() {
+		return personneConnectee;
 	}
 
-	public void setConseillerConnecte(ConseillerClientele conseillerConnecte) {
-		this.conseillerConnecte = conseillerConnecte;
+	public void setPersonneConnectee(Personne personneConnectee) {
+		this.personneConnectee = personneConnectee;
 	}
 
 }

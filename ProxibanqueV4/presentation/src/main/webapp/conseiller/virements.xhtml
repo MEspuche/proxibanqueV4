@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template.xhtml"
+<ui:composition template="/WEB-INF/templateConseiller.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -11,7 +11,7 @@
     </ui:define>
 
 	<ui:define name="content">
-		<c:if test="${ authentifierBean.conseillerConnecte!=null }">
+		<c:if test="${ authentifierBean.personneConnectee!=null }">
 			<h:form>
 
 				<p:panel id="panelDebit" header="Compte à débiter" class="panel">
