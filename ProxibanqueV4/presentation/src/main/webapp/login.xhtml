@@ -25,6 +25,7 @@
 				<h:form name="Login_Form" class="form-signin">
 				
 				    <h3 class="form-signin-heading">Bienvenue !<br/> Veuillez vous connecter</h3>
+				    <p style="text-align:center;"><a href="/presentation/index.xhtml"  >Retour à l'accueil</a></p>
 					<hr class="colorgraph"/><br/>
 
 					<h:inputText styleClass="form-control" id="email" name="login" a:placeholder="E-mail" required="true" requiredMessage="Saisissez votre email " value="#{authentifierBean.personne.email}"/>
@@ -33,6 +34,7 @@
 					<h:messages globalOnly="false" infoClass="info" />
 					
 					<h:commandButton styleClass="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="submit" action="#{authentifierBean.authentifier}"/>
+					
 				</h:form>
 			</h:panelGroup>
 		</h:panelGroup>
