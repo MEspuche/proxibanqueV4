@@ -384,7 +384,6 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 															// autorisé
 					{
 						cc.setSolde(cc.getSolde() - montant);
-						cc.setSolde(cc.getSolde() - montant);
 						c.setSolde(c.getSolde() + montant);
 						Transaction tr = new Transaction();
 						tr.setTypeTransaction("Virement");
