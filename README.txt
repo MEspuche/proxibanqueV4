@@ -46,3 +46,11 @@ Comment lancer l'application Java proxibanqueV4
 ## Consulter la documentation:
 
 	- Double-cliquer sur le fichier index.html se trouvant dans le repertoire "doc".
+	
+## WEB SERVICES:
+	- Lister les clients particuliers de la banque : 
+	http://localhost:8080/presentation/proxibanque/directeur/afficherTousLesClientsParticuliers
+	- Lister les clients entreprises de la banque : 
+	http://localhost:8080/presentation/proxibanque/directeur/afficherTousLesClientsEntreprises
+	- Effectuer un virement entre deux comptes grace à l'id du compte débiteur, l'id du compte crediteur, et le montant du virement 
+	http://localhost:8080/presentation/proxibanque/directeur/conseillerEffectuerUnVirement/{idDebiteur}/{idCrediteur}/{montant}
