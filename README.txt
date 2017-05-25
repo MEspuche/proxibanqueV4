@@ -19,7 +19,7 @@ Comment lancer l'application Java proxibanqueV4
 
 ## Execution :
 
-	- Créer les tables et peupler la base de donnée en exécutant les fichiers "BDD\proxibanque.sql" et "BDD\proxibanqueData.sql"
+	- Créer les tables et peupler la base de donnée en exécutant le fichier "BDD\proxibanqueStructureEtData.sql"
 		
 	(dans phpMyAdmin en cliquant sur l'onglet import)
 	
