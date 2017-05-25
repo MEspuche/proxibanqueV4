@@ -22,7 +22,7 @@ import com.huios.service.IDirecteurAgenceService;
 // @ManagedBean de JSF
 // @ManagedBean(name="listerClientsBean")
 // @RequestScoped
-@Scope("prototype")
+@Scope("session")
 @Controller(value = "transactionsSemaine")
 public class AfficherTransactionsSemaine {
 

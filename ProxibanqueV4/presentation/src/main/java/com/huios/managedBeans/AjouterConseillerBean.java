@@ -1,5 +1,9 @@
 package com.huios.managedBeans;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -39,6 +43,7 @@ public class AjouterConseillerBean {
 	private String ville;
 	private String telephone;
 	private String email;
+	private String password;
 
 	/* ----------------- Méthodes ----------------- */
 
@@ -58,12 +63,33 @@ public class AjouterConseillerBean {
 		conseiller.setVille(ville);
 		conseiller.setTelephone(telephone);
 		conseiller.setEmail(email);
+
+		// encryptage sha1 du password
+		MessageDigest md = null;
+		String hashpassword = "";
+		try {
+			md = MessageDigest.getInstance("SHA-1");
+			byte[] b = md.digest(password.getBytes("UTF-8"));
+			// passage d'un byte[] à un String
+			for (int i = 0; i < b.length; i++) {
+				hashpassword += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
+			}
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		conseiller.setPassword(hashpassword);
 		// conseiller.setMonDirecteurAgence(directeur);
 
 		// try {
-		service.ajouterConseiller(((DirecteurAgence) externalContext.getSessionMap().get("directeurConnecte")).getId(),	conseiller);
+		service.ajouterConseiller(((DirecteurAgence) externalContext.getSessionMap().get("directeurConnecte")).getId(),
+				conseiller);
 		// } catch (Exception e) {
-		// FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null);
+		// FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+		// e.getMessage(), null);
 		// FacesContext.getCurrentInstance().addMessage(null, message);
 		// }
 
@@ -174,6 +200,14 @@ public class AjouterConseillerBean {
 
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	// public String getNomEntreprise() {

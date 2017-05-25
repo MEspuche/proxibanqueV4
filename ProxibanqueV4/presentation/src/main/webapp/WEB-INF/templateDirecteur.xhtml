@@ -66,9 +66,9 @@
 							
 							<c:if test="${ authentifierBean.personneConnectee!=null }">
 								<p:submenu label="TRANSACTIONS" class="menuHeader">
-									<p:menuitem value="Transactions du mois" action="afficherTransactionsSemaine"
+									<p:menuitem value="Transactions du mois" action="afficherTransactionsXMois"
 										update="messages" ajax="false" class="menuItem" />
-									<p:menuitem value="Transactions de la semaine" action="afficherTransactionsXMois"
+									<p:menuitem value="Transactions de la semaine" action="afficherTransactionsSemaine"
 										update="messages" ajax="false" class="menuItem" />
 								</p:submenu>
 							</c:if>

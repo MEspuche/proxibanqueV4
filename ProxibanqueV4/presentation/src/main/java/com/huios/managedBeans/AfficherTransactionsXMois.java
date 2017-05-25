@@ -1,7 +1,12 @@
 package com.huios.managedBeans;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.BarChartSeries;
@@ -36,7 +41,6 @@ public class AfficherTransactionsXMois {
 		if(nbMois==0){
 			nbMois = 1;
 		}
-		System.out.println(nbMois);
 		ltrXMois = (service.rapportTransactionMois(nbMois) == null) ? new ArrayList<Transaction>()
 				: service.rapportTransactionMois(nbMois);
 		double entree=0, sortie=0, virement=0;
@@ -131,5 +135,5 @@ public class AfficherTransactionsXMois {
 	public void setNbMois(int nbMois) {
 		this.nbMois = nbMois;
 	}
-
+	
 }
