@@ -24,11 +24,11 @@ SET time_zone = "+00:00";
 -- Contenu de la table `compte`
 --
 
-INSERT INTO `compte` (`TypeCompte`, `id`, `dateOuverture`, `numCompte`, `solde`, `decouvert`, `tauxRemuneration`, `clientProprietaire_id`, `alerte_id`) VALUES
-('CompteCourant', 1, '14/03/2001', 159753, '3215.12', 1000, NULL, 3, NULL),
-('CompteEpargne', 2, '27/10/1997', 654651, '12500.50', NULL, 1.3, 3, NULL),
-('CompteCourant', 3, '12/05/1990', 258456, '25698.00', 2000, NULL, 4, NULL),
-('CompteEpargne', 4, '10/06/2000', 147896, '80250.00', NULL, 1.5, 4, NULL);
+INSERT INTO `compte` (`TypeCompte`, `id`, `dateOuverture`, `numCompte`, `solde`, `decouvert`, `tauxRemuneration`, `alerte_id`, `clientProprietaire_id`) VALUES
+('CompteCourant', 1, '14/03/2001', 159753, '3215.12', 1000, NULL, NULL, 3),
+('CompteEpargne', 2, '27/10/1997', 654651, '12500.50', NULL, 1.3, NULL, 3),
+('CompteCourant', 3, '12/05/1990', 258456, '25698.00', 2000, NULL, NULL, 4),
+('CompteEpargne', 4, '10/06/2000', 147896, '80250.00', NULL, 1.5, NULL, 4);
 
 --
 -- Contenu de la table `hibernate_sequence`

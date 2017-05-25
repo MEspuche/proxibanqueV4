@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 24 Mai 2017 à 14:21
+-- Généré le :  Jeu 25 Mai 2017 à 10:57
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -28,7 +28,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `alertes` (
   `id` int(11) NOT NULL,
-  `alertes` tinyblob
+  `alertes` varchar(255) DEFAULT NULL,
+  `compte_id` int(11) DEFAULT NULL,
+  `conseiller_id` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -45,6 +47,7 @@ CREATE TABLE `compte` (
   `solde` decimal(10,2) DEFAULT NULL,
   `decouvert` double DEFAULT NULL,
   `tauxRemuneration` double DEFAULT NULL,
+  `alerte_id` int(11) DEFAULT NULL,
   `clientProprietaire_id` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -57,17 +60,6 @@ CREATE TABLE `compte` (
 CREATE TABLE `hibernate_sequence` (
   `next_val` bigint(20) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `hibernate_sequence`
---
-
-INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(1),
-(1),
-(1),
-(1),
-(1);
 
 -- --------------------------------------------------------
 
@@ -125,13 +117,16 @@ CREATE TABLE `transaction` (
 -- Index pour la table `alertes`
 --
 ALTER TABLE `alertes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKnlvpuyssd7402bliy5yxmfjf6` (`compte_id`),
+  ADD KEY `FK1f6dyeykvu350rbmyisbd1w8` (`conseiller_id`);
 
 --
 -- Index pour la table `compte`
 --
 ALTER TABLE `compte`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `FK4g73vcplrqmklmwpwfu3dyp8u` (`alerte_id`),
   ADD KEY `FK3dee4rqq4fqk3wa0v7nxyyssi` (`clientProprietaire_id`);
 
 --
@@ -154,7 +149,7 @@ ALTER TABLE `roles`
 ALTER TABLE `transaction`
   ADD PRIMARY KEY (`id`);
 
---
+  --
 -- AUTO_INCREMENT pour les tables exportées
 --
 
@@ -183,6 +178,7 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `transaction`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
