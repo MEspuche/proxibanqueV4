@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Classe Client qui hérite de la classe Personne
  * @author Perrine Stephane Vincent Marine
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Component
 @Scope("prototype")
+@JsonIgnoreProperties({"monConseiller","mesComptes","password"})
 public abstract class Client extends Personne implements Serializable {
 
 	

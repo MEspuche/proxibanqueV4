@@ -17,6 +17,8 @@ import javax.persistence.OneToOne;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Classe Compte : description des comptes clients
  * 
@@ -28,6 +30,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TypeCompte")
+@JsonIgnoreProperties({"dateOuverture","clientProprietaire","alerte"})
 public abstract class Compte implements Serializable {
 
 	private static final long serialVersionUID = 1L;
