@@ -17,7 +17,7 @@ import com.huios.metier.Compte;
  * 
  * @author Perrine Stephane Vincent Marine
  */
-@Controller
+
 @Aspect
 public class SuiviSoldes {
 	
