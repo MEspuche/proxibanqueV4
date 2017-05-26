@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 25 Mai 2017 à 19:36
--- Version du serveur :  10.1.21-MariaDB
--- Version de PHP :  5.6.30
+-- Généré le :  Ven 26 Mai 2017 à 12:56
+-- Version du serveur :  5.7.14
+-- Version de PHP :  5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -57,9 +57,9 @@ CREATE TABLE `compte` (
 
 INSERT INTO `compte` (`TypeCompte`, `id`, `dateOuverture`, `numCompte`, `solde`, `decouvert`, `tauxRemuneration`, `alerte_id`, `clientProprietaire_id`) VALUES
 ('CompteCourant', 1, '14/03/2001', 159753, '3215.12', 1000, NULL, NULL, 3),
-('CompteEpargne', 2, '27/10/1997', 654651, '12500.50', NULL, 0.03, NULL, 3),
+('CompteEpargne', 2, '27/10/1997', 654651, '12400.50', NULL, 0.03, NULL, 3),
 ('CompteCourant', 3, '12/05/1990', 258456, '25698.00', 2000, NULL, NULL, 4),
-('CompteEpargne', 4, '10/06/2000', 147896, '80250.00', NULL, 0.05, NULL, 4);
+('CompteEpargne', 4, '10/06/2000', 147896, '80350.00', NULL, 0.05, NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -76,11 +76,11 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(5),
-(5),
-(5),
-(5),
-(5);
+(15),
+(15),
+(15),
+(15),
+(15);
 
 -- --------------------------------------------------------
 
@@ -165,7 +165,8 @@ INSERT INTO `transaction` (`id`, `dateTransaction`, `montantEntrant`, `montantSo
 (10, '2017-03-09 00:00:00', 500, 0, 'DepotArgent'),
 (11, '2017-04-12 00:00:00', 200, 0, 'DepotArgent'),
 (12, '2017-05-09 00:00:00', 0, 100, 'RetraitArgent'),
-(13, '2017-05-22 00:00:00', 0, 200, 'RetraitArgent');
+(13, '2017-05-22 00:00:00', 0, 200, 'RetraitArgent'),
+(14, '2017-05-26 14:55:45', 100, 100, 'Virement');
 
 --
 -- Index pour les tables exportées
@@ -207,7 +208,7 @@ ALTER TABLE `roles`
 ALTER TABLE `transaction`
   ADD PRIMARY KEY (`id`);
 
-  --
+--
 -- AUTO_INCREMENT pour les tables exportées
 --
 
@@ -220,23 +221,22 @@ ALTER TABLE `alertes`
 -- AUTO_INCREMENT pour la table `compte`
 --
 ALTER TABLE `compte`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `personne`
 --
 ALTER TABLE `personne`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
