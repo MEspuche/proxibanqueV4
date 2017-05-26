@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -16,9 +17,9 @@ import com.huios.metier.DirecteurAgence;
 import com.huios.service.IDirecteurAgenceService;
 
 /**
- * 
- * Bean de la vue ajouter
+ * Bean de la vue ajouter conseiller
  *
+ * @author Perrine Stephane Vincent Marine
  */
 @Scope("request")
 @Controller(value = "ajouterConseillerBean")
@@ -50,8 +51,7 @@ public class AjouterConseillerBean {
 	public String ajouter() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
-		// directeur = service.chercherDirecteurAgence(((DirecteurAgence)
-		// externalContext.getSessionMap().get("personneConnectee")).getId());
+		FacesMessage message;
 
 		conseiller = new ConseillerClientele();
 
@@ -63,7 +63,7 @@ public class AjouterConseillerBean {
 		conseiller.setVille(ville);
 		conseiller.setTelephone(telephone);
 		conseiller.setEmail(email);
-
+		
 		// encryptage sha1 du password
 		MessageDigest md = null;
 		String hashpassword = "";
@@ -75,18 +75,20 @@ public class AjouterConseillerBean {
 				hashpassword += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
 			}
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Une erreur est survenue", "");
+			context.addMessage(null, message);
+			//e.printStackTrace();
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Une erreur est survenue", "");
+			context.addMessage(null, message);
+			//e.printStackTrace();
 		}
 		conseiller.setPassword(hashpassword);
-		// conseiller.setMonDirecteurAgence(directeur);
+		// conseiller.setMonDirecteurAgence(directeur); ==> fait dans la couche service
 
 		// try {
-		service.ajouterConseiller(((DirecteurAgence) externalContext.getSessionMap().get("directeurConnecte")).getId(),
-				conseiller);
+		//System.out.println("id directeur = " + ((DirecteurAgence)externalContext.getSessionMap().get("personneConnectee")).getId());
+		service.ajouterConseiller(((DirecteurAgence) externalContext.getSessionMap().get("personneConnectee")).getId(), conseiller);
 		// } catch (Exception e) {
 		// FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 		// e.getMessage(), null);
@@ -98,14 +100,6 @@ public class AjouterConseillerBean {
 
 	/* ----------------- Getters & Setters ----------------- */
 
-	public String getCivilite() {
-		return civilite;
-	}
-
-	public void setCivilite(String civilite) {
-		this.civilite = civilite;
-	}
-
 	public IDirecteurAgenceService getService() {
 		return service;
 	}
@@ -114,11 +108,11 @@ public class AjouterConseillerBean {
 		this.service = service;
 	}
 
-	public DirecteurAgence getdirecteur() {
+	public DirecteurAgence getDirecteur() {
 		return directeur;
 	}
 
-	public void setdirecteur(DirecteurAgence directeur) {
+	public void setDirecteur(DirecteurAgence directeur) {
 		this.directeur = directeur;
 	}
 
@@ -130,13 +124,13 @@ public class AjouterConseillerBean {
 		this.conseiller = conseiller;
 	}
 
-	// public String getCivilite() {
-	// return civilite;
-	// }
-	//
-	// public void setCivilite(String civilite) {
-	// this.civilite = civilite;
-	// }
+	 public String getCivilite() {
+	 return civilite;
+	 }
+	
+	 public void setCivilite(String civilite) {
+	 this.civilite = civilite;
+	 }
 
 	public String getPrenom() {
 		return prenom;
@@ -154,13 +148,13 @@ public class AjouterConseillerBean {
 		this.nom = nom;
 	}
 
-	// public String getRue() {
-	// return rue;
-	// }
-	//
-	// public void setRue(String rue) {
-	// this.rue = rue;
-	// }
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
 
 	public String getCodePostal() {
 		return codePostal;
@@ -194,14 +188,6 @@ public class AjouterConseillerBean {
 		this.email = email;
 	}
 
-	public String getAdresse() {
-		return adresse;
-	}
-
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -209,13 +195,5 @@ public class AjouterConseillerBean {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	// public String getNomEntreprise() {
-	// return nomEntreprise;
-	// }
-	//
-	// public void setNomEntreprise(String nomEntreprise) {
-	// this.nomEntreprise = nomEntreprise;
-	// }
 
 }

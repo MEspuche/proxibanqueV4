@@ -17,63 +17,59 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Classe Client qui hérite de la classe Personne
+ * 
  * @author Perrine Stephane Vincent Marine
- *
  */
 @Entity
 @Component
 @Scope("prototype")
-@JsonIgnoreProperties({"monConseiller","mesComptes","password"})
+@JsonIgnoreProperties({ "monConseiller", "mesComptes", "password" })
 public abstract class Client extends Personne implements Serializable {
 
+	/* ATTRIBUTS */
 	
-
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(fetch = FetchType.EAGER , mappedBy="clientProprietaire" , cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "clientProprietaire", cascade = CascadeType.ALL)
 	protected Collection<Compte> mesComptes = new ArrayList<Compte>();
-	
+
 	@ManyToOne
 	protected ConseillerClientele monConseiller;
 
+	/**
+	 * Constructeur sans arguments
+	 */
+	public Client() {
+		super();
+	}
 
-
+	/* GETTERS et SETTERS */
 
 	public Collection<Compte> getMesComptes() {
 		return mesComptes;
 	}
 
-
 	public void setMesComptes(Collection<Compte> mesComptes) {
 		this.mesComptes = mesComptes;
 	}
-
 
 	public ConseillerClientele getMonConseiller() {
 		return monConseiller;
 	}
 
-
 	public void setMonConseiller(ConseillerClientele monConseiller) {
 		this.monConseiller = monConseiller;
 	}
 
+	/**
+	 * Affichage d'un client
+	 */
 
 	@Override
 	public String toString() {
-		return "Client [mesComptes=" + mesComptes + ", monConseiller=" + monConseiller + ", getId()=" + getId()
-				+ ", getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getAdresse()=" + getAdresse()
-				+ ", getCodePostal()=" + getCodePostal() + ", getVille()=" + getVille() + ", getTelephone()="
-				+ getTelephone() + ", getEmail()=" + getEmail() + ", getPassword()=" + getPassword() + "]";
+		return "Client [civilite = " + civilite + ", nom = " + nom + ", prenom = " + prenom + ", adresse = " + adresse
+				+ ", codePostal = " + codePostal + ", ville = " + ville + ", telephone = " + telephone + ", email = " + email
+				+ "]";
 	}
 
-
-	public Client() {
-		super();
-	}
-	
-	
-	
 }
-
-

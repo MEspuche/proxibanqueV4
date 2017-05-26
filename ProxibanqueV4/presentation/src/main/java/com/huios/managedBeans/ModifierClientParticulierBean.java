@@ -13,9 +13,9 @@ import com.huios.metier.ConseillerClientele;
 import com.huios.service.IConseillerClienteleService;
 
 /**
- * 
- * Bean de la vue modifier
+ * Bean de la vue modifier client particulier
  *
+ * @author Perrine Stephane Vincent Marine
  */
 @Scope("session")
 @Controller(value = "modifierClientParticulierBean")
@@ -55,7 +55,7 @@ public class ModifierClientParticulierBean {
 		} catch (UserInexistantException e) {
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur lors de la tentative de modification du client : ce client n'existe pas", "");
 			context.addMessage(null, message);
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		return "listerClients";

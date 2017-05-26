@@ -2,8 +2,7 @@ package com.huios.managedBeans;
 
 import java.util.Collection;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -17,14 +16,10 @@ import com.huios.metier.DirecteurAgence;
 import com.huios.service.IDirecteurAgenceService;
 
 /**
- * 
- * Bean de la vue lister
+ * Bean de la vue lister conseillers clientèles d'un directeur d'agence
  *
+ * @author Perrine Stephane Vincent Marine
  */
-// @Named // pour dire que c'est un Bean dans le conteneur de CDI. @Named inclut
-// @ManagedBean de JSF
-//@ManagedBean(name = "listerConseillersBean")
-//@RequestScoped
 @Scope("request")
 @Controller(value = "listerConseillersBean")
 public class ListerConseillersBean {
@@ -32,7 +27,6 @@ public class ListerConseillersBean {
 	/* ----------------- Attributs ----------------- */
 
 	// appel de la couche service
-	// @Inject
 	@Autowired
 	private IDirecteurAgenceService service;
 
@@ -42,7 +36,7 @@ public class ListerConseillersBean {
 	// collection de clients affectés au conseiller identifié
 	private Collection<ConseillerClientele> lesConseillers;
 
-	// le cconseiller courant
+	// le conseiller courant
 	private ConseillerClientele conseiller;
 
 	/* ----------------- Méthodes ----------------- */
@@ -50,16 +44,14 @@ public class ListerConseillersBean {
 	public Collection<ConseillerClientele> lister() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
-
-		// c'est pas le directeur courant qu'on peut utiliser ?
-
-		// conseiller = service.chercherConseiller(((Conseiller)
-		// externalContext.getSessionMap().get("conseillerConnecte")).getId());
+		FacesMessage message;
+		
 		try {
 			lesConseillers = service.listerConseillers(((DirecteurAgence) externalContext.getSessionMap().get("personneConnectee")).getId());
 		} catch (UserInexistantException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aucun conseiller", "");
+			context.addMessage(null, message);
+			//e.printStackTrace();
 		}
 		return lesConseillers;
 	}
@@ -69,6 +61,7 @@ public class ListerConseillersBean {
 		// ExternalContext externalContext = context.getExternalContext();
 		// conseiller = service.chercherConseiller(((Conseiller)
 		// externalContext.getSessionMap().get("conseillerConnecte")).getId());
+		
 		try {
 			service.supprimerConseiller(conseiller.getId());
 		} catch (UserInexistantException e) {

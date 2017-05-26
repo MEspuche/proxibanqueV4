@@ -12,14 +12,12 @@ import com.huios.metier.Transaction;
 
 /**
  * Interface SpringData pour faire les requête sur la table de transaction en base de données
+ * 
  * @author Perrine Stephane Vincent Marine
- *
  */
 @Transactional
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer>{
-
-
 	
 	/**
 	 * Requête pour récupérer des transaction après la date indiquée

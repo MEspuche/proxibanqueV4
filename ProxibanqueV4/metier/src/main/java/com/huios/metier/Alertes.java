@@ -1,6 +1,7 @@
 package com.huios.metier;
 
 import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,15 +11,18 @@ import javax.persistence.OneToOne;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
 /**
- * Classe Alertes qui répertorie les comptes à découvert
+ * Classe Alertes qui définit une alerte sur un comptes à découvert
+ * 
  * @author Perrine Stephane Vincent Marine
- *
  */
 @Entity
 @Component
 @Scope("prototype")
 public class Alertes {
+	
+	/* ATTRIBUTS */
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -32,62 +36,38 @@ public class Alertes {
 	@OneToOne
 	private Compte compte;
 
-	/**
-	 * @return the id
-	 */
+	/* GETTES et SETTERS */
+	
 	public int getId() {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return the alertes
-	 */
 	public String getAlertes() {
 		return alertes;
 	}
 
-	/**
-	 * @param alertes the alertes to set
-	 */
 	public void setAlertes(String alertes) {
 		this.alertes = alertes;
 	}
 
-	/**
-	 * @return the conseiller
-	 */
 	public ConseillerClientele getConseiller() {
 		return conseiller;
 	}
 
-	/**
-	 * @param conseiller the conseiller to set
-	 */
 	public void setConseiller(ConseillerClientele conseiller) {
 		this.conseiller = conseiller;
 	}
 
-	/**
-	 * @return the compte
-	 */
 	public Compte getCompte() {
 		return compte;
 	}
 
-	/**
-	 * @param compte the compte to set
-	 */
 	public void setCompte(Compte compte) {
 		this.compte = compte;
 	}
-	
-	
 	
 }

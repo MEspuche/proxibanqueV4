@@ -94,8 +94,8 @@ public class WSService {
 					compteRepository.modifierSoldeCompte(c.getSolde(), c.getId());
 					Transaction tr3 = new Transaction();
 					tr3.setTypeTransaction("Virement");
-					tr3.setSoldeSortant(montant);
-					tr3.setSoldeEntrant(montant);
+					tr3.setMontantSortant(montant);
+					tr3.setMontantEntrant(montant);
 					tr3.setDateTransaction(new Date());
 					transactionRepository.save(tr3);
 					list.add(ce);
@@ -119,8 +119,8 @@ public class WSService {
 						compteRepository.modifierSoldeCompte(c.getSolde(),c.getId());
 						Transaction tr = new Transaction();
 						tr.setTypeTransaction("Virement");
-						tr.setSoldeSortant(montant);
-						tr.setSoldeEntrant(montant);
+						tr.setMontantSortant(montant);
+						tr.setMontantEntrant(montant);
 						tr.setDateTransaction(new Date());
 						transactionRepository.save(tr);
 						list.add(cc);
@@ -131,7 +131,6 @@ public class WSService {
 						return null;
 					}
 				}
-
 			}
 		}
 		return null;

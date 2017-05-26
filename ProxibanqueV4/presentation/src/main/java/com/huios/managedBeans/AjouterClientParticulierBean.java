@@ -15,9 +15,9 @@ import com.huios.metier.ConseillerClientele;
 import com.huios.service.IConseillerClienteleService;
 
 /**
- * 
- * Bean de la vue ajouter
+ * Bean de la vue ajouter client particulier
  *
+ * @author Perrine Stephane Vincent Marine
  */
 @Scope("request")
 @Controller(value = "ajouterClientParticulierBean")
@@ -48,23 +48,20 @@ public class AjouterClientParticulierBean {
 	public String ajouter() {
 	    FacesContext context = FacesContext.getCurrentInstance();
 	    ExternalContext externalContext = context.getExternalContext();
-	    //conseiller = service.chercherConseiller(((Conseiller) externalContext.getSessionMap().get("conseillerConnecte")).getId());
-	    //System.out.println("nbr de clients conseiller = " + conseiller.getMesClients().size());
 	    
-	    ClientParticulier nouveauClient = new ClientParticulier();
-		//System.out.println(client.getId());
+	    client = new ClientParticulier();
 	    
-	    nouveauClient.setCivilite(civilite);
-	    nouveauClient.setPrenom(prenom);
-	    nouveauClient.setNom(nom);
-	    nouveauClient.setAdresse(adresse);
-	    nouveauClient.setCodePostal(codePostal);
-	    nouveauClient.setVille(ville);
-	    nouveauClient.setTelephone(telephone);
-	    nouveauClient.setEmail(email);
+	    client.setCivilite(civilite);
+	    client.setPrenom(prenom);
+	    client.setNom(nom);
+	    client.setAdresse(adresse);
+	    client.setCodePostal(codePostal);
+	    client.setVille(ville);
+	    client.setTelephone(telephone);
+	    client.setEmail(email);
 	    
 		try {
-			service.ajouterClient(((ConseillerClientele) externalContext.getSessionMap().get("personneConnectee")).getId(), nouveauClient);
+			service.ajouterClient(((ConseillerClientele) externalContext.getSessionMap().get("personneConnectee")).getId(), client);
 		} catch (NombreClientsMaxAtteintException e) {
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null);
 	        FacesContext.getCurrentInstance().addMessage(null, message);

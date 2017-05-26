@@ -14,7 +14,6 @@ import com.huios.metier.ConseillerClientele;
  * Interface SpringData pour les alertes
  * 
  * @author Perrine Stephane Vincent Marine
- *
  */
 @Transactional
 @Repository
@@ -23,11 +22,10 @@ public interface AlerteRepository extends JpaRepository<Alertes, Integer> {
 	/**
 	 * Requête pour récupérer les alertes en BDD
 	 * 
-	 * @param cons
-	 *            Conseiller concerné par les alertes
+	 * @param conseiller : le conseiller clientèle concerné par les alertes
 	 * @return La liste d'alertes pour les comptes à découvert
 	 */
 	@Query("FROM Alertes a WHERE a.conseiller = ?1")
-	public List<Alertes> listerAlertesConseiller(ConseillerClientele cons);
+	public List<Alertes> listerAlertesConseiller(ConseillerClientele conseiller);
 
 }

@@ -57,9 +57,9 @@ CREATE TABLE `compte` (
 
 INSERT INTO `compte` (`TypeCompte`, `id`, `dateOuverture`, `numCompte`, `solde`, `decouvert`, `tauxRemuneration`, `alerte_id`, `clientProprietaire_id`) VALUES
 ('CompteCourant', 1, '14/03/2001', 159753, '3215.12', 1000, NULL, NULL, 3),
-('CompteEpargne', 2, '27/10/1997', 654651, '12500.50', NULL, 1.3, NULL, 3),
+('CompteEpargne', 2, '27/10/1997', 654651, '12500.50', NULL, 0.03, NULL, 3),
 ('CompteCourant', 3, '12/05/1990', 258456, '25698.00', 2000, NULL, NULL, 4),
-('CompteEpargne', 4, '10/06/2000', 147896, '80250.00', NULL, 1.5, NULL, 4);
+('CompteEpargne', 4, '10/06/2000', 147896, '80250.00', NULL, 0.05, NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -143,8 +143,8 @@ INSERT INTO `roles` (`id`, `email`, `role`) VALUES
 CREATE TABLE `transaction` (
   `id` int(11) NOT NULL,
   `dateTransaction` datetime DEFAULT NULL,
-  `soldeEntrant` double NOT NULL,
-  `soldeSortant` double NOT NULL,
+  `montantEntrant` double NOT NULL,
+  `montantSortant` double NOT NULL,
   `typeTransaction` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

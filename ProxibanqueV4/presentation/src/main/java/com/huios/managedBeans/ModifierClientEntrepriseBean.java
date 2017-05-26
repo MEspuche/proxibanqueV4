@@ -8,15 +8,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.huios.exceptions.UserInexistantException;
-import com.huios.metier.Client;
 import com.huios.metier.ClientEntreprise;
 import com.huios.metier.ConseillerClientele;
 import com.huios.service.IConseillerClienteleService;
 
 /**
- * 
- * Bean de la vue modifier
+ * Bean de la vue modifier client entreprise
  *
+ * @author Perrine Stephane Vincent Marine
  */
 @Scope("session")
 @Controller(value = "modifierClientEntrepriseBean")

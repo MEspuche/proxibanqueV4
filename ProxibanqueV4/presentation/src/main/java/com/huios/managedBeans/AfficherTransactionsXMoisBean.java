@@ -14,49 +14,49 @@ import com.huios.metier.Transaction;
 import com.huios.service.IDirecteurAgenceService;
 
 /**
- * 
- * Bean de la vue lister
+ * Bean de la vue AfficherTransactionXMois
  *
+ * @author Perrine Stephane Vincent Marine
  */
-// @Named // pour dire que c'est un Bean dans le conteneur de CDI. @Named inclut
-// @ManagedBean de JSF
-// @ManagedBean(name="listerClientsBean")
-// @RequestScoped
 @Scope("session")
-@Controller(value = "transactionsSemaine")
-public class AfficherTransactionsSemaine {
+@Controller(value = "transactionsXMois")
+public class AfficherTransactionsXMoisBean {
 
 	@Autowired
 	private IDirecteurAgenceService service;
 
-	private List<Transaction> ltrSemaine;
-
+	private List<Transaction> ltrXMois;
+	private int nbMois;
+	
 	public PieChartModel getPieModel() {
-		ltrSemaine = (service.rapportTransactionSemaine() == null) ? new ArrayList<Transaction>()
-				: service.rapportTransactionSemaine();
+		if(nbMois==0){
+			nbMois = 1;
+		}
+		ltrXMois = (service.rapportTransactionMois(nbMois) == null) ? new ArrayList<Transaction>()
+				: service.rapportTransactionMois(nbMois);
 		double entree=0, sortie=0, virement=0;
 		PieChartModel pieModel = new PieChartModel();
-		for (Transaction tr : ltrSemaine) {
+		for (Transaction tr : ltrXMois) {
 			if (tr.getTypeTransaction().equals("Virement")) {
-				virement=+tr.getSoldeEntrant();
+				virement=+tr.getMontantEntrant();
 			}
 			if (tr.getTypeTransaction().equals("SuppressionCompteCourant")) {
-				sortie=+tr.getSoldeSortant();
+				sortie=+tr.getMontantSortant();
 			}
 			if (tr.getTypeTransaction().equals("SuppressionCompteEpargne")) {
-				sortie=+tr.getSoldeSortant();
+				sortie=+tr.getMontantSortant();
 			}
 			if (tr.getTypeTransaction().equals("CreationCompteEpargne")) {
-				entree=+tr.getSoldeEntrant();
+				entree=+tr.getMontantEntrant();
 			}
 			if (tr.getTypeTransaction().equals("CreationCompteCourant")) {
-				entree=+tr.getSoldeEntrant();
+				entree=+tr.getMontantEntrant();
 			}
 			if (tr.getTypeTransaction().equals("DepotArgent")) {
-				entree=+tr.getSoldeEntrant();
+				entree=+tr.getMontantEntrant();
 			}
 			if (tr.getTypeTransaction().equals("RetraitArgent")) {
-				sortie=+tr.getSoldeSortant();
+				sortie=+tr.getMontantSortant();
 			}
 
 		}
@@ -69,10 +69,13 @@ public class AfficherTransactionsSemaine {
 	}
 
 	public BarChartModel getBarModel() {
-		ltrSemaine = (service.rapportTransactionSemaine() == null) ? new ArrayList<Transaction>()
-				: service.rapportTransactionSemaine();
+		if(nbMois==0){
+			nbMois = 1;
+		}
+		ltrXMois = (service.rapportTransactionMois(nbMois) == null) ? new ArrayList<Transaction>()
+				: service.rapportTransactionMois(nbMois);
 		int cpt1 = 0, cpt2 = 0, cpt3 = 0, cpt4 = 0, cpt5 = 0, cpt6 = 0, cpt7 = 0;
-		for (Transaction tr : ltrSemaine) {
+		for (Transaction tr : ltrXMois) {
 			if (tr.getTypeTransaction().equals("Virement")) {
 				cpt1++;
 			}
@@ -112,8 +115,16 @@ public class AfficherTransactionsSemaine {
 		return barModel;
 	}
 
-	public AfficherTransactionsSemaine() {
+	public AfficherTransactionsXMoisBean() {
 		super();
 	}
 
+	public int getNbMois() {
+		return nbMois;
+	}
+
+	public void setNbMois(int nbMois) {
+		this.nbMois = nbMois;
+	}
+	
 }

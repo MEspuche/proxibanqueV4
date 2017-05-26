@@ -10,22 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.huios.exceptions.CompteInexistantException;
 import com.huios.exceptions.UserInexistantException;
 import com.huios.metier.Client;
 import com.huios.metier.ClientEntreprise;
 import com.huios.metier.ClientParticulier;
+import com.huios.metier.CompteCourant;
+import com.huios.metier.CompteEpargne;
 import com.huios.metier.ConseillerClientele;
 import com.huios.service.IConseillerClienteleService;
 
 /**
- * 
- * Bean de la vue lister
+ * Bean de la vue lister clients d'un conseiller
  *
+ * @author Perrine Stephane Vincent Marine
  */
-// @Named // pour dire que c'est un Bean dans le conteneur de CDI. @Named inclut
-// @ManagedBean de JSF
-// @ManagedBean(name="listerClientsBean")
-// @RequestScoped
 @Scope("request")
 @Controller(value = "listerClientsBean")
 public class ListerClientsBean {
@@ -39,13 +38,19 @@ public class ListerClientsBean {
 	// le conseiller courant
 	private ConseillerClientele conseiller;
 
-	// collection de clients affectés au conseiller identifié
+	// collections de clients affectés au conseiller identifié
 	private Collection<ClientParticulier> lesClientsParticulier;
 	private Collection<ClientEntreprise> lesClientsEntreprise;
 
 	// le client courant
 	private Client client;
 
+	// l'affichage du compte courant du client
+	private String compteCourant;
+	
+	// l'affichage du épargne du client
+	private String compteEpargne;
+	
 	/* ----------------- Méthodes ----------------- */
 
 	public Collection<ClientParticulier> listerClientsParticulier() {
@@ -72,19 +77,19 @@ public class ListerClientsBean {
 		try {
 			service.supprimerClient(client.getId());
 		} catch (UserInexistantException e) {
-			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur : utilisateur inexistant", "");
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERREUR : utilisateur inexistant", "");
 			context.addMessage(null, message);
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
 	/* ----------------- Getters & Setters ----------------- */
 
-	public ConseillerClientele getconseiller() {
+	public ConseillerClientele getConseiller() {
 		return conseiller;
 	}
 
-	public void setconseiller(ConseillerClientele conseiller) {
+	public void setConseiller(ConseillerClientele conseiller) {
 		this.conseiller = conseiller;
 	}
 
@@ -110,6 +115,22 @@ public class ListerClientsBean {
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	public String getCompteCourant() {
+		try {
+			return service.recupererCompteCourant(client.getId()).toString();
+		} catch (CompteInexistantException e) {
+			return e.getMessage();
+		}
+	}
+
+	public String getCompteEpargne() {
+		try {
+			return service.recupererCompteEpargne(client.getId()).toString();
+		} catch (CompteInexistantException e) {
+			return e.getMessage();
+		}
 	}
 
 }

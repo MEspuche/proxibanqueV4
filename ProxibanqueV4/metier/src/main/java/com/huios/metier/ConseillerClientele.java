@@ -12,22 +12,21 @@ import javax.persistence.OneToMany;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
 /**
- * 
- * /**
  * Classe ConseillerClientele qui hérite de la classe Personne  
- * le conseiller clientèle peut ajouter, modifier, supprimer ses clients ainsi que gérer les comptes de ses clients
+ * Le conseiller clientèle peut ajouter, modifier, supprimer ses clients ainsi que gérer les comptes de ses clients
+ * 
  * @author Perrine Stephane Vincent Marine
- *
  */
 @Entity
 @Component
 @Scope("prototype")
 @DiscriminatorValue(value="ConseillerClientele")
 public class ConseillerClientele extends Personne implements Serializable{
-
-
-
+	
+	/* ATTRIBUTS */
+	
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
@@ -38,8 +37,9 @@ public class ConseillerClientele extends Personne implements Serializable{
 
 	@OneToMany(mappedBy="conseiller")
 	private Collection<Alertes> alertes;
-	
 
+	/* GETTERS et SETTERS */
+	
 	public DirecteurAgence getMonDirecteurAgence() {
 		return monDirecteurAgence;
 	}
@@ -71,16 +71,5 @@ public class ConseillerClientele extends Personne implements Serializable{
 	public void setAlertes(Collection<Alertes> alertes) {
 		this.alertes = alertes;
 	}
-
-	@Override
-	public String toString() {
-		return "Conseiller [ monDirecteurAgence=" + monDirecteurAgence + ", mesClients="
-				+ mesClients + "]";
-	}
-
-	public ConseillerClientele() {
-		super();
-	}
-	
 	
 }

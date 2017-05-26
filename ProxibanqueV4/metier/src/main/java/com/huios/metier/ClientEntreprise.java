@@ -7,10 +7,11 @@ import javax.persistence.Entity;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
 /**
  * Classe ClientEntreprise qui hérite de la classe Client
- *@author Perrine Stephane Vincent Marine
- *
+ * 
+ * @author Perrine Stephane Vincent Marine
  */
 @Entity
 @Component
@@ -18,14 +19,16 @@ import org.springframework.stereotype.Component;
 @DiscriminatorValue(value="ClientEntreprise")
 public class ClientEntreprise extends Client implements Serializable{
 
-	
 	private static final long serialVersionUID = 1L;
 
-	public ClientEntreprise() {
-		super();
-		// TODO Auto-generated constructor stub
+	/**
+	 * Affichage d'un client
+	 */
+	@Override
+	public String toString() {
+		return "ClientEntreprise [civilite = " + civilite + ", nom = " + nom + ", prenom = " + prenom + ", adresse = " + adresse
+				+ ", codePostal = " + codePostal + ", ville = " + ville + ", telephone = " + telephone + ", email = " + email
+				+ "]";
 	}
-
-	
 	
 }

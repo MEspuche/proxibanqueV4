@@ -19,26 +19,27 @@
 
 				<h:panelGrid columns="2" styleClass="table table-hover">
 				
-					<h:outputText value="IDENTITE : " />
-					<h:outputText
-						value="#{(listerConseillersBean.conseiller.civilite).concat(' ').concat(listerConseillersBean.conseiller.prenom).concat(' ').concat(listerConseillersBean.conseiller.nom)}" />
+					<h:outputText value="IDENTITE" />
+					<h:outputText value="#{(listerConseillersBean.conseiller.civilite).concat(' ').concat(listerConseillersBean.conseiller.prenom).concat(' ').concat(listerConseillersBean.conseiller.nom)}" />
 
-					<h:outputText value="ADRESSE : " />
+					<h:outputText value="ADRESSE" />
 					<h:outputText value="#{listerConseillersBean.conseiller.adresse}" />
 
-					<h:outputText value="CODE POSTAL : " />
-					<h:outputText
-						value="#{listerConseillersBean.conseiller.codePostal}" />
+					<h:outputText value="CODE POSTAL" />
+					<h:outputText value="#{listerConseillersBean.conseiller.codePostal}" />
 
-					<h:outputText value="VILLE : " />
+					<h:outputText value="VILLE" />
 					<h:outputText value="#{listerConseillersBean.conseiller.ville}" />
 
-					<h:outputText value="TELEPHONE : " />
+					<h:outputText value="TELEPHONE" />
 					<h:outputText value="#{listerConseillersBean.conseiller.telephone}" />
 
-					<h:outputText value="ADRESSE MAIL : " />
+					<h:outputText value="ADRESSE MAIL" />
 					<h:outputText value="#{listerConseillersBean.conseiller.email}" />
 
+					<h:outputText value="MOT DE PASSE" />
+					<h:outputText value="#{listerConseillersBean.conseiller.email}" />
+					
 				</h:panelGrid>
 				
 			</p:panel>

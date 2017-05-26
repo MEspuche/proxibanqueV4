@@ -39,23 +39,12 @@
 					<h:outputText value="ADRESSE MAIL : " />
 					<h:outputText value="#{listerClientsBean.client.email}" />
 
-					<c:forEach var="item"
-						items="${listerClientsBean.client.mesComptes}">
-						<h:outputText value="COMPTE : " />
-						<h:outputText value="${item}" />
-					</c:forEach>
-
-					<!-- 		if (client.getCompteCourant().getIdCompte()==0) { -->
-					<!-- 			request.setAttribute("comptecourant", "Ce client n'a pas encore de Compte Courant..."); -->
-					<!-- 		} else { -->
-					<!-- 			request.setAttribute("comptecourant", client.getCompteCourant().toString()); -->
-					<!-- 		} -->
-
-					<!-- 		if (client.getCompteEpargne().getIdCompte()==0) { -->
-					<!-- 			request.setAttribute("compteepargne", "Ce client n'a pas encore de Compte Epargne..."); -->
-					<!-- 		} else { -->
-					<!-- 			request.setAttribute("compteepargne", client.getCompteEpargne().toString()); -->
-					<!-- 		} -->
+					<h:outputText value="COMPTE COURANT : " />
+					<h:outputText value="#{listerClientsBean.compteCourant}" />
+					
+					<h:outputText value="COMPTE EPARGNE : " />
+					<h:outputText value="#{listerClientsBean.compteEpargne}" />
+					
 				</h:panelGrid>
 				
 			</p:panel>

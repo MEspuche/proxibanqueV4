@@ -1,4 +1,4 @@
-package com.huios.Aspects;
+package com.huios.aspects;
 
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,10 +9,16 @@ import com.huios.dao.AlerteRepository;
 import com.huios.metier.Alertes;
 import com.huios.metier.Compte;
 
+/**
+ * Surveillance des mouvements de fonds sur les comptes des clients
+ * de façon à alerter les conseillers clientèle et le directeur d'agence
+ * en cas de découvert
+ * 
+ * @author Perrine Stephane Vincent Marine
+ */
 @Aspect
 public class SuiviSoldes {
 	
-
 	@Autowired
 	private AlerteRepository alerteRepository;
 	
@@ -30,12 +36,11 @@ public class SuiviSoldes {
 				Alertes a = new Alertes();
 				a.setCompte(compteDebite);
 				a.setConseiller(compteDebite.getClientProprietaire().getMonConseiller());
-				a.setAlertes("Le compte appartenant à "+compteDebite.getClientProprietaire().getCivilite()+compteDebite.getClientProprietaire().getNom()+" est à découvert :"+compteDebite.getSolde()+" €");
+				a.setAlertes("Le compte appartenant à " + compteDebite.getClientProprietaire().getCivilite() + compteDebite.getClientProprietaire().getNom()+" est à découvert : " + compteDebite.getSolde() + " €");
 				alerteRepository.save(a);
 			}
 		}
 
-		
 		@AfterReturning(pointcut="verificationSoldeModif()", returning="compteModifie")
 		public void enregistrerDecouvertMod(Compte compteModifie){	
 			if(compteModifie.getSolde()<0){

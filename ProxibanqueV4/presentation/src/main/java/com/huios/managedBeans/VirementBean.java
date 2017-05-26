@@ -19,13 +19,10 @@ import com.huios.metier.Compte;
 import com.huios.service.IConseillerClienteleService;
 
 /**
- * 
- * Bean de la vue virements
+ * Bean de la vue permettant de faire un virement d'un compte à un autre
  *
+ * @author Perrine Stephane Vincent Marine
  */
-//@Named	// pour dire que c'est un Bean dans le conteneur de CDI. @Named inclut @ManagedBean de JSF
-//@ManagedBean(name = "virementBean")
-//@ViewScoped
 @Scope("session")
 @Controller(value = "virementBean")
 public class VirementBean {
@@ -33,7 +30,6 @@ public class VirementBean {
 	/* ----------------- Attributs ----------------- */
 
 	// appel de la couche service
-	// @Inject
 	@Autowired
 	private IConseillerClienteleService service;
 
@@ -46,6 +42,8 @@ public class VirementBean {
 	// montant
 	private double montant;
 	
+	/* ----------------- Méthodes ----------------- */
+
 	/**
 	 * methode statique d'arrondi
 	 * @param d
@@ -58,8 +56,6 @@ public class VirementBean {
         return bd.doubleValue();
     }
 	
-	/* ----------------- Méthodes ----------------- */
-
 	public String effectuerVirement() {
 
 //		FacesContext context = FacesContext.getCurrentInstance();
@@ -68,16 +64,12 @@ public class VirementBean {
 		Compte compteADebiter = selectedDebit;
 		Compte compteACrediter = selectedCredit;
 		
-		//System.out.println(montant);
-		//System.out.println(compteACrediter);
-		//System.out.println(compteADebiter);
-		
 //		if (compteADebiter==null || compteACrediter==null){
 //			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Sélection incomplète","");
 //			FacesContext.getCurrentInstance().addMessage(null, message);
 //			return "virements";
 //		}
-//		
+		
 //		if (montant == 0){
 //			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Montant nul","");
 //			FacesContext.getCurrentInstance().addMessage(null, message);
@@ -85,12 +77,10 @@ public class VirementBean {
 //		}
 		
 //		try {
-		
 			//arrondi à 2 décimales
 			//montant = round(montant, 2);
-			
-			//System.out.println(montant);
-			// test de l'arrondis System.out.println(montant);
+			//System.out.println(montant); // test de l'arrondis
+
 			try {
 				//arrondi à 2 décimales
 				montant = round(montant, 2);
@@ -104,7 +94,7 @@ public class VirementBean {
 				FacesContext.getCurrentInstance().addMessage(null, message);
 				return "virements";
 			}
-			FacesMessage message = new FacesMessage("Virement effectué " + montant + "€ du compte " + compteADebiter.getNumCompte() + " vers le compte " + compteACrediter.getNumCompte());
+			FacesMessage message = new FacesMessage("Virement effectué : " + montant + " € du compte " + compteADebiter.getNumCompte() + " vers le compte " + compteACrediter.getNumCompte());
 			FacesContext.getCurrentInstance().addMessage(null, message);
 
 //		} catch (Exception e) {
@@ -115,12 +105,9 @@ public class VirementBean {
 //
 //		}
 		
-
-
 		return "virements";
 	}
 
-	
 	public Collection<Compte> getListeComptes(){
 		Collection<Compte> listcompt= new ArrayList<Compte>();
 		try {
@@ -132,13 +119,12 @@ public class VirementBean {
 		return listcompt;
 	}
 	
-	
-
     public void onDebitSelect(SelectEvent event){
     	
     	this.selectedDebit =  (Compte)event.getObject();
     	//System.out.println(selectedDebit.getIdCompte());
     }
+    
 //    public void onDebitUnselect(UnselectEvent event)
 //    {
 //    	selectedDebit =  null;
@@ -148,16 +134,14 @@ public class VirementBean {
     	this.selectedCredit =  (Compte)event.getObject();
     	//System.out.println(selectedCredit.getIdCompte());
     }
+    
 //    public void onCreditUnselect(UnselectEvent event)
 //    {
 //    	selectedCredit =  null;
 //    }
 
-
 	/* ----------------- Getters & Setters ----------------- */
 	
-
-
 	public double getMontant() {
 		return montant;
 	}
@@ -166,29 +150,20 @@ public class VirementBean {
 		this.montant = montant;
 	}
 
-
 	public Compte getSelectedDebit() {
 		return selectedDebit;
 	}
-
 
 	public void setSelectedDebit(Compte selectedDebit) {
 		this.selectedDebit = selectedDebit;
 	}
 
-
 	public Compte getSelectedCredit() {
 		return selectedCredit;
 	}
-
 
 	public void setSelectedCredit(Compte selectedCredit) {
 		this.selectedCredit = selectedCredit;
 	}
 	
-	
-
-
-
-
 }

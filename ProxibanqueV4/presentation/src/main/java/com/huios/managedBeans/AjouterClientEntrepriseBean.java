@@ -7,7 +7,6 @@ import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.context.annotation.RequestScope;
 
 import com.huios.exceptions.NombreClientsMaxAtteintException;
 import com.huios.metier.Client;
@@ -16,9 +15,9 @@ import com.huios.metier.ConseillerClientele;
 import com.huios.service.IConseillerClienteleService;
 
 /**
- * 
- * Bean de la vue ajouter
+ * Bean de la vue ajouter client entreprise
  *
+ * @author Perrine Stephane Vincent Marine
  */
 @Scope("request")
 @Controller(value = "ajouterClientEntrepriseBean")
@@ -27,7 +26,6 @@ public class AjouterClientEntrepriseBean {
 	/* ----------------- Attributs ----------------- */
 
 	// appel de la couche service
-
 	@Autowired
 	private IConseillerClienteleService service;
 
@@ -49,24 +47,23 @@ public class AjouterClientEntrepriseBean {
 	public String ajouter() {
 	    FacesContext context = FacesContext.getCurrentInstance();
 	    ExternalContext externalContext = context.getExternalContext();
-	    //conseiller = service.chercherConseiller(((Conseiller) externalContext.getSessionMap().get("conseillerConnecte")).getId());
-	    //System.out.println("nbr de clients conseiller = " + conseiller.getMesClients().size());
+	    FacesMessage message;
 	    
-		ClientEntreprise nouveauClient = new ClientEntreprise();
+	    client = new ClientEntreprise();
 	    
-		nouveauClient.setCivilite(civilite);
-		nouveauClient.setPrenom("");
-		nouveauClient.setNom(nom);
-		nouveauClient.setAdresse(adresse);
-		nouveauClient.setCodePostal(codePostal);
-		nouveauClient.setVille(ville);
-		nouveauClient.setTelephone(telephone);
-		nouveauClient.setEmail(email);
+	    client.setCivilite(civilite);
+	    client.setPrenom("");
+	    client.setNom(nom);
+	    client.setAdresse(adresse);
+	    client.setCodePostal(codePostal);
+	    client.setVille(ville);
+	    client.setTelephone(telephone);
+	    client.setEmail(email);
 	    
 		try {
-			service.ajouterClient(((ConseillerClientele) externalContext.getSessionMap().get("personneConnectee")).getId(), nouveauClient);
+			service.ajouterClient(((ConseillerClientele) externalContext.getSessionMap().get("personneConnectee")).getId(), client);
 		} catch (NombreClientsMaxAtteintException e) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null);
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null);
 	        FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		
@@ -83,11 +80,11 @@ public class AjouterClientEntrepriseBean {
 		this.service = service;
 	}
 
-	public ConseillerClientele getconseiller() {
+	public ConseillerClientele getConseiller() {
 		return conseiller;
 	}
 
-	public void setconseiller(ConseillerClientele conseiller) {
+	public void setConseiller(ConseillerClientele conseiller) {
 		this.conseiller = conseiller;
 	}
 

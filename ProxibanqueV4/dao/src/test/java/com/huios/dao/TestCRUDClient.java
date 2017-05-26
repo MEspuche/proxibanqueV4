@@ -14,7 +14,11 @@ import com.huios.metier.Personne;
 
 import junit.framework.Assert;
 
-
+/**
+ * Tests Create / Read / Update / Delete de Client
+ * 
+ * @author Perrine Stephane Vincent Marine
+ */
 @SuppressWarnings("deprecation")
 public class TestCRUDClient {
 
@@ -29,7 +33,7 @@ public class TestCRUDClient {
 	// @Autowired
 	// PersonneRepository personneRepository;
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void testCreerClient() {
 		ClientParticulier c = new ClientParticulier();
@@ -44,9 +48,9 @@ public class TestCRUDClient {
 		Assert.assertEquals(c.getPrenom(), c1.getPrenom());
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
-	public void testmodifierClientExistant() {
+	public void testModifierClientExistant() {
 		ClientParticulier cl = (ClientParticulier) personneRepository.findOne(3);
 		personneRepository.modifierClient(cl.getCivilite(), cl.getNom(), cl.getPrenom(), "24 rue de la bienveillance", cl.getCodePostal(),
 				cl.getVille(), cl.getTelephone(), cl.getEmail(), 3);
@@ -54,9 +58,9 @@ public class TestCRUDClient {
 		assertEquals(personneRepository.findOne(3).getAdresse(), "24 rue de la bienveillance");
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
-	public void testsupprimerClientExistant() {
+	public void testSupprimerClientExistant() {
 		personneRepository.delete(14);
 		ClientParticulier cl = (ClientParticulier) personneRepository.findOne(14);
 		Assert.assertEquals(cl, null);
@@ -66,7 +70,6 @@ public class TestCRUDClient {
 	public void testAfficherClients() {
 		Collection<Personne> clients =personneRepository.findAll();
 		assertNotNull(clients);
-
 	}
 
 }

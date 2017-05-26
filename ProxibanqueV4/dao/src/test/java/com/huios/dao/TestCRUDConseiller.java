@@ -12,10 +12,13 @@ import com.huios.metier.Personne;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
+/**
+ * Tests Create / Read / Update / Delete de Conseiller
+ * 
+ * @author Perrine Stephane Vincent Marine
+ */
 @SuppressWarnings("deprecation")
 public class TestCRUDConseiller extends TestCase {
-	
-	//ConseillerRepository conseillerRepository;
 	
 	// 1- Chargement du conteneur et création des beans
 	ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -23,6 +26,7 @@ public class TestCRUDConseiller extends TestCase {
 	// 2- Récupération d'un bean
 	PersonneRepository personneRepository =  (PersonneRepository) appContext.getBean("personneRepository");
 	
+	//ConseillerRepository conseillerRepository;
 	
 	@Test
 	public void testCreerConseiller() {
@@ -34,7 +38,8 @@ public class TestCRUDConseiller extends TestCase {
 		assertEquals(c.getNom(), c1.getNom() );	
 		assertEquals(c.getPrenom(), c1.getPrenom() );	
 	}
-@Ignore
+	
+	//@Ignore
 	@Test
 	public void testmodifierConseillerExistant() {
 		ConseillerClientele cl= (ConseillerClientele) personneRepository.findOne(19);
@@ -42,7 +47,7 @@ public class TestCRUDConseiller extends TestCase {
 		assertEquals(personneRepository.findOne(19).getAdresse(), "24 rue de la bienveillance");
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void testsupprimerConseillerExistant() {
 		personneRepository.delete(2);
@@ -54,6 +59,5 @@ public class TestCRUDConseiller extends TestCase {
 	public void testAfficherConseillers(){
 		Collection<Personne> conseillers = personneRepository.findAll();
 		assertNotNull(conseillers);
-		
 	}
 }

@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 /**
  * Classe ClientParticulier qui hérite de la classe Client
- * @author Stagiaire
- *
+ * 
+ * @author Perrine Stephane Vincent Marine
  */
 @Entity
 @Component
@@ -20,21 +20,14 @@ public class ClientParticulier extends Client implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public ClientParticulier() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+	/**
+	 * Affichage d'un client
+	 */
 	@Override
 	public String toString() {
-		return "ClientParticulier [getMesComptes()=" + getMesComptes() + ", getMonConseiller()=" + getMonConseiller()
-				+ ", toString()=" + super.toString() + ", getCivilite()=" + getCivilite() + ", getId()=" + getId()
-				+ ", getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getAdresse()=" + getAdresse()
-				+ ", getCodePostal()=" + getCodePostal() + ", getVille()=" + getVille() + ", getTelephone()="
-				+ getTelephone() + ", getEmail()=" + getEmail() + ", getPassword()=" + getPassword() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + "]";
+		return "ClientParticulier [civilite = " + civilite + ", nom = " + nom + ", prenom = " + prenom + ", adresse = "
+				+ adresse + ", codePostal = " + codePostal + ", ville = " + ville + ", telephone = " + telephone + ", email = "
+				+ email + "]";
 	}
-
-	
 	
 }

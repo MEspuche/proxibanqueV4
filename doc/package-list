@@ -1,0 +1,8 @@
+com.huios.ProxibanqueV4
+com.huios.aspects
+com.huios.dao
+com.huios.exceptions
+com.huios.managedBeans
+com.huios.metier
+com.huios.service
+com.huios.webservice

@@ -6,6 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.metier.ClientEntreprise;
 
+/**
+ * Interface SpringData pour les clients particuliers
+ * 
+ * @author Perrine Stephane Vincent Marine
+ */
 @Transactional
 @Repository
 public interface ClientEntrepriseRepository extends JpaRepository<ClientEntreprise, Integer> {

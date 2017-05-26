@@ -12,17 +12,11 @@
 		<div class="block">
 			<p:panel class="panel">
 
-				<h3>
-					Les transactions des
-					<h:outputText
-						value="#{(transactionsXMois.nbMois == 0)?1:transactionsXMois.nbMois}" />
-					derniers mois
-				</h3>
+				<h3>Les transactions des <h:outputText value="#{(transactionsXMois.nbMois == 0)?1:transactionsXMois.nbMois}" /> derniers mois</h3>
 
 				<h:form>
-					<h:commandButton value="Afficher"
-						action="afficherTransactionsXMois.xhtml" />
-		les<h:selectOneMenu value="#{transactionsXMois.nbMois}"
+					<h:commandButton value="Afficher" action="afficherTransactionsXMois.xhtml" />
+						les <h:selectOneMenu value="#{transactionsXMois.nbMois}"
 						id="nbmois">
 						<f:selectItem itemValue="1" itemLabel="1" />
 						<f:selectItem itemValue="2" itemLabel="2" />
@@ -36,9 +30,9 @@
 						<f:selectItem itemValue="10" itemLabel="10" />
 						<f:selectItem itemValue="11" itemLabel="11" />
 						<f:selectItem itemValue="12" itemLabel="12" />
-					</h:selectOneMenu>derniers mois
-
+					</h:selectOneMenu> derniers mois
 				</h:form>
+				
 				<h:form>
 					<h:commandButton value="Afficher"
 						action="afficherTransactionsSemaine.xhtml" /> la dernière semaine

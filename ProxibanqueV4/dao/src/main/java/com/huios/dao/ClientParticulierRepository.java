@@ -6,6 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.metier.ClientParticulier;
 
+/**
+ * Interface SpringData pour les alertes
+ * 
+ * @author Perrine Stephane Vincent Marine
+ */
 @Transactional
 @Repository
 public interface ClientParticulierRepository extends JpaRepository<ClientParticulier, Integer> {

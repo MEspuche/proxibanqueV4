@@ -8,14 +8,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.RequestDispatcher;
-//import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.huios.exceptions.UserInvalidException;
 import com.huios.metier.ConseillerClientele;
 import com.huios.metier.DirecteurAgence;
 import com.huios.metier.Personne;
@@ -23,9 +21,9 @@ import com.huios.service.IConseillerClienteleService;
 
 /**
  * Bean servant à gérer la session
+ * 
+ * @author Perrine Stephane Vincent Marine
  */
-// @ManagedBean(name = "authentifierBean")
-// @SessionScoped
 @Scope("session")
 @Controller(value = "authentifierBean")
 public class AuthentifierBean {
@@ -36,8 +34,7 @@ public class AuthentifierBean {
 	@Autowired
 	private IConseillerClienteleService service;
 
-	// objet Personne permettant de récupérer les paramètres saisis dans le
-	// formulaire
+	// objet Personne permettant de récupérer les paramètres saisis dans le formulaire
 	private Personne personne = null;
 
 	// objet Personne permettant de gérer la connexion à proxibanque
@@ -72,8 +69,7 @@ public class AuthentifierBean {
 	}
 
 	public String authentifier() {
-		// System.out.println(conseillerClientele.getEmail() + " | " +
-		// conseillerClientele.getPassword());
+		// System.out.println(conseillerClientele.getEmail() + " | " + conseillerClientele.getPassword());
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
@@ -90,23 +86,34 @@ public class AuthentifierBean {
 				hashpassword += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
 			}
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Une erreur est survenue", "");
+			context.addMessage(null, message);
+			//e.printStackTrace();
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Une erreur est survenue", "");
+			context.addMessage(null, message);
+			//e.printStackTrace();
 		}
-
-		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+		
 		try {
+			HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
 			request.login(personne.getEmail(), hashpassword);
 
+			//personneConnectee = service.authentification(personne.getEmail(), personne.getPassword());
 			personneConnectee = service.authentification(personne.getEmail(), hashpassword);
 
-		} catch (UserInvalidException e) {
-			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur d'authentification", "");
+			externalContext.getSessionMap().put("personneConnectee", personneConnectee);
+
+			message = new FacesMessage("Connecté");
 			context.addMessage(null, message);
-			return "/login.xhtml";
+
+			if (request.isUserInRole("Conseiller")) {
+				return "/conseiller/listerClients.xhtml";
+			} else if (request.isUserInRole("DirecteurAgence")) {
+				return "/directeurAgence/listerConseillers.xhtml";
+			} else {
+				return "../index.xhtml";
+			}
 
 		} catch (Exception e) {
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur d'authentification", "");
@@ -114,19 +121,6 @@ public class AuthentifierBean {
 			return "/login.xhtml";
 		}
 		
-		externalContext.getSessionMap().put("personneConnectee", personneConnectee);
-
-		message = new FacesMessage("Connecté");
-		context.addMessage(null, message);
-
-		if (request.isUserInRole("Conseiller"))
-			return "/conseiller/listerClients.xhtml";
-		else if (request.isUserInRole("DirecteurAgence"))
-			return "/directeurAgence/listerConseillers.xhtml";
-		else {
-			return "../index.xhtml";
-		}
-
 	}
 
 	public void deconnecter() {
@@ -149,9 +143,8 @@ public class AuthentifierBean {
 		} catch (Exception e) {
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur lors de la tentative de déconnection", "");
 			context.addMessage(null, message);
-			e.printStackTrace();
 		}
-
+		
 	}
 
 	/* ----------------- Getters & Setters ----------------- */

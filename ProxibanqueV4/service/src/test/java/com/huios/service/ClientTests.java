@@ -15,7 +15,11 @@ import com.huios.exceptions.UserInexistantException;
 import com.huios.metier.Client;
 import com.huios.metier.ClientParticulier;
 
-
+/**
+ * Tests Create / Read / Update / Delete de Client
+ * 
+ * @author Perrine Stephane Vincent Marine
+ */
 public class ClientTests {
 
 	// 1- Chargement du conteneur et création des beans
@@ -30,36 +34,37 @@ public class ClientTests {
 	// @Autowired
 	// IDirecteurAgenceService serviceD;
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void testAjouterClient() throws NombreClientsMaxAtteintException, UserInexistantException {
 		Client client = new ClientParticulier();
+		client.setId(32);
 		client.setPrenom("Marine");
-		consClienteleService.ajouterClient(19, client);
-		Client c = consClienteleService.afficherClient(32);
+		consClienteleService.ajouterClient(2, client);
+		Client c = consClienteleService.recupererClient(32);
 		assertEquals(c.getPrenom(), "Marine");
 	}
 
-	@Ignore
+	//@Ignore
 	@Test(expected = NombreClientsMaxAtteintException.class)
 	public void testAjouterClientConseillerPlein() throws NombreClientsMaxAtteintException {
 
-		// serviceD.ajouterConseiller(dir.getId(), cons);
+		// service.ajouterConseiller(dir.getId(), cons);
 		Collection<ClientParticulier> clients = new ArrayList<ClientParticulier>();
 
 		// ajoute 10 clients au conseiller
 		for (int i = 1; i < 11; i++) {
 			Client client = new ClientParticulier();
 			clients.add((ClientParticulier) client);
-			consClienteleService.ajouterClient(19, client);
+			consClienteleService.ajouterClient(2, client);
 		}
 
-		// Ajoute un onzieme eme client, lève une exception
+		// Ajoute un onzieme client, lève une exception
 		Client client = new ClientParticulier();
-		consClienteleService.ajouterClient(19, client);
+		consClienteleService.ajouterClient(2, client);
 	}
 
-	@Ignore
+	//@Ignore
 	@Test(expected = UserInexistantException.class)
 	public void testModifierClientNonExistant() throws UserInexistantException {
 		Client c = new ClientParticulier();
@@ -67,7 +72,7 @@ public class ClientTests {
 		consClienteleService.modifierClient(c);
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void testModifierClientExistant() throws UserInexistantException {
 		Client c = new ClientParticulier();
@@ -76,31 +81,31 @@ public class ClientTests {
 		c.setVille("Lyon");
 		c.setId(2);
 		consClienteleService.modifierClient(c);
-		assertEquals(consClienteleService.afficherClient(2).getPrenom(), "Pierre");
+		assertEquals(consClienteleService.recupererClient(2).getPrenom(), "Pierre");
 	}
 
-	@Ignore
+	//@Ignore
 	@Test(expected = UserInexistantException.class)
 	public void testSupprimerClient() throws UserInexistantException {
 		Client c = new ClientParticulier();
 		c.setId(4);
 		consClienteleService.supprimerClient(4);
-		consClienteleService.afficherClient(4);
+		consClienteleService.recupererClient(4);
 	}
 
-	@Ignore
+	//@Ignore
 	@Test(expected = UserInexistantException.class)
 	public void testSupprimerClientNonExistant() throws UserInexistantException {
 		Client c = new ClientParticulier();
-		c.setId(4);
-		consClienteleService.supprimerClient(4);
+		c.setId(0);
+		consClienteleService.supprimerClient(0);
 	}
 
 	@Ignore
 	@Test(expected = CompteInexistantException.class)
 	public void testSupprimerClientAvecCompte() throws UserInexistantException, CompteInexistantException {
-		consClienteleService.supprimerClient(6);
-		consClienteleService.afficherComptes(6);
+		consClienteleService.supprimerClient(500);
+		consClienteleService.recupererComptes(500);
 	}
 
 }
