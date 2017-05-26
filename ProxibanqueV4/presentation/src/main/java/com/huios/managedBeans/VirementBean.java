@@ -93,9 +93,18 @@ public class VirementBean {
 				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,e.getMessage(),"");
 				FacesContext.getCurrentInstance().addMessage(null, message);
 				return "virements";
+			} catch (Exception e) {
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Veuillez sélectionner un compte à créditer, un compte à créditer et un montant supérieur à 0","");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				return "virements";
 			}
+			
+
 			FacesMessage message = new FacesMessage("Virement effectué : " + montant + " € du compte " + compteADebiter.getNumCompte() + " vers le compte " + compteACrediter.getNumCompte());
 			FacesContext.getCurrentInstance().addMessage(null, message);
+			montant = 0;
+			selectedCredit = null;
+			selectedDebit = null;
 
 //		} catch (Exception e) {
 //

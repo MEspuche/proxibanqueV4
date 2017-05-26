@@ -23,23 +23,23 @@
 
 						<p:ajax event="rowSelect" listener="#{virementBean.onDebitSelect}" />
 
-						<p:column width="50px">
+						<p:column width="50px" sortBy="#{compte.numCompte}" filterBy="#{compte.numCompte}">
 							<f:facet name="header">
 								<h:outputText value="Numéro compte" />
 							</f:facet>
-							<h:outputText value="#{compte.id}" />
+							<h:outputText value="#{compte.numCompte}" />
 						</p:column>
 
 
 						
-						<p:column width="50px">
+						<p:column width="50px" sortBy="#{compte.clientProprietaire.nom.concat(' ').concat(compte.clientProprietaire.prenom)}" filterBy="#{compte.clientProprietaire.nom.concat(' ').concat(compte.clientProprietaire.prenom)}">
 							<f:facet name="header">
 								<h:outputText value="Titulaire" />
 							</f:facet>
 							<h:outputText value="#{compte.clientProprietaire.nom.concat(' ').concat(compte.clientProprietaire.prenom)}" />
 						</p:column>
 
-						<p:column width="50px">
+						<p:column width="50px" sortBy="#{compte.solde}" filterBy="#{compte.solde}">
 							<f:facet name="header">
 								<h:outputText value="Solde" />
 							</f:facet>
@@ -61,21 +61,21 @@
 						<p:ajax event="rowSelect"
 							listener="#{virementBean.onCreditSelect}" />
 
-						<p:column width="50px">
+						<p:column width="50px" sortBy="#{compte.numCompte}" filterBy="#{compte.numCompte}">
 							<f:facet name="header">
 								<h:outputText value="Numéro compte" />
 							</f:facet>
-							<h:outputText value="#{compte.id}" />
+							<h:outputText value="#{compte.numCompte}" />
 						</p:column>
 
-						<p:column width="50px">
+						<p:column width="50px" sortBy="#{compte.clientProprietaire.nom.concat(' ').concat(compte.clientProprietaire.prenom)}" filterBy="#{compte.clientProprietaire.nom.concat(' ').concat(compte.clientProprietaire.prenom)}">
 							<f:facet name="header">
 								<h:outputText value="Titulaire" />
 							</f:facet>
 							<h:outputText value="#{compte.clientProprietaire.nom.concat(' ').concat(compte.clientProprietaire.prenom)}" />
 						</p:column>
 
-						<p:column width="50px">
+						<p:column width="50px" sortBy="#{compte.solde}" filterBy="#{compte.solde}">
 							<f:facet name="header">
 								<h:outputText value="Solde" />
 							</f:facet>
