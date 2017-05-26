@@ -152,7 +152,7 @@ CREATE TABLE `transaction` (
 -- Contenu de la table `transaction`
 --
 
-INSERT INTO `transaction` (`id`, `dateTransaction`, `soldeEntrant`, `soldeSortant`, `typeTransaction`) VALUES
+INSERT INTO `transaction` (`id`, `dateTransaction`, `montantEntrant`, `montantSortant`, `typeTransaction`) VALUES
 (1, '2016-05-09 00:00:00', 150, 0, 'DepotArgent'),
 (2, '2016-06-16 00:00:00', 0, 50, 'RetraitArgent'),
 (3, '2016-07-14 00:00:00', 1000, 0, 'CreationCompteCourant'),
