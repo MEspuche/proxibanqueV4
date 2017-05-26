@@ -2,9 +2,12 @@ package com.huios.service;
 
 import static org.junit.Assert.assertNotEquals;
 
+import java.util.Collection;
+
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.huios.exceptions.CompteInexistantException;
 import com.huios.metier.Alertes;
 import com.huios.metier.Compte;
 import com.huios.metier.CompteCourant;
@@ -24,11 +27,11 @@ public class AlertesTests {
 					.getBean("conseillerClienteleService");
 	
 	@Test
-	public void testCreationAlerte() {
-		Compte compte = new CompteCourant();
+	public void testCreationAlerte() throws CompteInexistantException {
+		Compte compte = consClienteleService.recupererCompteCourant(20);
 		consClienteleService.crediterOuDebiterCompte(compte.getId(), -300);
-		Alertes alerte = compte.getAlerte();
-		assertNotEquals(alerte,null);
+		Collection<Alertes> alertes = consClienteleService.listerAlertesConseiller(2);
+		assertNotEquals(alertes.size(),0);
 	}
 
 }

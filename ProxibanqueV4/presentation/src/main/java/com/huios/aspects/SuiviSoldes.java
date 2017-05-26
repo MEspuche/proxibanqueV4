@@ -4,6 +4,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.huios.dao.AlerteRepository;
 import com.huios.metier.Alertes;
@@ -16,19 +17,20 @@ import com.huios.metier.Compte;
  * 
  * @author Perrine Stephane Vincent Marine
  */
+@Controller
 @Aspect
 public class SuiviSoldes {
 	
 	@Autowired
 	private AlerteRepository alerteRepository;
 	
-	public SuiviSoldes(){}
+	public SuiviSoldes(Compte compteDebite, Compte compteModifie){}
 		
 		@Pointcut("execution(* *.effectuerVirement(..))")
-		public void verificationSoldeVirement(){}
+		public void verificationSoldeVirement(Compte compteDebite){}
 		
 		@Pointcut("execution(* *.modifierCompte(..))")
-		public void verificationSoldeModif(){}
+		public void verificationSoldeModif(Compte compteModifie){}
 		
 		@AfterReturning(pointcut="verificationSoldeVirement()", returning="compteDebite")
 		public void enregistrerDecouvertVir(Compte compteDebite){

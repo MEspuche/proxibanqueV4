@@ -1,5 +1,6 @@
 package com.huios.dao;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Collection;
@@ -29,6 +30,7 @@ public class TestCRUDCompte {
 	
 	//CompteRepository compteRepository;
 	
+	@Ignore
 	@Test
 	public void testCreerCompte() {
 		CompteCourant c = new CompteCourant();
@@ -40,7 +42,7 @@ public class TestCRUDCompte {
 		Assert.assertEquals(c.getDecouvert(), c1.getDecouvert());
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void testmodifierCompteExistant() {
 		CompteCourant c = (CompteCourant) compteRepository.findOne(1);
@@ -48,17 +50,24 @@ public class TestCRUDCompte {
 		Assert.assertEquals(compteRepository.findOne(2).getSolde(), 50000.00);
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void testsupprimerCompteExistant() {
 		compteRepository.delete(3);
 		CompteCourant c = (CompteCourant) compteRepository.findOne(3);
 		Assert.assertEquals(c, null);
 }
-	
+	@Ignore
 	@Test
 	public void testAfficherComptes(){
 		Collection <Compte> comptes = compteRepository.findAll();
 		assertNotNull(comptes);
+	}
+	
+	@Test
+	public void testModifierSoldeCompte(){
+		CompteCourant compte = (CompteCourant) compteRepository.findOne(20);
+		compteRepository.modifierCompte(compte.getNumCompte(), 6000, compte.getId());
+		assertEquals(compteRepository.findOne(20).getSolde(), 6000,0);
 	}
 }
