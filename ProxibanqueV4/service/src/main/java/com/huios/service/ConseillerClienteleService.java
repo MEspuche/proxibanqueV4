@@ -342,7 +342,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	public void effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant)
 			throws SoldeInsuffisantException, MontantNegatifException {
 		// Test si le montant entré est inférieur à 0
-		if (montant < 0) {
+		if (montant <= 0.0d) {
 			throw new MontantNegatifException("ERREUR : Montant négatif");
 		} else {
 			Compte c = compteRepository.findOne(idCompteACrediter);

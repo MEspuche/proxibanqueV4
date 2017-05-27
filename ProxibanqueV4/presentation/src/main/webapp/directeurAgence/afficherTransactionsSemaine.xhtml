@@ -14,30 +14,14 @@
 
 				<h3>Les transactions de la dernière semaine</h3>
 				
-				<h:form>
-					<h:commandButton value="Afficher" action="afficherTransactionsXMois.xhtml" />
-						les <h:selectOneMenu value="#{transactionsXMois.nbMois}" id="nbmois">
-						<f:selectItem itemValue="1" itemLabel="1" />
-						<f:selectItem itemValue="2" itemLabel="2" />
-						<f:selectItem itemValue="3" itemLabel="3" />
-						<f:selectItem itemValue="4" itemLabel="4" />
-						<f:selectItem itemValue="5" itemLabel="5" />
-						<f:selectItem itemValue="6" itemLabel="6" />
-						<f:selectItem itemValue="7" itemLabel="7" />
-						<f:selectItem itemValue="8" itemLabel="8" />
-						<f:selectItem itemValue="9" itemLabel="9" />
-						<f:selectItem itemValue="10" itemLabel="10" />
-						<f:selectItem itemValue="11" itemLabel="11" />
-						<f:selectItem itemValue="12" itemLabel="12" />
-					</h:selectOneMenu> derniers mois
-				</h:form>
-				
-				<p:chart type="pie" model="#{transactionsSemaine.pieModel}"
-					id="entreesortiepie" style="width:350px;height:300px" />
-					
-				<p:chart type="bar" model="#{transactionsSemaine.barModel}"
-					id="entreesortiebar" style="width:350px;height:300px" />
-
+				<div>
+					<span style="display: inline-block;"> 
+						<p:chart type="bar"	model="#{transactionsSemaine.barModel}" id="entreesortiebar" style="width:350px;height:300px" />
+					</span>
+					 <span style="display: inline-block;"> 
+						<p:chart type="pie" model="#{transactionsSemaine.pieModel}" id="entreesortiepie" style="width:350px;height:300px" />
+					</span>
+				</div>
 			</p:panel>
 		</div>
 	</ui:define>

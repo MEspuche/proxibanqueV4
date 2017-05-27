@@ -27,75 +27,84 @@ public class AfficherTransactionsXMoisBean {
 
 	private List<Transaction> ltrXMois;
 	private int nbMois;
-	
+
 	public PieChartModel getPieModel() {
-		if(nbMois==0){
+		if (nbMois == 0) {
 			nbMois = 1;
 		}
 		ltrXMois = (service.rapportTransactionMois(nbMois) == null) ? new ArrayList<Transaction>()
 				: service.rapportTransactionMois(nbMois);
-		double entree=0, sortie=0, virement=0;
-		PieChartModel pieModel = new PieChartModel();
+		double entree = 0, sortie = 0, virement = 0;
+		
 		for (Transaction tr : ltrXMois) {
-			if (tr.getTypeTransaction().equals("Virement")) {
-				virement=+tr.getMontantEntrant();
+			switch (tr.getTypeTransaction()) {
+			case "Virement":
+				virement = +tr.getMontantEntrant();
+				break;
+			case "SuppressionCompteCourant":
+				sortie = +tr.getMontantSortant();
+				break;
+			case "SuppressionCompteEpargne":
+				sortie = +tr.getMontantSortant();
+				break;
+			case "CreationCompteEpargne":
+				entree = +tr.getMontantEntrant();
+				break;
+			case "CreationCompteCourant":
+				entree = +tr.getMontantEntrant();
+				break;
+			case "DepotArgent":
+				entree = +tr.getMontantEntrant();
+				break;
+			case "RetraitArgent":
+				sortie = +tr.getMontantSortant();
+				break;
+			default:
+				break;
 			}
-			if (tr.getTypeTransaction().equals("SuppressionCompteCourant")) {
-				sortie=+tr.getMontantSortant();
-			}
-			if (tr.getTypeTransaction().equals("SuppressionCompteEpargne")) {
-				sortie=+tr.getMontantSortant();
-			}
-			if (tr.getTypeTransaction().equals("CreationCompteEpargne")) {
-				entree=+tr.getMontantEntrant();
-			}
-			if (tr.getTypeTransaction().equals("CreationCompteCourant")) {
-				entree=+tr.getMontantEntrant();
-			}
-			if (tr.getTypeTransaction().equals("DepotArgent")) {
-				entree=+tr.getMontantEntrant();
-			}
-			if (tr.getTypeTransaction().equals("RetraitArgent")) {
-				sortie=+tr.getMontantSortant();
-			}
-
 		}
+		PieChartModel pieModel = new PieChartModel();
 		pieModel.set("Entrées", entree);
 		pieModel.set("Sorties", sortie);
 		pieModel.set("Virements", virement);
 		pieModel.setTitle("Flux d'argent");
 		pieModel.setLegendPosition("w");
+		pieModel.setShowDataLabels(true);
 		return pieModel;
 	}
 
 	public BarChartModel getBarModel() {
-		if(nbMois==0){
+		if (nbMois == 0) {
 			nbMois = 1;
 		}
 		ltrXMois = (service.rapportTransactionMois(nbMois) == null) ? new ArrayList<Transaction>()
 				: service.rapportTransactionMois(nbMois);
 		int cpt1 = 0, cpt2 = 0, cpt3 = 0, cpt4 = 0, cpt5 = 0, cpt6 = 0, cpt7 = 0;
 		for (Transaction tr : ltrXMois) {
-			if (tr.getTypeTransaction().equals("Virement")) {
+			switch (tr.getTypeTransaction()) {
+			case "Virement":
 				cpt1++;
-			}
-			if (tr.getTypeTransaction().equals("SuppressionCompteCourant")) {
+				break;
+			case "SuppressionCompteCourant":
 				cpt2++;
-			}
-			if (tr.getTypeTransaction().equals("SuppressionCompteEpargne")) {
+				break;
+			case "SuppressionCompteEpargne":
 				cpt3++;
-			}
-			if (tr.getTypeTransaction().equals("CreationCompteEpargne")) {
+				break;
+			case "CreationCompteEpargne":
 				cpt4++;
-			}
-			if (tr.getTypeTransaction().equals("CreationCompteCourant")) {
+				break;
+			case "CreationCompteCourant":
 				cpt5++;
-			}
-			if (tr.getTypeTransaction().equals("DepotArgent")) {
+				break;
+			case "DepotArgent":
 				cpt6++;
-			}
-			if (tr.getTypeTransaction().equals("RetraitArgent")) {
+				break;
+			case "RetraitArgent":
 				cpt7++;
+				break;
+			default:
+				break;
 			}
 		}
 		BarChartSeries series1 = new BarChartSeries();
@@ -106,12 +115,12 @@ public class AfficherTransactionsXMoisBean {
 		series1.set("CréaCC", cpt5);
 		series1.set("Dépôt", cpt6);
 		series1.set("Retrait", cpt7);
-		series1.setLabel("nombre");
+		// series1.setLabel("nombre");
 
 		BarChartModel barModel = new BarChartModel();
 		barModel.addSeries(series1);
 		barModel.setTitle("Type de transactions");
-		barModel.setLegendPosition("E");
+		// barModel.setLegendPosition("E");
 		return barModel;
 	}
 
@@ -126,5 +135,5 @@ public class AfficherTransactionsXMoisBean {
 	public void setNbMois(int nbMois) {
 		this.nbMois = nbMois;
 	}
-	
+
 }

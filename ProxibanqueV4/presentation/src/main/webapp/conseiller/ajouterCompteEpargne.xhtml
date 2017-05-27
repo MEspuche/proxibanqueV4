@@ -20,31 +20,31 @@
 							<td>NUMERO DE COMPTE</td>
 							<td><h:inputText value="#{ajouterCompteEpargneBean.numCompte}"
 									required="true" requiredMessage="Saisissez le numéro de compte" id="numCompte" /></td>
-							<td><h:message for="numero de compte" /></td>
+							<td><h:message for="numero de compte" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 						<tr>
 							<td>DATE D'OUVERTURE DU COMPTE</td>
 							<td><h:inputText value="#{ajouterCompteEpargneBean.dateOuverture}"
 									required="true" requiredMessage="Saisissez la date d'ouverture" id="dateOuverture" /></td>
-							<td><h:message for="Date d'ouverture du compte" /></td>
+							<td><h:message for="Date d'ouverture du compte" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 						<tr>
 							<td>SOLDE</td>
 							<td><h:inputText value="#{ajouterCompteEpargneBean.solde}"
 									required="true" requiredMessage="Saisissez le solde"
 									id="solde" /></td>
-							<td><h:message for="solde" /></td>
+							<td><h:message for="solde" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 						<tr>
 							<td>TAUX DE REMUNERATION</td>
 							<td><h:inputText value="#{ajouterCompteEpargneBean.tauxRemuneration}"
 									required="true" requiredMessage="Saisissez le taux de rémunération" id="tauxRemuneration" /></td>
-							<td><h:message for="taux de rémunération" /></td>
+							<td><h:message for="taux de rémunération" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>	
 						
 
 					</table>
-					<h:messages globalOnly="true" errorClass="erreur" />
+					
 					<p>
 						<f:facet name="header">AJOUTER</f:facet>
 							<h:commandButton action="#{ajouterCompteEpargneBean.ajouter}"

@@ -24,39 +24,39 @@
 									<f:selectItem itemLabel="Madame" itemValue="Madame" />
 									<f:selectItem itemLabel="Mademoiselle" itemValue="Mademoiselle" />
 								</h:selectOneMenu></td>
-							<td><h:message for="civilite" /></td>
+							<td><h:message for="civilite" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 						<tr>
 							<td>PRENOM</td>
 							<td><h:inputText value="#{ajouterConseillerBean.prenom}"
 									required="true" requiredMessage="Saisissez le prénom"
 									id="prenom" /></td>
-							<td><h:message for="prenom" /></td>
+							<td><h:message for="prenom" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 						<tr>
 							<td>NOM</td>
 							<td><h:inputText value="#{ajouterConseillerBean.nom}"
 									required="true" requiredMessage="Saisissez le nom" id="nom" /></td>
-							<td><h:message for="nom" /></td>
+							<td><h:message for="nom" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 						<tr>
 							<td>N° et RUE</td>
 							<td><h:inputText value="#{ajouterConseillerBean.adresse}"
 									required="true" requiredMessage="Saisissez l'adresse" id="rue" /></td>
-							<td><h:message for="rue" /></td>
+							<td><h:message for="rue" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 						<tr>
 							<td>CODE POSTAL</td>
 							<td><h:inputText value="#{ajouterConseillerBean.codePostal}"
 									required="true" requiredMessage="Saisissez le code postal"
 									id="codePostal" /></td>
-							<td><h:message for="codePostal" /></td>
+							<td><h:message for="codePostal" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 						<tr>
 							<td>VILLE</td>
 							<td><h:inputText value="#{ajouterConseillerBean.ville}"
 									required="true" requiredMessage="Saisissez la ville" id="ville" /></td>
-							<td><h:message for="ville" /></td>
+							<td><h:message for="ville" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 						<tr>
 							<td>N° de TELEPHONE</td>
@@ -64,24 +64,24 @@
 									required="true"
 									requiredMessage="Saisissez le numéro de téléphone"
 									id="telephone" /></td>
-							<td><h:message for="telephone" /></td>
+							<td><h:message for="telephone" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 						<tr>
 							<td>ADRESSE EMAIL</td>
 							<td><h:inputText value="#{ajouterConseillerBean.email}"
 									required="true" requiredMessage="Saisissez l'adresse email"
 									id="email" /></td>
-							<td><h:message for="email" /></td>
+							<td><h:message for="email" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 						<tr>
 							<td>MOT DE PASSE</td>
 							<td><h:inputText value="#{ajouterConseillerBean.password}"
 									required="true" requiredMessage="Saisissez le password"
 									id="password" /></td>
-							<td><h:message for="password" /></td>
+							<td><h:message for="password" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/></td>
 						</tr>
 					</table>
-					<h:messages globalOnly="true" errorClass="erreur" />
+					
 					<p>
 						<h:commandButton value="Ajouter ce conseiller"
 							action="#{ajouterConseillerBean.ajouter}" />

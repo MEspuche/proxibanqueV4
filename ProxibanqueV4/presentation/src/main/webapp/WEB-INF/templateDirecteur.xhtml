@@ -28,9 +28,14 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 infoCon">
 				<p:panel class="panel">
-					<h:outputText value="#{authentifierBean.personneConnectee != null ? 'Bienvenue '.concat(authentifierBean.personneConnectee.civilite).concat(' ').concat(authentifierBean.personneConnectee.prenom).concat(' ').concat(authentifierBean.personneConnectee.nom) : 'Non connecté'}">
-					
-					</h:outputText>
+					<div>
+						<span style="display: inline-block;">
+							<h:outputText value="#{authentifierBean.personneConnectee != null ? 'Bienvenue '.concat(authentifierBean.personneConnectee.civilite).concat(' ').concat(authentifierBean.personneConnectee.prenom).concat(' ').concat(authentifierBean.personneConnectee.nom) : 'Non connecté'}"/>
+						</span>
+						<span style="display: inline-block;font-size: medium;">
+							<h:messages globalOnly="true" fatalStyle="color:grey;" errorStyle="color:red;" warnStyle="color:orange;" infoStyle="color:green;"/>
+						</span>
+					</div>
 				</p:panel>
 			</div>
 		</div>

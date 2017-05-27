@@ -104,8 +104,8 @@ public class AuthentifierBean {
 
 			externalContext.getSessionMap().put("personneConnectee", personneConnectee);
 
-			message = new FacesMessage("Connecté");
-			context.addMessage(null, message);
+			//message = new FacesMessage("Connecté");
+			//context.addMessage(null, message);
 
 			if (request.isUserInRole("Conseiller")) {
 				return "/conseiller/listerClients.xhtml";

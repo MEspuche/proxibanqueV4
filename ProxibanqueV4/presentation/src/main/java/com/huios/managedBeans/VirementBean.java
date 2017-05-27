@@ -79,6 +79,12 @@ public class VirementBean {
 //		}
 
 		try {
+			if (compteADebiter.getNumCompte() == compteACrediter.getNumCompte()) {
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Sélectionnez deux comptes différents", "");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				return "virements";
+			}
 			//arrondi à 2 décimales
 			montant = round(montant, 2);
 			service.effectuerVirement(compteADebiter.getId(), compteACrediter.getId(), montant);
@@ -91,7 +97,7 @@ public class VirementBean {
 			FacesContext.getCurrentInstance().addMessage(null, message);
 			return "virements";
 		} catch (Exception e) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Veuillez sélectionner un compte à débiter, un compte à créditer et un montant supérieur à 0","");
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Sélectionnez les comptes et un montant non nul","");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 			return "virements";
 		}

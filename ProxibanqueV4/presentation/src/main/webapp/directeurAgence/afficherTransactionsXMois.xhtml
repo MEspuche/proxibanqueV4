@@ -32,15 +32,14 @@
 						<f:selectItem itemValue="12" itemLabel="12" />
 					</h:selectOneMenu> derniers mois
 				</h:form>
-				
-				<h:form>
-					<h:commandButton value="Afficher"
-						action="afficherTransactionsSemaine.xhtml" /> la dernière semaine
-				</h:form>
-				<p:chart type="pie" model="#{transactionsXMois.pieModel}"
-					id="entreesortiepie" style="width:350px;height:300px" />
-				<p:chart type="bar" model="#{transactionsXMois.barModel}"
-					id="entreesortiebar" style="width:350px;height:300px" />
+				<div>
+					<span style="display: inline-block;">
+						<p:chart type="bar" model="#{transactionsXMois.barModel}" id="entreesortiebar" style="width:350px;height:300px" />
+					</span>
+					<span style="display: inline-block;">
+						<p:chart type="pie" model="#{transactionsXMois.pieModel}" id="entreesortiepie" style="width:350px;height:300px" />
+					</span>	
+				</div>
 			</p:panel>
 		</div>
 
