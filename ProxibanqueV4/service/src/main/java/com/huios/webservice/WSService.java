@@ -41,6 +41,7 @@ public class WSService {
 	TransactionRepository transactionRepository;
 	
 	
+	
 	@GET
 	@Path("/afficherTousLesClientsParticuliers")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -136,7 +137,25 @@ public class WSService {
 		return null;
 	}
 		
+	@GET
+	@Path("/afficherTransactionSemaineDerniere")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Transaction> listerlesTransactionsSemaineDerniere()
+	{
+		Date date = new Date();
+		date.setMinutes(date.getMinutes()-10080);
+		return transactionRepository.findByDateTransactionAfter(date);
+	}
 	
+	@GET
+	@Path("/afficherTransactionMoisDernier/{nbMois}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Transaction> listerlesTransactionsMoisDernier(@PathParam("nbMois")int nbMois)
+	{
+		Date date = new Date();
+		date.setMonth(date.getMonth()-nbMois);
+		return transactionRepository.findByDateTransactionAfter(date);
+	}
 	
 	
 	
