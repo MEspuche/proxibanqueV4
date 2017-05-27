@@ -3,6 +3,7 @@ package com.huios.metier;
 import javax.persistence.CascadeType;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class Alertes {
 	
 	private String alertes;
 
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private ConseillerClientele conseiller;
 	
 	@OneToOne
@@ -69,5 +70,11 @@ public class Alertes {
 	public void setCompte(Compte compte) {
 		this.compte = compte;
 	}
+
+	@Override
+	public String toString() {
+		return "Alertes [alertes=" + alertes + " ]";
+	}
+	
 	
 }

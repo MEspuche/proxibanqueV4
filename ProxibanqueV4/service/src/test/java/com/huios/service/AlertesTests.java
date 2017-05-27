@@ -28,8 +28,8 @@ public class AlertesTests {
 	
 	@Test
 	public void testCreationAlerte() throws CompteInexistantException {
-		Compte compte = consClienteleService.recupererCompteCourant(20);
-		consClienteleService.crediterOuDebiterCompte(compte.getId(), -300);
+		CompteCourant compte = consClienteleService.recupererCompteCourant(20);
+		consClienteleService.crediterOuDebiterCompte(compte.getId(), -5000);
 		Collection<Alertes> alertes = consClienteleService.listerAlertesConseiller(2);
 		assertNotEquals(alertes.size(),0);
 	}

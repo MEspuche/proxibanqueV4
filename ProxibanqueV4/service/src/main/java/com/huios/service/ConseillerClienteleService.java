@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.huios.dao.AlerteRepository;
-import com.huios.dao.ClientRepository;
 import com.huios.dao.CompteRepository;
 import com.huios.dao.PersonneRepository;
 import com.huios.dao.TransactionRepository;
@@ -39,7 +38,7 @@ import com.huios.metier.Transaction;
  * 
  * @author Perrine Stephane Vincent Marine
  */
-@Transactional
+//@Transactional
 @Service
 public class ConseillerClienteleService implements IConseillerClienteleService {
 	
@@ -258,6 +257,7 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			tr2.setTypeTransaction("RetraitArgent");
 			transactionRepository.save(tr2);
 		}
+	
 	}
 	
 	@Override
@@ -353,8 +353,10 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			if (ce != null) {
 				// Test si le montant à débiter est inferieur au solde du compte
 				if (montant < ce.getSolde()) {
-					ce.setSolde(ce.getSolde() - montant);
-					c.setSolde(c.getSolde() + montant);
+					crediterOuDebiterCompte(idCompteADebiter, -montant); 
+					crediterOuDebiterCompte(idCompteACrediter, montant);
+					//ce.setSolde(ce.getSolde() - montant);
+					//c.setSolde(c.getSolde() + montant);
 					Transaction tr = new Transaction();
 					tr.setTypeTransaction("Virement");
 					tr.setMontantSortant(montant);
@@ -370,8 +372,10 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 				if (cc != null) {
 					// Test si le montant à débiter est inférieur solde du compte + son découvert autorisé
 					if ( montant < (cc.getSolde() + cc.getDecouvert()) ) {
-						cc.setSolde(cc.getSolde() - montant);
-						c.setSolde(c.getSolde() + montant);
+						crediterOuDebiterCompte(idCompteADebiter, -montant); 
+						crediterOuDebiterCompte(idCompteACrediter, montant);
+//						cc.setSolde(cc.getSolde() - montant);
+//						c.setSolde(c.getSolde() + montant);
 						Transaction tr = new Transaction();
 						tr.setTypeTransaction("Virement");
 						tr.setMontantSortant(montant);

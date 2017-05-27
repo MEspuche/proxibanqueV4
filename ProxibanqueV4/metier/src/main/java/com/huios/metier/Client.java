@@ -30,7 +30,7 @@ public abstract class Client extends Personne implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "clientProprietaire", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "clientProprietaire", cascade = CascadeType.ALL)
 	protected Collection<Compte> mesComptes = new ArrayList<Compte>();
 
 	@ManyToOne

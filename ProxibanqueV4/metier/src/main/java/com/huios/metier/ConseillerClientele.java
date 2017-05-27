@@ -32,10 +32,10 @@ public class ConseillerClientele extends Personne implements Serializable{
 	@ManyToOne
 	private DirecteurAgence monDirecteurAgence;
 	
-	@OneToMany(fetch = FetchType.EAGER , mappedBy="monConseiller")
+	@OneToMany(mappedBy="monConseiller")
 	private Collection<Client> mesClients = new ArrayList<Client>();
 
-	@OneToMany(mappedBy="conseiller")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="conseiller")
 	private Collection<Alertes> alertes;
 
 	/* GETTERS et SETTERS */
