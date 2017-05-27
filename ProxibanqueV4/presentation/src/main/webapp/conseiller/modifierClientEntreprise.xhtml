@@ -84,6 +84,18 @@
 							action="#{modifierClientEntrepriseBean.modifier}" />
 					</p>
 				</h:form>
+				<f:facet name="header">AJOUTER COMPTE COURANT</f:facet>
+				<h:commandButton action="#{ajouterCompteCourantBean.ajouter}"
+					value="Ajouter">
+					<f:setPropertyActionListener
+						target="#{modifierClientEntrepriseBean.client}" value="#{c}" />
+				</h:commandButton>
+				<f:facet name="header">AJOUTER COMPTE EPARGNE</f:facet>
+				<h:commandButton action="#{ajouterCompteEpargneBean.ajouter}"
+					value="Ajouter">
+					<f:setPropertyActionListener
+						target="#{modifierClientEntrepriseBean.client}" value="#{c}" />
+				</h:commandButton>
 			</p:panel>
 		</div>
 

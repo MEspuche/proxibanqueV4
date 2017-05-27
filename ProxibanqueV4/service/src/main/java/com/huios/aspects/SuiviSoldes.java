@@ -38,6 +38,7 @@ public class SuiviSoldes {
 	@AfterReturning(pointcut = "verificationSoldeModif(idCompte, montant)")
 	public void enregistrerDecouvertMod(int idCompte, double montant) throws Throwable {
 		Compte compteModifie = compteRepository.findOne(idCompte);
+		System.out.println(alerteRepository.listerAlertesCompte(compteModifie));
 		if (compteModifie.getSolde() < 0) {
 			if (alerteRepository.listerAlertesCompte(compteModifie)!=null) {
 				System.out.println("Alerte null");

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.huios.exceptions.CompteCourantDejaExistantException;
+import com.huios.exceptions.CompteEpargneDejaExistantException;
 import com.huios.exceptions.CompteInexistantException;
 import com.huios.exceptions.UserInexistantException;
 import com.huios.metier.Client;
@@ -46,10 +48,10 @@ public class ListerClientsBean {
 	private Client client;
 
 	// l'affichage du compte courant du client
-	private String compteCourant;
+	private CompteCourant compteCourant;
 	
-	// l'affichage du épargne du client
-	private String compteEpargne;
+	// l'affichage du compte épargne du client
+	private CompteEpargne compteEpargne;
 	
 	/* ----------------- Méthodes ----------------- */
 
@@ -78,6 +80,34 @@ public class ListerClientsBean {
 			service.supprimerClient(client.getId());
 		} catch (UserInexistantException e) {
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERREUR : utilisateur inexistant", "");
+			context.addMessage(null, message);
+			//e.printStackTrace();
+		}
+	}
+	
+	public void ajouterCompteEpargne(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		//ExternalContext externalContext = context.getExternalContext();
+		FacesMessage message;
+		
+		try {
+			service.ajouterCompteEpargne(client.getId(), compteEpargne);
+		} catch (CompteEpargneDejaExistantException e) {
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERREUR : compte déjà existant pour ce client", "");
+			context.addMessage(null, message);
+			//e.printStackTrace();
+		}
+	}
+	
+	public void ajouterCompteCourant(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		//ExternalContext externalContext = context.getExternalContext();
+		FacesMessage message;
+		
+		try {
+			service.ajouterCompteCourant(client.getId(), compteCourant);
+		} catch (CompteCourantDejaExistantException e) {
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERREUR : compte déjà existant pour ce client", "");
 			context.addMessage(null, message);
 			//e.printStackTrace();
 		}

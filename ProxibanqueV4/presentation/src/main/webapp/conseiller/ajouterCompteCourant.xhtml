@@ -1,0 +1,62 @@
+<ui:composition template="/WEB-INF/templateConseiller.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">PROXIBANQUE</ui:define>
+
+	<ui:define name="content">
+		<div class="block">
+			<p:panel class="panel">
+				<h:form>
+					<table class="table">
+
+						<h3>Ajout d'un nouveau compte courant</h3>
+
+						<tr>
+							<td>NUMERO DE COMPTE</td>
+							<td><h:inputText value="#{ajouterCompteCourantBean.numCompte}"
+									required="true" requiredMessage="Saisissez le numéro de compte" id="numCompte" /></td>
+							<td><h:message for="numero de compte" /></td>
+						</tr>
+						<tr>
+							<td>DATE D'OUVERTURE DU COMPTE</td>
+							<td><h:inputText value="#{ajouterCompteCourantBean.dateOuverture}"
+									required="true" requiredMessage="Saisissez la date d'ouverture" id="dateOuverture" /></td>
+							<td><h:message for="Date d'ouverture du compte" /></td>
+						</tr>
+						<tr>
+							<td>SOLDE</td>
+							<td><h:inputText value="#{ajouterCompteCourantBean.solde}"
+									required="true" requiredMessage="Saisissez le solde"
+									id="solde" /></td>
+							<td><h:message for="solde" /></td>
+						</tr>
+						<tr>
+							<td>DECOUVERT</td>
+							<td><h:inputText value="#{ajouterCompteCourantBean.decouvert}"
+									required="true" requiredMessage="Saisissez le découvert autorisé" id="decouvert" /></td>
+							<td><h:message for="decouvert" /></td>
+						</tr>	
+						
+
+					</table>
+					<h:messages globalOnly="true" errorClass="erreur" />
+					<p>
+						<f:facet name="header">AJOUTER</f:facet>
+							<h:commandButton action="#{ajouterCompteCourantBean.ajouter}"
+								value="Ajouter">
+								<f:setPropertyActionListener
+									target="#{ajouterCompteCourantBean.clientProprietaire}" value="#{c}" />
+							</h:commandButton>
+					</p>
+				</h:form>
+			</p:panel>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

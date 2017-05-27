@@ -18,7 +18,8 @@
 
 						<tr>
 							<td>CIVILITE</td>
-							<td><h:selectOneMenu value="#{modifierClientParticulierBean.client.civilite}"
+							<td><h:selectOneMenu
+									value="#{modifierClientParticulierBean.client.civilite}"
 									required="true" id="civilite">
 									<f:selectItem itemLabel="Monsieur" itemValue="Monsieur" />
 									<f:selectItem itemLabel="Madame" itemValue="Madame" />
@@ -29,14 +30,16 @@
 
 						<tr>
 							<td>PRENOM</td>
-							<td><h:inputText value="#{modifierClientParticulierBean.client.prenom}"
+							<td><h:inputText
+									value="#{modifierClientParticulierBean.client.prenom}"
 									required="true" requiredMessage="Saisissez le prénom"
 									id="prenom" /></td>
 							<td><h:message for="prenom" /></td>
 						</tr>
 						<tr>
 							<td>NOM</td>
-							<td><h:inputText value="#{modifierClientParticulierBean.client.nom}"
+							<td><h:inputText
+									value="#{modifierClientParticulierBean.client.nom}"
 									required="true" requiredMessage="Saisissez le nom" id="nom" /></td>
 							<td><h:message for="nom" /></td>
 						</tr>
@@ -65,13 +68,15 @@
 						<tr>
 							<td>N° de TELEPHONE</td>
 							<td><h:inputText
-									value="#{modifierClientParticulierBean.client.telephone}" required="true"
-									requiredMessage="Saisissez le telephone" id="telephone" /></td>
+									value="#{modifierClientParticulierBean.client.telephone}"
+									required="true" requiredMessage="Saisissez le telephone"
+									id="telephone" /></td>
 							<td><h:message for="telephone" /></td>
 						</tr>
 						<tr>
 							<td>ADRESSE EMAIL</td>
-							<td><h:inputText value="#{modifierClientParticulierBean.client.email}"
+							<td><h:inputText
+									value="#{modifierClientParticulierBean.client.email}"
 									required="true" requiredMessage="Saisissez l'adresse email"
 									id="email" /></td>
 							<td><h:message for="email" /></td>
@@ -83,6 +88,20 @@
 						<h:commandButton value="Modifier ce client"
 							action="#{modifierClientParticulierBean.modifier}" />
 					</p>
+
+				
+				<f:facet name="header">AJOUTER COMPTE COURANT</f:facet>
+				<h:commandButton action="ajouterCompteCourant"
+					value="Ajouter compte courant">
+					<f:setPropertyActionListener
+						target="#{modifierClientParticulierBean.client}" value="#{c}" />
+				</h:commandButton>
+				<f:facet name="header">AJOUTER COMPTE EPARGNE</f:facet>
+				<h:commandButton action="ajouterCompteEpargne"
+					value="Ajouter compte épargne">
+					<f:setPropertyActionListener
+						target="#{modifierClientParticulierBean.client}" value="#{c}" />
+				</h:commandButton>
 				</h:form>
 			</p:panel>
 		</div>
