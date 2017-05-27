@@ -35,25 +35,25 @@ public class AfficherTransactionsSemaineBean {
 		for (Transaction tr : ltrSemaine) {
 			switch (tr.getTypeTransaction()) {
 			case "Virement":
-				virement = +tr.getMontantEntrant();
+				virement += tr.getMontantEntrant();
 				break;
 			case "SuppressionCompteCourant":
-				sortie = +tr.getMontantSortant();
+				sortie += tr.getMontantSortant();
 				break;
 			case "SuppressionCompteEpargne":
-				sortie = +tr.getMontantSortant();
+				sortie += tr.getMontantSortant();
 				break;
 			case "CreationCompteEpargne":
-				entree = +tr.getMontantEntrant();
+				entree += tr.getMontantEntrant();
 				break;
 			case "CreationCompteCourant":
-				entree = +tr.getMontantEntrant();
+				entree += tr.getMontantEntrant();
 				break;
 			case "DepotArgent":
-				entree = +tr.getMontantEntrant();
+				entree += tr.getMontantEntrant();
 				break;
 			case "RetraitArgent":
-				sortie = +tr.getMontantSortant();
+				sortie += tr.getMontantSortant();
 				break;
 			default:
 				break;

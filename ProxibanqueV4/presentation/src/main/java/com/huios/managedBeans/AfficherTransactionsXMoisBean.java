@@ -35,29 +35,29 @@ public class AfficherTransactionsXMoisBean {
 		ltrXMois = (service.rapportTransactionMois(nbMois) == null) ? new ArrayList<Transaction>()
 				: service.rapportTransactionMois(nbMois);
 		double entree = 0, sortie = 0, virement = 0;
-		
+
 		for (Transaction tr : ltrXMois) {
 			switch (tr.getTypeTransaction()) {
 			case "Virement":
-				virement = +tr.getMontantEntrant();
+				virement += tr.getMontantEntrant();
 				break;
 			case "SuppressionCompteCourant":
-				sortie = +tr.getMontantSortant();
+				sortie += tr.getMontantSortant();
 				break;
 			case "SuppressionCompteEpargne":
-				sortie = +tr.getMontantSortant();
+				sortie += tr.getMontantSortant();
 				break;
 			case "CreationCompteEpargne":
-				entree = +tr.getMontantEntrant();
+				entree += tr.getMontantEntrant();
 				break;
 			case "CreationCompteCourant":
-				entree = +tr.getMontantEntrant();
+				entree += tr.getMontantEntrant();
 				break;
 			case "DepotArgent":
-				entree = +tr.getMontantEntrant();
+				entree += tr.getMontantEntrant();
 				break;
 			case "RetraitArgent":
-				sortie = +tr.getMontantSortant();
+				sortie += tr.getMontantSortant();
 				break;
 			default:
 				break;
