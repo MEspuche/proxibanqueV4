@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 @DiscriminatorValue(value="ClientEntreprise")
-public class ClientEntreprise extends Client implements Serializable{
+public class ClientEntreprise extends Client implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,9 +26,8 @@ public class ClientEntreprise extends Client implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "ClientEntreprise [civilite = " + civilite + ", nom = " + nom + ", prenom = " + prenom + ", adresse = " + adresse
-				+ ", codePostal = " + codePostal + ", ville = " + ville + ", telephone = " + telephone + ", email = " + email
-				+ "]";
+		return "ClientEntreprise [civilite = " + civilite + ", nom = " + nom + ", adresse = " + adresse
+				+ ", codePostal = " + codePostal + ", ville = " + ville + ", telephone = " + telephone + ", email = " + email + "]";
 	}
 	
 }

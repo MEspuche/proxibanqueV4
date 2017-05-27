@@ -57,16 +57,19 @@ public class ListerConseillersBean {
 	}
 
 	public void supprimer() {
-		// FacesContext context = FacesContext.getCurrentInstance();
-		// ExternalContext externalContext = context.getExternalContext();
+		FacesContext context = FacesContext.getCurrentInstance();
+		//ExternalContext externalContext = context.getExternalContext();
+		FacesMessage message;
+		
 		// conseiller = service.chercherConseiller(((Conseiller)
 		// externalContext.getSessionMap().get("conseillerConnecte")).getId());
 		
 		try {
 			service.supprimerConseiller(conseiller.getId());
 		} catch (UserInexistantException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conseiller inexistant", "");
+			context.addMessage(null, message);
+			//e.printStackTrace();
 		}
 	}
 

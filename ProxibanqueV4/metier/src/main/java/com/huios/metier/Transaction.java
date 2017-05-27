@@ -30,7 +30,7 @@ public class Transaction {
 	private Date dateTransaction;
 	private double montantEntrant;
 	private double montantSortant;
-
+	
 	/* GETTERS et SETTERS */
 	
 	public int getId() {

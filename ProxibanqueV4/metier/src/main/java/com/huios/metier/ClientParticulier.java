@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
 /**
  * Classe ClientParticulier qui hérite de la classe Client
  * 
@@ -25,9 +26,8 @@ public class ClientParticulier extends Client implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "ClientParticulier [civilite = " + civilite + ", nom = " + nom + ", prenom = " + prenom + ", adresse = "
-				+ adresse + ", codePostal = " + codePostal + ", ville = " + ville + ", telephone = " + telephone + ", email = "
-				+ email + "]";
+		return "ClientParticulier [civilite = " + civilite + ", nom = " + nom + ", prenom = " + prenom + ", adresse = " + adresse
+				+ ", codePostal = " + codePostal + ", ville = " + ville + ", telephone = " + telephone + ", email = " + email + "]";
 	}
 	
 }
