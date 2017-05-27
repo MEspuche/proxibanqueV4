@@ -56,3 +56,10 @@ Comment lancer l'application Java proxibanqueV4
 	
 	- Effectuer un virement entre deux comptes grace à l'id du compte débiteur, l'id du compte crediteur, et le montant du virement 
 	http://localhost:8080/presentation/proxibanque/directeur/conseillerEffectuerUnVirement/{idDebiteur}/{idCrediteur}/{montant}
+	
+	- Accéder aux transactions de la semaine dernière : 
+	http://localhost:8080/presentation/proxibanque/directeur/afficherTransactionSemaineDerniere
+	
+	- Accéder aux transactions des mois précédents :
+	http://localhost:8080/presentation/proxibanque/directeur/afficherTransactionMoisDernier/{nbMois}
+
