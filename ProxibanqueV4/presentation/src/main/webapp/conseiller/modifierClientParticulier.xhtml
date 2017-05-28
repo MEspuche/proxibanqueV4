@@ -94,13 +94,13 @@
 				<h:commandButton action="ajouterCompteCourant"
 					value="Ajouter compte courant">
 					<f:setPropertyActionListener
-						target="#{modifierClientParticulierBean.client}" value="#{c}" />
+						target="#{ajouterCompteCourantBean.clientProprietaire}" value="#{modifierClientParticulierBean.client}" />
 				</h:commandButton>
 				<f:facet name="header">AJOUTER COMPTE EPARGNE</f:facet>
 				<h:commandButton action="ajouterCompteEpargne"
 					value="Ajouter compte épargne">
 					<f:setPropertyActionListener
-						target="#{modifierClientParticulierBean.client}" value="#{c}" />
+						target="#{ajouterCompteEpargneBean.clientProprietaire}" value="#{modifierClientParticulierBean.client}" />
 				</h:commandButton>
 				</h:form>
 			</p:panel>

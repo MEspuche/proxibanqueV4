@@ -18,7 +18,7 @@ import com.huios.service.IConseillerClienteleService;
  *
  * @author Perrine Stephane Vincent Marine
  */
-@Scope("request")
+@Scope("session")
 @Controller(value = "ajouterCompteEpargneBean")
 public class AjouterCompteEpargneBean {
 
@@ -162,6 +162,14 @@ public class AjouterCompteEpargneBean {
 	 */
 	public void setClientProprietaire(Client clientProprietaire) {
 		this.clientProprietaire = clientProprietaire;
+	}
+
+	public double getTauxRemuneration() {
+		return tauxRemuneration;
+	}
+
+	public void setTauxRemuneration(double tauxRemuneration) {
+		this.tauxRemuneration = tauxRemuneration;
 	}
 
 

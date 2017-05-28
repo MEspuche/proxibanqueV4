@@ -18,7 +18,7 @@ import com.huios.service.IConseillerClienteleService;
  *
  * @author Perrine Stephane Vincent Marine
  */
-@Scope("request")
+@Scope("session")
 @Controller(value = "ajouterCompteCourantBean")
 public class AjouterCompteCourantBean {
 
