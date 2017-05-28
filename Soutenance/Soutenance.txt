@@ -1,0 +1,48 @@
+﻿Soutenance
+
+SCRUM MASTER -> slide par Perrine, revue par Stéphane
+UML/CONCEPTION /ARCHI -> slide par Marine, revue par le groupe
+Présentation : une ligne + photo
+
+Fonctionnalités à présenter :
+
+1 - Stéphane, PerrineErreur/'Authentification'  
+- Champs 'login' et 'password' 
+- Cryptage
+
+ -'Erreur'
+
+(7-Perrine, StéphaneErreur/'Alerte'
+Il est possible pour le gérant et le conseiller d’être alertés par les clients à découvert)
+
+8 - Marine, VincentErreur/'WebService'
+
+Pour le conseiller :
+
+2- Vincent, MarineErreur/ CRUD CLIENT :
+ 'Liste des clients' 
+Chaque conseiller peut visualiser l'ensemble de ses clients. Pour chaque client, l'interface lui permet de mettre à jour les informations du client, lister les comptes d'un client ainsi que d'effectuer un virement.  
+'Edition d'un client' 
+- Pour chaque client, le conseiller peut modifier les informations suivantes : nom, prénom, email, adresse. Il peut modifier les informations du client, ou créer de nouveaux clients. 
+'Ajout d'un client'
+'Suppression client' (implique suppression compte)
+
+
+OPERATIONS SUR LES COMPTES
+3 - Vincent/ Crud Compte
+'Liste comptes d'un client'  
+--> Pour chaque client, le conseiller peut voir la liste des comptes disponibles : épargne ou courant 
+'Ajout d'un compte'
+
+4- Vincent/'Virement Compte à Compte' 
+--> Pour chaque client, le conseiller peut effectuer un virement compte à compte. Dans cette version de l’application, les conseillers ne peuvent faire des virements de compte à compte uniquement pour les comptes domiciliés dans la banque. 
+ 
+
+Pour le directeur : 
+
+5 - Perrine /'Liste des conseillers' 
+Le gérant peut voir la liste des conseillers. Le conseiller ne peut voir la liste des conseillers 
+6 - Marine/ 'Rapport sur les transactions' 
+Pour le gérant, il est possible de voir graphiquement (histogramme ou camembert) les transactions réalisées dans les dernier mois, ou la dernière semaine, par l’ensemble des clients. 
+ 
+Bilan perso -> chacun pour sa gueule
