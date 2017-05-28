@@ -38,25 +38,32 @@ public class AfficherTransactionsXMoisBean {
 
 		for (Transaction tr : ltrXMois) {
 			switch (tr.getTypeTransaction()) {
-			case "Virement":
+//			case "Virement":
+			case Transaction.VIREMENT:
 				virement += tr.getMontantEntrant();
 				break;
-			case "SuppressionCompteCourant":
+//			case "SuppressionCompteCourant":
+			case Transaction.SUPPRESSION_COMPTE_COURANT:
 				sortie += tr.getMontantSortant();
 				break;
-			case "SuppressionCompteEpargne":
+//			case "SuppressionCompteEpargne":
+			case Transaction.SUPPRESSION_COMPTE_EPARGNE:
 				sortie += tr.getMontantSortant();
 				break;
-			case "CreationCompteEpargne":
+//			case "CreationCompteEpargne":
+			case Transaction.CREATION_COMPTE_EPARGNE:
 				entree += tr.getMontantEntrant();
 				break;
-			case "CreationCompteCourant":
+//			case "CreationCompteCourant":
+			case Transaction.CREATION_COMPTE_COURANT:
 				entree += tr.getMontantEntrant();
 				break;
-			case "DepotArgent":
+//			case "DepotArgent":
+			case Transaction.DEPOT_ARGENT:
 				entree += tr.getMontantEntrant();
 				break;
-			case "RetraitArgent":
+//			case "RetraitArgent":
+			case Transaction.RETRAIT_ARGENT:
 				sortie += tr.getMontantSortant();
 				break;
 			default:
@@ -82,25 +89,32 @@ public class AfficherTransactionsXMoisBean {
 		int cpt1 = 0, cpt2 = 0, cpt3 = 0, cpt4 = 0, cpt5 = 0, cpt6 = 0, cpt7 = 0;
 		for (Transaction tr : ltrXMois) {
 			switch (tr.getTypeTransaction()) {
-			case "Virement":
+//			case "Virement":
+			case Transaction.VIREMENT:
 				cpt1++;
 				break;
-			case "SuppressionCompteCourant":
+//			case "SuppressionCompteCourant":
+			case Transaction.SUPPRESSION_COMPTE_COURANT:
 				cpt2++;
 				break;
-			case "SuppressionCompteEpargne":
+//			case "SuppressionCompteEpargne":
+			case Transaction.SUPPRESSION_COMPTE_EPARGNE:
 				cpt3++;
 				break;
-			case "CreationCompteEpargne":
+//			case "CreationCompteEpargne":
+			case Transaction.CREATION_COMPTE_EPARGNE:
 				cpt4++;
 				break;
-			case "CreationCompteCourant":
+//			case "CreationCompteCourant":
+			case Transaction.CREATION_COMPTE_COURANT:
 				cpt5++;
 				break;
-			case "DepotArgent":
+//			case "DepotArgent":
+			case Transaction.DEPOT_ARGENT:
 				cpt6++;
 				break;
-			case "RetraitArgent":
+//			case "RetraitArgent":
+			case Transaction.RETRAIT_ARGENT:
 				cpt7++;
 				break;
 			default:

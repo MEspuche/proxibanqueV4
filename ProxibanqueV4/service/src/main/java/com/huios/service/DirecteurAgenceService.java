@@ -1,7 +1,6 @@
 package com.huios.service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +21,7 @@ import com.huios.metier.DirecteurAgence;
 import com.huios.metier.Personne;
 import com.huios.metier.Roles;
 import com.huios.metier.Transaction;
+
 /**
  * Classe qui implémente les méthodes de l'interface du directeur d'agence
  * Méthodes accessibles uniquement par le Directeur

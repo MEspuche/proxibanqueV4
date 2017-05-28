@@ -47,9 +47,6 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 	@Autowired
 	private PersonneRepository personneRepository;
-
-	//@Autowired
-	//private ClientRepository clientRepository;
 	
 	@Autowired
 	private TransactionRepository transactionRepository;
@@ -57,6 +54,9 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	@Autowired
 	private AlerteRepository alerteRepository;
 
+	@Autowired
+	private ITransactionService transactionService;
+	
 	@Override
 	public void ajouterClient(int idConseiller, Client client) throws NombreClientsMaxAtteintException {
 		ConseillerClientele c1 = (ConseillerClientele) personneRepository.findOne(idConseiller);
@@ -77,29 +77,26 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		if (cc != null) {
 			throw new CompteCourantDejaExistantException("ERREUR : Le client a déjà un compte courant");
 		} else {
-			Transaction tr = new Transaction();
-			tr.setDateTransaction(new Date());
-			tr.setMontantEntrant(compteCourant.getSolde());
-			tr.setTypeTransaction("CreationCompteCourant");
+			Transaction tr = new Transaction(Transaction.CREATION_COMPTE_COURANT, new Date(), compteCourant.getSolde(), 0);
 			transactionRepository.save(tr);
+			transactionService.ecrireTransactionDansFichierLog(tr);
+
 			compteCourant.setClientProprietaire(client);
 			compteRepository.save(compteCourant);
 		}
 	}
 
 	@Override
-	public void ajouterCompteEpargne(int idClient, CompteEpargne compteEpargne)
-			throws CompteEpargneDejaExistantException {
+	public void ajouterCompteEpargne(int idClient, CompteEpargne compteEpargne) throws CompteEpargneDejaExistantException {
 		Client client = (Client) personneRepository.findOne(idClient);
 		CompteEpargne ce = compteRepository.trouverCompteEpargneByClient(client);
 		if (ce != null) {
 			throw new CompteEpargneDejaExistantException("ERREUR : Le client a déjà un compte épargne");
 		} else {
-			Transaction tr = new Transaction();
-			tr.setDateTransaction(new Date());
-			tr.setMontantEntrant(compteEpargne.getSolde());
-			tr.setTypeTransaction("CreationCompteEpargne");
+			Transaction tr = new Transaction(Transaction.CREATION_COMPTE_EPARGNE, new Date(), compteEpargne.getSolde(), 0);
 			transactionRepository.save(tr);
+			transactionService.ecrireTransactionDansFichierLog(tr);
+			
 			compteEpargne.setClientProprietaire(client);
 			compteRepository.save(compteEpargne);
 		}
@@ -116,18 +113,10 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			Collection<Compte> col = new ArrayList<Compte>();
 			if (cc != null) {
 				col.add(cc);
-//				if (ce != null) {
-//					col.add(ce);
-//				}
-//				c.setMesComptes(col);
-//				return c;
-			} //else {
-				if (ce != null) {
-					col.add(ce);
-//					c.setMesComptes(col);
-//					return c;
-				}
-//			}
+			}
+			if (ce != null) {
+				col.add(ce);
+			}
 			c.setMesComptes(col);
 			return c;
 		}
@@ -135,32 +124,16 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 
 	@Override
 	public List<ClientParticulier> listerClientsParticulier(int idConseiller) {
-		//return clientRepository.listerClientsParticuliers(idConseiller);
 		return personneRepository.listerClientsParticuliers(idConseiller);
 	}
 
 	@Override
 	public List<ClientEntreprise> listerClientsEntreprise(int idConseiller) {
-		//return clientRepository.listerClientsEntreprises(idConseiller);
 		return personneRepository.listerClientsEntreprises(idConseiller);
 	}
 
 	@Override
 	public Collection<Compte> listerComptes() throws CompteInexistantException {
-//		Collection<Compte> comptes = new ArrayList<Compte>();
-//		Collection<CompteCourant> cc = new ArrayList<CompteCourant>();
-//		Collection<CompteEpargne> ce = new ArrayList<CompteEpargne>();
-//		double x = 1000;
-//		double y = 0.03;
-//
-//		cc = compteRepository.listerTousLesComptesCourant(x);
-//		for (CompteCourant compte : cc) {
-//			comptes.add(compte);
-//		}
-//		ce = compteRepository.listerTousLesComptesEpargne(y);
-//		for (CompteEpargne compte2 : ce) {
-//			comptes.add(compte2);
-//		}
 		Collection<Compte> comptes = compteRepository.recupererTousLesComptes();
 		if (comptes != null) {
 			return comptes;
@@ -243,21 +216,16 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		compteRepository.modifierCompte(compte.getNumCompte(), compte.getSolde()+montant, idCompte);
 
 		if (montant > 0) {
-			Transaction tr1 = new Transaction();
-			tr1.setDateTransaction(new Date());
-			tr1.setMontantEntrant(montant);
-			tr1.setTypeTransaction("DepotArgent");
+			Transaction tr1 = new Transaction(Transaction.DEPOT_ARGENT, new Date(), montant, 0);
 			transactionRepository.save(tr1);
+			transactionService.ecrireTransactionDansFichierLog(tr1);
 		}
 		
 		if (montant < 0) {
-			Transaction tr2 = new Transaction();
-			tr2.setDateTransaction(new Date());
-			tr2.setMontantSortant(montant);
-			tr2.setTypeTransaction("RetraitArgent");
+			Transaction tr2 = new Transaction(Transaction.RETRAIT_ARGENT, new Date(), 0, montant);
 			transactionRepository.save(tr2);
+			transactionService.ecrireTransactionDansFichierLog(tr2);
 		}
-	
 	}
 	
 	@Override
@@ -279,18 +247,16 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 			throw new CompteInexistantException("Le compte à supprimer n'existe pas");
 		} else {
 			if (cc != null) {
-				Transaction tr1 = new Transaction();
-				tr1.setTypeTransaction("SuppressionCompteCourant");
-				tr1.setMontantSortant(cc.getSolde());
-				tr1.setDateTransaction(new Date());
+				Transaction tr1 = new Transaction(Transaction.SUPPRESSION_COMPTE_COURANT, new Date(), 0, cc.getSolde());
 				transactionRepository.save(tr1);
+				transactionService.ecrireTransactionDansFichierLog(tr1);
+				
 				compteRepository.delete(cc);
 			} else {
-				Transaction tr2 = new Transaction();
-				tr2.setTypeTransaction("SuppressionCompteEpargne");
-				tr2.setMontantSortant(ce.getSolde());
-				tr2.setDateTransaction(new Date());
+				Transaction tr2 = new Transaction(Transaction.SUPPRESSION_COMPTE_COURANT, new Date(), 0, ce.getSolde());
 				transactionRepository.save(tr2);
+				transactionService.ecrireTransactionDansFichierLog(tr2);
+				
 				compteRepository.delete(ce);
 			}
 		}
@@ -303,30 +269,21 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 		CompteEpargne ce = compteRepository.trouverCompteEpargneByClient(c);
 
 		if (cc != null) {
-			Transaction tr1 = new Transaction();
-			tr1.setTypeTransaction("SuppressionCompteCourant");
-			tr1.setMontantSortant(cc.getSolde());
-			tr1.setDateTransaction(new Date());
+			Transaction tr1 = new Transaction(Transaction.SUPPRESSION_COMPTE_COURANT, new Date(), 0, cc.getSolde());
 			transactionRepository.save(tr1);
+			transactionService.ecrireTransactionDansFichierLog(tr1);
+
 			compteRepository.delete(cc);
-//			if (ce != null) {
-//				Transaction tr2 = new Transaction();
-//				tr2.setTypeTransaction("SuppressionCompteEpargne");
-//				tr2.setSoldeSortant(ce.getSolde());
-//				tr2.setDateTransaction(new Date());
-//				transactionRepository.save(tr2);
-//				compteRepository.delete(ce);
-//			}
-		} //else {
-			if (ce != null) {
-				Transaction tr2 = new Transaction();
-				tr2.setTypeTransaction("SuppressionCompteEpargne");
-				tr2.setMontantSortant(ce.getSolde());
-				tr2.setDateTransaction(new Date());
-				transactionRepository.save(tr2);
-				compteRepository.delete(ce);
-			}
-		//}
+		}
+
+		if (ce != null) {
+			Transaction tr2 = new Transaction(Transaction.SUPPRESSION_COMPTE_COURANT, new Date(), 0, ce.getSolde());
+			transactionRepository.save(tr2);
+			transactionService.ecrireTransactionDansFichierLog(tr2);
+
+			compteRepository.delete(cc);
+		}
+
 	}
 	
 	@Override
@@ -341,55 +298,61 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 	@Override
 	public void effectuerVirement(int idCompteADebiter, int idCompteACrediter, double montant)
 			throws SoldeInsuffisantException, MontantNegatifException {
-		// Test si le montant entré est inférieur à 0
+		
+		// Si le montant saisi est inférieur ou égal à 0
 		if (montant <= 0.0d) {
-			throw new MontantNegatifException("ERREUR : Montant négatif");
+			throw new MontantNegatifException("ERREUR : Le montant saisi est négatif ou nul");
+		
+		// Si le montant saisi est positif
 		} else {
+			
+			// Récupération des comptes en BDD
 			Compte c = compteRepository.findOne(idCompteACrediter);
 			CompteCourant cc = compteRepository.trouverCompteCourant(idCompteADebiter);
 			CompteEpargne ce = compteRepository.trouverCompteEpargne(idCompteADebiter);
 
-			// Test si le compte est un compte Epargne
+			// Si le compte est un compte Epargne...
 			if (ce != null) {
-				// Test si le montant à débiter est inferieur au solde du compte
+				
+				// ... et que le montant à débiter est inferieur au solde du compte
 				if (montant < ce.getSolde()) {
 					crediterOuDebiterCompte(idCompteADebiter, -montant); 
 					crediterOuDebiterCompte(idCompteACrediter, montant);
 					//ce.setSolde(ce.getSolde() - montant);
 					//c.setSolde(c.getSolde() + montant);
-					Transaction tr = new Transaction();
-					tr.setTypeTransaction("Virement");
-					tr.setMontantSortant(montant);
-					tr.setMontantEntrant(montant);
-					tr.setDateTransaction(new Date());
+					
+					Transaction tr = new Transaction(Transaction.VIREMENT, new Date(), montant, montant);
 					transactionRepository.save(tr);
-					//return ce;
+					transactionService.ecrireTransactionDansFichierLog(tr);
+					
+				// ... et que le montant à débiter est supérieur au solde du compte
 				} else {
 					throw new SoldeInsuffisantException("ERREUR : Solde insuffisant pour ce virement");
 				}
+			
+			// Sinon...
 			} else {
-				// Test si le compte est un compte Courant
+				
+				// Si le compte est un compte Courant...
 				if (cc != null) {
-					// Test si le montant à débiter est inférieur solde du compte + son découvert autorisé
+					// ... et que le montant à débiter est inférieur solde du compte + son découvert autorisé
 					if ( montant < (cc.getSolde() + cc.getDecouvert()) ) {
 						crediterOuDebiterCompte(idCompteADebiter, -montant); 
 						crediterOuDebiterCompte(idCompteACrediter, montant);
-//						cc.setSolde(cc.getSolde() - montant);
-//						c.setSolde(c.getSolde() + montant);
-						Transaction tr = new Transaction();
-						tr.setTypeTransaction("Virement");
-						tr.setMontantSortant(montant);
-						tr.setMontantEntrant(montant);
-						tr.setDateTransaction(new Date());
+						//cc.setSolde(cc.getSolde() - montant);
+						//c.setSolde(c.getSolde() + montant);
+						
+						Transaction tr = new Transaction(Transaction.VIREMENT, new Date(), montant, montant);
 						transactionRepository.save(tr);
-						//return cc;
+						transactionService.ecrireTransactionDansFichierLog(tr);
+					
+					// ... et que le montant à débiter est supérieur au solde du compte + son découvert autorisé
 					} else {
 						throw new SoldeInsuffisantException("ERREUR : Le découvert autorisé sur ce compte est insuffisant pour ce virement");
 					}
 				}
 			}
 		}
-		//return null;
 	}
 
 	@Override

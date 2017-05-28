@@ -1,5 +1,6 @@
 package com.huios.metier;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -19,10 +20,12 @@ import org.springframework.stereotype.Component;
 @Entity
 @Component
 @Scope("prototype")
-public class Transaction {
+public class Transaction implements Serializable {
 
 	/* ATTRIBUTS */
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -30,6 +33,45 @@ public class Transaction {
 	private Date dateTransaction;
 	private double montantEntrant;
 	private double montantSortant;
+	
+	/**
+	 * Les types de transactions possibles
+	 */
+	public static final String VIREMENT = "Virement";
+	public static final String CREATION_COMPTE_COURANT = "Création Compte Courant";
+	public static final String SUPPRESSION_COMPTE_COURANT = "Suppression Compte Courant";
+	public static final String CREATION_COMPTE_EPARGNE = "Création Compte Epargne";
+	public static final String SUPPRESSION_COMPTE_EPARGNE = "Suppression Compte Epargne";
+	public static final String DEPOT_ARGENT = "Dépot Argent";
+	public static final String RETRAIT_ARGENT = "Retrait Argent";
+	
+	/* CONSTRUCTEURS */
+	
+	/**
+	 * Constructeur par défaut sans paramètres
+	 */
+	public Transaction() {
+		super();
+		this.typeTransaction = "";
+		this.dateTransaction = new Date();
+		this.montantEntrant = 0;
+		this.montantSortant = 0;
+	}
+
+	/**
+	 * Constructeur de Transactions
+	 * @param typeTransaction : le type de transaction (virement, dépot d'argent, retrait d'argent, etc)
+	 * @param dateTransaction : la date de la transaction
+	 * @param montantEntrant : le montant entrant
+	 * @param montantSortant : le montant sortant
+	 */
+	public Transaction(String typeTransaction, Date dateTransaction, double montantEntrant, double montantSortant) {
+		super();
+		this.typeTransaction = typeTransaction;
+		this.dateTransaction = dateTransaction;
+		this.montantEntrant = montantEntrant;
+		this.montantSortant = montantSortant;
+	}
 	
 	/* GETTERS et SETTERS */
 	

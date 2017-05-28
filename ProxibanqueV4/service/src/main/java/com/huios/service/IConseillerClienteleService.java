@@ -18,7 +18,6 @@ import com.huios.metier.ClientParticulier;
 import com.huios.metier.Compte;
 import com.huios.metier.CompteCourant;
 import com.huios.metier.CompteEpargne;
-import com.huios.metier.ConseillerClientele;
 import com.huios.metier.Personne;
 
 /**

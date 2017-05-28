@@ -152,19 +152,19 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`id`, `dateTransaction`, `montantEntrant`, `montantSortant`, `typeTransaction`) VALUES
-(1, '2016-05-09 00:00:00', 150, 0, 'DepotArgent'),
-(2, '2016-06-16 00:00:00', 0, 50, 'RetraitArgent'),
-(3, '2016-07-14 00:00:00', 1000, 0, 'CreationCompteCourant'),
-(4, '2016-07-16 00:00:00', 2000, 0, 'CreationCompteEpargne'),
-(5, '2016-08-14 00:00:00', 0, 2000, 'SuppressionCompteEpargne'),
-(6, '2016-11-25 00:00:00', 0, 1000, 'SuppressionCompteCourant'),
+(1, '2016-05-09 00:00:00', 150, 0, 'Dépot Argent'),
+(2, '2016-06-16 00:00:00', 0, 50, 'Retrait Argent'),
+(3, '2016-07-14 00:00:00', 1000, 0, 'Création Compte Courant'),
+(4, '2016-07-16 00:00:00', 2000, 0, 'Création Compte Epargne'),
+(5, '2016-08-14 00:00:00', 0, 2000, 'Suppression Compte Epargne'),
+(6, '2016-11-25 00:00:00', 0, 1000, 'Suppression Compte Courant'),
 (7, '2016-12-25 00:00:00', 150, 150, 'Virement'),
-(8, '2017-01-25 00:00:00', 0, 20, 'RetraitArgent'),
+(8, '2017-01-25 00:00:00', 0, 20, 'Retrait Argent'),
 (9, '2017-02-25 00:00:00', 300, 300, 'Virement'),
-(10, '2017-03-09 00:00:00', 500, 0, 'DepotArgent'),
-(11, '2017-04-12 00:00:00', 200, 0, 'DepotArgent'),
-(12, '2017-05-09 00:00:00', 0, 100, 'RetraitArgent'),
-(13, '2017-05-22 00:00:00', 0, 200, 'RetraitArgent'),
+(10, '2017-03-09 00:00:00', 500, 0, 'Dépot Argent'),
+(11, '2017-04-12 00:00:00', 200, 0, 'Dépot Argent'),
+(12, '2017-05-09 00:00:00', 0, 100, 'Retrait Argent'),
+(13, '2017-05-22 00:00:00', 0, 200, 'Retrait Argent'),
 (14, '2017-05-26 14:55:45', 100, 100, 'Virement');
 
 --
