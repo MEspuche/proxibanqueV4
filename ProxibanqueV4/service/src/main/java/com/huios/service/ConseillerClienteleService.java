@@ -316,8 +316,10 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 				
 				// ... et que le montant à débiter est inferieur au solde du compte
 				if (montant < ce.getSolde()) {
-					crediterOuDebiterCompte(idCompteADebiter, -montant); 
-					crediterOuDebiterCompte(idCompteACrediter, montant);
+					compteRepository.modifierCompte(c.getNumCompte(), c.getSolde()+montant, idCompteACrediter);
+					compteRepository.modifierCompte(ce.getNumCompte(), ce.getSolde()-montant, idCompteADebiter);
+//					crediterOuDebiterCompte(idCompteADebiter, -montant); 
+//					crediterOuDebiterCompte(idCompteACrediter, montant);
 					//ce.setSolde(ce.getSolde() - montant);
 					//c.setSolde(c.getSolde() + montant);
 					
@@ -337,8 +339,10 @@ public class ConseillerClienteleService implements IConseillerClienteleService {
 				if (cc != null) {
 					// ... et que le montant à débiter est inférieur solde du compte + son découvert autorisé
 					if ( montant < (cc.getSolde() + cc.getDecouvert()) ) {
-						crediterOuDebiterCompte(idCompteADebiter, -montant); 
-						crediterOuDebiterCompte(idCompteACrediter, montant);
+						compteRepository.modifierCompte(c.getNumCompte(), c.getSolde()+montant, idCompteACrediter);
+						compteRepository.modifierCompte(cc.getNumCompte(), cc.getSolde()-montant, idCompteADebiter);
+//						crediterOuDebiterCompte(idCompteADebiter, -montant); 
+//						crediterOuDebiterCompte(idCompteACrediter, montant);
 						//cc.setSolde(cc.getSolde() - montant);
 						//c.setSolde(c.getSolde() + montant);
 						
